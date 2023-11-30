@@ -11,13 +11,13 @@
     display: flex;
     flex-direction: column;
     width: 600px;
-    height: 550px;
+    height: 525px;
     margin: 25px;
     background: whitesmoke;
 }
 
 .titleText {
-    color: rgb(226, 195, 21);
+    color: goldenrod;
     font-size: 40px;
     font-weight: 700;
 }
@@ -56,7 +56,7 @@
 .submit {
     display: flex;
     gap: 30px;
-    margin: 60px auto;
+    margin: 30px auto;
 }
 
 .login {

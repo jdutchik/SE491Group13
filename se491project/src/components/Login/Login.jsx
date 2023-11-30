@@ -7,7 +7,7 @@ import passwordEmoji from '../Assets/passwordLock.png';
 
 const Login = () => {
     const loginClicked = () => {
-        window.location.href = '/UserSurvey';
+        window.location.href = '/Account';
     };
 
     return (

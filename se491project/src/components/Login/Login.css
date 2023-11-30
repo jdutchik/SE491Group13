@@ -14,6 +14,7 @@
     height: 525px;
     margin: 25px;
     background: whitesmoke;
+    border-radius: 12px;
 }
 
 .titleText {

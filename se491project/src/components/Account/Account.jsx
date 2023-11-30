@@ -20,8 +20,17 @@ const Account = () => {
             </div>
 
             <div className="accountInfo">
-                <div className="info">Info</div>
-                <div className="results">Results</div>
+                <div className="info">
+                    <div className="userInfo">Race: </div>
+                    <div className="userInfo">Weight: </div>
+                    <div className="userInfo">Geographical Info: </div>
+                    <div className="userInfo">Diet: </div>
+                </div>
+
+                <div className="results">
+                    You are allerigic to:
+                    <div className="finalResult">EVERYTHING</div>
+                </div>
             </div>
         </div>
     )

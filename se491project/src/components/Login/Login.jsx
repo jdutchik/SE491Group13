@@ -6,6 +6,10 @@ import emailEmoji from '../Assets/emailIcon.png';
 import passwordEmoji from '../Assets/passwordLock.png';
 
 const Login = () => {
+    const loginClicked = () => {
+        window.location.href = '/UserSurvey';
+    };
+
     return (
         <div className='loginContainer'>
             <div className='header'>
@@ -30,7 +34,7 @@ const Login = () => {
             </div>
 
             <div className='submit'>
-                <div className="login">Login</div>
+                <div className="login" onClick={loginClicked}>Login</div>
             </div>
         </div>
     )

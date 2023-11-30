@@ -1,11 +1,11 @@
 import React from "react";
-import './SignAndLogin.css';
+import './Login.css';
 
 import userEmoji from '../Assets/legoUser.png';
 import emailEmoji from '../Assets/emailIcon.png';
 import passwordEmoji from '../Assets/passwordLock.png';
 
-const SignAndLogin = () => {
+const Login = () => {
     return (
         <div className='container'>
             <div className='header'>
@@ -36,4 +36,4 @@ const SignAndLogin = () => {
     )
 }
 
-export default SignAndLogin
+export default Login

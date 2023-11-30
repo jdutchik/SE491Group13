@@ -22,13 +22,13 @@ body {
 }
 
 .titleText {
-    color: black;
+    color: rgb(226, 195, 21);
     font-size: 40px;
     font-weight: 700;
 }
 
 .inputs {
-    margin-top: 55px;
+    margin-top: 35px;
     display: flex;
     flex-direction: column;
     gap: 25px;

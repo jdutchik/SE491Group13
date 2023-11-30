@@ -1,5 +1,6 @@
 import './App.css';
-import SignAndLogin from './components/SignAndLogin/SignAndLogin';
+import Login from './components/Login/Login';
+import SignUp from './components/SignUp/SignUp';
 
 const App = () => {
   const projName = "Artificial Intelligence Allergy Detection";
@@ -7,7 +8,8 @@ const App = () => {
   return (
     <div className="App">
       <h1>{projName}</h1>
-      <SignAndLogin />
+      <SignUp />
+      <Login />
     </div>
   );
 }

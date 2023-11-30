@@ -7,7 +7,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>{projName}</h1>
       <SignUp />
       <Login />
     </div>

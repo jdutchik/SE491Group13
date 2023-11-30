@@ -7,7 +7,7 @@ import passwordEmoji from '../Assets/passwordLock.png';
 
 const Login = () => {
     return (
-        <div className='container'>
+        <div className='loginContainer'>
             <div className='header'>
                 <div className='titleText'>Enter Patient Creditionals</div>
             </div>

@@ -1,0 +1,51 @@
+.signUpContainer {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: 0;
+    padding: 0;
+    background: purple;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.signUpContainer img{
+    object-fit: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.signUpInfo {
+    font-size: 50px;
+    font-weight: 700;
+    color: goldenrod;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: fit-content;
+    margin: auto;
+}
+
+.signUpButton {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: fit-content;
+    margin: auto auto 55px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 59px;
+    color: white;
+    background: darkred;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}

@@ -2,6 +2,9 @@ import React from 'react';
 import './Survey.css';
 
 const Survey = () => {
+    const submitClicked = () => {
+        window.location.href = '/Account';
+    };
 
     return (
         <div className="surveyContainer">
@@ -66,6 +69,8 @@ const Survey = () => {
                     </div>
                 </div>
             </form>
+
+            <div className='surveySubmit' onClick={submitClicked}>Submit</div>
         </div>
     );
 };

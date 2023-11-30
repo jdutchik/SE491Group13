@@ -1,11 +1,19 @@
 body {
     background: lightgray;
+    border-color: darkred;
+    border-style: solid;
+    border-width: 20px 15px 0px 15px;
+}
+
+.surveyContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: lightgray;
 }
 
 .userDebrief {
-    border-color: darkred;
-    border-style: solid;
-    border-width: 15px 10px 0px 10px;
     background: linear-gradient(goldenrod, lightgray);
     padding: 15px;
 }
@@ -26,15 +34,10 @@ body {
 }
 
 .questions {
-    border-color: yellow;
-    border-style: dotted;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border-color: darkred;
-    border-style: solid;
-    border-width: 0px 10px 0px 10px;
+    background-color: lightgray;
 }
 
 .questionDefault {
@@ -42,7 +45,7 @@ body {
     flex-direction: column;
     margin: 15px;
     padding: 15px 50px 25px 20px;
-    width: 480px;
+    width: 65%;
     height: 80px;
     background: rgb(110, 43, 43);
     border-radius: 6px;
@@ -60,4 +63,20 @@ body {
     border-radius: 2px;
     outline: none;
     border: none;
+}
+
+.surveySubmit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    height: 50px;
+    width: 50%;
+    color: white;
+    background-color: goldenrod;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 6px;
 }

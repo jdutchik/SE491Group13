@@ -5,6 +5,14 @@ import './Account.css';
 import person from '../Assets/user.png';
 
 const Account = () => {
+    const updateClicked = () => {
+        window.location.href = '/Survey';
+    };
+
+    const signOutClicked = () => {
+        window.location.href = '/';
+    };
+
     return (
         <div className="accountContainer">
             <div className="quickInfo">
@@ -14,8 +22,8 @@ const Account = () => {
                 <div className="name">Jane Doe</div>
                 <div className="email">janedoe@iastate.edu</div>
                 <div className="userButtons">
-                    <div className="button">Update</div>
-                    <div className="button">Sign Out</div>
+                    <div className="button" onClick={updateClicked}>Update</div>
+                    <div className="button" onClick={signOutClicked}>Sign Out</div>
                 </div>
             </div>
 

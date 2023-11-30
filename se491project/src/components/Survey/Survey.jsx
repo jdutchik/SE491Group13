@@ -7,9 +7,7 @@ const Survey = () => {
         <div className="surveyContainer">
             <form className="userForm">
                 <div className="userDebrief">
-                    <h1 className="header">
-                        Welcome! Let's get started 👋
-                    </h1>
+                    <h1> Welcome! Let's get started 👋</h1>
                     <p className="intro">
                         To ensure accurate determination of allergies,
                         it is crucial for users to input correct and comprehensive information.
@@ -27,31 +25,22 @@ const Survey = () => {
                 </div>
 
                 <div className="questions">
+
                     {/* Name input field */}
-                    <div className="questionName">
-                        Enter Patient Full Legal Name
-                        <input
-                            className="questionInput"
-                            type="text"
-                            name="name"
-                            placeholder="Enter your name"
-                        />
+                    <div className="questionDefault">
+                        <h>Enter Patient Full Legal Name</h>
+                        <input type="text" placeholder="Full Legal Name" />
                     </div>
 
                     {/* Age input field */}
-                    <div className="questionAge">
-                        Email
-                        <input
-                            className="border-2 border-gray-500 p-2 rounded-md w-1/2 focus:border-teal-500 focus:ring-teal-500"
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email address"
-                        />
+                    <div className="questionDefault">
+                        <h>Enter Patient Age</h>
+                        <input type='text' placeholder="Age" />
                     </div>
 
                     {/* gender input field */}
-                    <div className="questionGender">
-                        Gender
+                    <div className="questionDefault">
+                        <h>Enter Patient Gender</h>
                         <select className="genderInput">
                             <option>Male</option>
                             <option>Female</option>
@@ -59,28 +48,22 @@ const Survey = () => {
                         </select>
                     </div>
 
-                    {/* Terms of service*/}
-                    <div className="questionRace">
-                        Patient'sRace
-                        <div className="raceInput">
-                           
-                        </div>
+                    {/* race input field*/}
+                    <div className="questionDefault">
+                        <h>Enter Patient's Race</h>
+                        <input type='text' placeholder="Race" />
                     </div>
 
-                    {/* Terms of service*/}
-                    <div className="questionWeight">
-                        Patient's Weight
-                        <div className="genderInput">
-                           
-                        </div>
+                    {/* weight input field*/}
+                    <div className="questionDefault">
+                        <h>Enter Patient's Weight</h>
+                        <input type='text' placeholder="Weight" />
                     </div>
 
-                    {/* Terms of service*/}
-                    <div className="questionRace">
-                        Patient's Gender
-                        <div className="genderInput">
-                           
-                        </div>
+                    {/* gender input field*/}
+                    <div className="questionDefault">
+                        <h>Enter Patient's Geographical Info</h>
+                        <input type='text' placeholder="Info" />
                     </div>
                 </div>
             </form>

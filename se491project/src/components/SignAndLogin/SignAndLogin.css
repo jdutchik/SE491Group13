@@ -16,13 +16,14 @@ body {
 .container {
     display: flex;
     flex-direction: column;
+    width: 600px;
     margin: auto;
-    background: #f3e300;
+    background: whitesmoke;
 }
 
 .titleText {
     color: black;
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 700;
 }
 
@@ -34,14 +35,45 @@ body {
 }
 
 .userInput {
-    background: blue;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 480px;
+    height: 80px;
+    background: lightgray;
+    border-radius: 6px;
 }
 
 .userInput img{
+    margin: 0px 30px;
     width: 50px;
 }
 
-.emailImage {
-    width: 50px;
+.userInput input{
     height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 19px;
+}
+
+.submit {
+    display: flex;
+    gap: 30px;
+    margin: 60px auto;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 59px;
+    color: white;
+    background: darkred;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
 }

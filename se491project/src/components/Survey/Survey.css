@@ -1,8 +1,5 @@
 body {
     background: lightgray;
-    border-color: darkred;
-    border-style: solid;
-    border-width: 20px 15px 0px 15px;
 }
 
 .surveyContainer {
@@ -11,6 +8,10 @@ body {
     justify-content: center;
     align-items: center;
     background: lightgray;
+
+    border-color: darkred;
+    border-style: solid;
+    border-width: 20px 15px 0px 15px;
 }
 
 .userDebrief {

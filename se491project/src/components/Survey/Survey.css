@@ -1,0 +1,19 @@
+.surveyContainer {
+    border-color: red;
+    border-style: dotted;
+}
+
+.userDebrief {
+    border-color: orange;
+    border-style: dotted;
+}
+
+.questions {
+    border-color: yellow;
+    border-style: dotted;
+}
+
+.questionName {
+    border-color: green;
+    border-style: dotted;
+}

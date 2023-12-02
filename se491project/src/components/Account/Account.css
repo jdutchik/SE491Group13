@@ -1,10 +1,7 @@
-body {
-    background: darkred;
-}
-
 .accountContainer {
     display: flex;
     flex-direction: row;
+    background: darkred;
 }
 
 .quickInfo {

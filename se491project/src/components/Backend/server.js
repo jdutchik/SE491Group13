@@ -86,6 +86,8 @@ app.post('/login', (req, res) => {
 
 // put
 
+  // sign up
+
 // delete
 
 app.listen(port, () => {

@@ -5,7 +5,7 @@ import sneezeImg from '../Assets/sneeze.jpg';
 
 const SignUp = () => {
     const signUpClicked = () => {
-        window.location.href = '/UserSurvey';
+        window.location.href = '/Survey';
     };
 
     return (

@@ -14,6 +14,7 @@
     height: 525px;
     margin: 25px;
     background: whitesmoke;
+    border-radius: 12px;
 }
 
 .titleText {
@@ -71,4 +72,14 @@
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
+}
+
+.correctCreds {
+    display: none;
+}
+
+.incorrectCreds {
+    display: block;
+    color: red;
+    font-size: 500;
 }

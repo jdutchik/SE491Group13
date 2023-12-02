@@ -2,6 +2,9 @@ import React from 'react';
 import './Survey.css';
 
 const Survey = () => {
+    const submitClicked = () => {
+        window.location.href = '/Account';
+    };
 
     return (
         <div className="surveyContainer">
@@ -11,12 +14,11 @@ const Survey = () => {
                     <p className="intro">
                         To ensure accurate determination of allergies,
                         it is crucial for users to input correct and comprehensive information.
-                        Please provide precise details about the patient's name, age, gender, race, weight,
-                        any geographical info. Accurate data, such as the type of allergen, severity of the
-                        reaction, and diet. This data enables our Artificial Intelligience model
-                        to come to a more informed
-                        conclusion on the patient's allergies. Additionally,
-                        if you have a history of changes in any of the listed info, please consider
+                        Please provide precise details about the patient's name, age, gender, race, weight, diet,
+                        and any relevant geographical information. Accurate data enables our Artificial 
+                        Intelligience model to come to a more informed
+                        conclusion on the patient's potential allergies. Additionally,
+                        if you have a change in any of the listed info in the future, please consider
                         updating this information to help deliver personalized and reliable results.
                         Your cooperation in providing accurate
                         information plays a pivotal role in optimizing the effectiveness of the allergy
@@ -67,6 +69,8 @@ const Survey = () => {
                     </div>
                 </div>
             </form>
+
+            <div className='surveySubmit' onClick={submitClicked}>Submit</div>
         </div>
     );
 };

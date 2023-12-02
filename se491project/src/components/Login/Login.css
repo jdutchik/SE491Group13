@@ -79,5 +79,7 @@
 }
 
 .incorrectCreds {
-    display: block
+    display: block;
+    color: red;
+    font-size: 500;
 }

@@ -21,37 +21,46 @@ connection.connect();
 // get
 
 app.get('/account/:username', (req, res) => {
+  const username = req.params.username;
 
-  const { username } = req.params;
-
-  const query = 'SELECT * FROM users WHERE username = ?';
-
-  connection.query(query, [username], (error, results) => {
+  connection.query('SELECT * FROM users WHERE username = ?', [username], (error, accountInfo) => {
     if (error) {
-      return res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Error fetching user data' });
     }
 
-    if (results.length === 0) {
+    if (accountInfo.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const user = results[0];
+    const user = accountInfo[0];
 
-    res.json({ user });
+    connection.query('SELECT * FROM patients WHERE patient_id = ?', [user.patient_id], (secondErr, patientInfo) => {
+      if (secondErr) {
+        return res.status(500).json({ error: 'Error fetching patient data' });
+      }
+
+      const patient = patientInfo[0]
+
+      connection.query('SELECT * FROM allergens WHERE allergen_id = ?', [patient.allergen_id], (thirdErr, allergenInfo) => {
+        if (thirdErr) {
+          return res.status(500).json({ error: 'Error fetching allergen data' });
+        }
+
+        const allergen = allergenInfo[0];
+
+        const responseData = {
+          user: user,
+          patient: patient,
+          allergen: allergen,
+        };
+
+        res.json(responseData);
+      });
+    });
   });
 });
 
 // post
-
-app.post('/signup', (req, res) => {
-
-  const query = 'SELECT * FROM users';
-
-  connection.query(query, (error, results) => {
-    if (error) throw error;
-    res.json(results);
-  });
-});
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -76,16 +85,6 @@ app.post('/login', (req, res) => {
 });
 
 // put
-
-app.put('/account', (req, res) => {
-
-  const query = 'SELECT * FROM users';
-
-  connection.query(query, (error, results) => {
-    if (error) throw error;
-    res.json(results);
-  });
-});
 
 // delete
 

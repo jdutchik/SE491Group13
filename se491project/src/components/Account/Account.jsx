@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 import './Account.css';
 
 import person from '../Assets/user.png';
 
-const Account = ({ username} ) => {
+const Account = () => {
+    const location = useLocation();
+    const { username } = location.state || {};
+
+    const [accountInfo, setAccountInfo] = useState(null);
+
     const updateClicked = () => {
         window.location.href = '/Survey';
     };
@@ -14,16 +19,29 @@ const Account = ({ username} ) => {
         window.location.href = '/';
     };
 
-    const [accountInfo, setAccount] = useState([]);
+    const getAccountInfo = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/account/${username}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+
+            const data = await response.json();
+            setAccountInfo(data);
+
+            console.log(accountInfo);
+        } 
+
+        catch (error) {
+            console.error('Error fetching user data:', error.message);
+        }
+    };
 
     useEffect(() => {
-        axios.get('http://localhost:3001/account/${username}')
-            .then((response) => {
-                setAccount(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
+        getAccountInfo();
     }, [username]);
 
     return (
@@ -32,23 +50,21 @@ const Account = ({ username} ) => {
                 <div className="picture">
                     <img src={person}></img>
                 </div>
-                <div className="name">Jane Doe</div>
-                <div className="email">janedoe@iastate.edu</div>
+                <div className="name">Jane Doe ({username})</div>
+                <div className="email">{accountInfo.user.email}</div>
+                <div className="age">Age: </div>
+                <div className="age">Gender: </div>
                 <div className="userButtons">
                     <div className="button" onClick={updateClicked}>Update</div>
                     <div className="button" onClick={signOutClicked}>Sign Out</div>
-
-                    <h1>Data from MySQL Table</h1>
-                    <p>Testing: {accountInfo.username}</p>
                 </div>
             </div>
 
             <div className="accountInfo">
                 <div className="info">
-                    <div className="userInfo">Race: </div>
-                    <div className="userInfo">Weight: </div>
+                    <div className="userInfo">Skin Tone: </div>
                     <div className="userInfo">Geographical Info: </div>
-                    <div className="userInfo">Diet: </div>
+                    <div className="userInfo">Skin Conditions: </div>
                 </div>
 
                 <div className="results">

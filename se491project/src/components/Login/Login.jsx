@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import './Login.css';
+import Account from "../Account/Account";
 
 import userEmoji from '../Assets/legoUser.png';
 import passwordEmoji from '../Assets/passwordLock.png';
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [visibility, updateVisibility] = useState('correctCreds')
@@ -17,7 +22,7 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
-    const loginClicked = async (event) => {
+    const login = async () => {
         try {
             const response = await fetch('http://localhost:3001/login', {
                 method: 'POST',
@@ -31,23 +36,23 @@ const Login = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to send message');
+                throw new Error('Failed to log in');
             }
 
             const data = await response.json();
 
-            if (data.message == 'Login successful') {
+            if (data.message === 'Login successful') {
                 updateVisibility('correctCreds');
-                window.location.href = '/Account';
-            }
-
+                navigate('/account', { state: { username } });
+            } 
+            
             else {
                 updateVisibility('incorrectCreds');
             }
-        }
-
+        } 
+        
         catch (error) {
-            alert('Login Error: ' + error.message)
+            console.error('Login Error:', error.message);
         }
     };
 
@@ -70,11 +75,11 @@ const Login = () => {
             </div>
 
             <div className='submit'>
-                <div className="login" onClick={loginClicked}>Login</div>
+                <div className="login" onClick={login}>Login</div>
             </div>
 
             <div className={visibility}>
-                Your password wrong ho
+                Patient Creditionals are Incorrect
             </div>
         </div>
     )

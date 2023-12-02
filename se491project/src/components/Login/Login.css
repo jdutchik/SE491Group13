@@ -73,3 +73,11 @@
     font-weight: 700;
     cursor: pointer;
 }
+
+.correctCreds {
+    display: none;
+}
+
+.incorrectCreds {
+    display: block
+}

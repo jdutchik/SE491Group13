@@ -66,8 +66,6 @@ app.get('/account/:username', (req, res) => {
 
   app.get('/doctor/:code', (req, res) => {
     const code = req.params.code;
-
-    console.log(code);
   
     connection.query('SELECT * FROM doctors WHERE code = ?', [code], (error, accountInfo) => {
       if (error) {

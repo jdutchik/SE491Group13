@@ -20,6 +20,8 @@ connection.connect();
 
 // get
 
+  // patient info
+
 app.get('/account/:username', (req, res) => {
   const username = req.params.username;
 
@@ -41,17 +43,17 @@ app.get('/account/:username', (req, res) => {
 
       const patient = patientInfo[0]
 
-      connection.query('SELECT * FROM allergens WHERE allergen_id = ?', [patient.allergen_id], (thirdErr, allergenInfo) => {
+      connection.query('SELECT * FROM doctors WHERE doctor_id = ?', [patient.doctor_id], (thirdErr, doctorInfo) => {
         if (thirdErr) {
-          return res.status(500).json({ error: 'Error fetching allergen data' });
+          return res.status(500).json({ error: 'Error fetching doctor data' });
         }
 
-        const allergen = allergenInfo[0];
+        const doctor = doctorInfo[0];
 
         const responseData = {
           user: user,
           patient: patient,
-          allergen: allergen,
+          doctor: doctor,
         };
 
         res.json(responseData);
@@ -59,6 +61,51 @@ app.get('/account/:username', (req, res) => {
     });
   });
 });
+
+  // doctor info
+
+  app.get('/doctor/:code', (req, res) => {
+    const code = req.params.code;
+
+    console.log(code);
+  
+    connection.query('SELECT * FROM doctors WHERE code = ?', [code], (error, accountInfo) => {
+      if (error) {
+        return res.status(500).json({ error: 'Error fetching doctor data' });
+      }
+  
+      if (accountInfo.length === 0) {
+        return res.status(404).json({ error: 'Doctor not found' });
+      }
+  
+      const doctor = accountInfo[0];
+  
+      connection.query('SELECT patients.* FROM patients, doctors WHERE patients.doctor_id = doctors.doctor_id AND doctors.code = ?', 
+      [code], (secondErr, patientInfo) => {
+        if (secondErr) {
+          return res.status(500).json({ error: 'Error fetching patient data' });
+        }
+  
+        const patient = patientInfo[0];
+  
+        connection.query('SELECT * FROM allergens WHERE allergen_id = ?', [patient.allergen_id], (thirdErr, allergenInfo) => {
+          if (thirdErr) {
+            return res.status(500).json({ error: 'Error fetching allergen data' });
+          }
+  
+          const allergen = allergenInfo[0];
+  
+          const responseData = {
+            doctor: doctor,
+            patient: patient,
+            allergen: allergen,
+          };
+  
+          res.json(responseData);
+        });
+      });
+    });
+  });
 
 // post
 
@@ -84,9 +131,31 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.post('/login/doctor', (req, res) => {
+  const { password, code } = req.body;
+
+  const query = 'SELECT * FROM doctors WHERE code = ? AND password = ?';
+
+  connection.query(query, [code, password], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true, message: 'Login successful' });
+    }
+
+    else {
+      res.json({ success: false, message: 'Invalid username or password' });
+    }
+  });
+});
+
 // put
 
-  // sign up
+  // patient sign up
 
 // delete
 

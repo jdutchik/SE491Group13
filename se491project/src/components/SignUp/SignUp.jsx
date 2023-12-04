@@ -12,7 +12,11 @@ const SignUp = () => {
         <div className='signUpContainer'>
            <img src={sneezeImg}></img>
            <div className='SignUpInfo'>
-                <div className='signUpInfo'>Allergies Becoming A Problem?</div>
+                <div className='signUpInfo'>Allergies Becoming A Problem? 
+                Experience peace of mind with our AI allergy detection service!
+                Begin your journey by filling out a brief survey, and reach out to your doctor.
+                Simple! 
+                </div>
                 <div className="signUpButton" onClick={signUpClicked}>Sign Up</div>
            </div>
         </div>

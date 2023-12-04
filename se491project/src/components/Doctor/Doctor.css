@@ -1,0 +1,118 @@
+body {
+    background-color: darkred;
+}
+
+.doctorContain {
+    display: flex;
+    flex-direction: row;
+    background: darkred;
+    height: 100vh;
+}
+
+.quickInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    margin: 55px 45px 45px 45px;
+    width: 35%;
+    height: 400px;
+    border-radius: 10px;
+    border-color: goldenrod;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.docname {
+    color: goldenrod;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.uni {
+    color: darkred;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.patientInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.search {
+    margin: 50px;
+    display: flex;
+    background-color: lightgray;
+    border-radius: 75px;
+    border-color: goldenrod;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.search img {
+    margin: 15px 0px 15px 15px;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.search input{
+    width: 75%;
+    height: 45%;
+    margin: 25px 15px 15px 0px;
+}
+
+.patientResults {
+    background-color: lightgray;
+    height: 850px;
+    width: 500px;
+    border-radius: 10px;
+    border-color: brown;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.patient {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(0, 0, 80);
+    margin: 25px;
+    border-radius: 10px;
+    border-color: goldenrod;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.patientImg {
+    margin: 15px;
+    padding: 10px;
+}
+
+.patientImg img{
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    border-color: goldenrod;
+    border-style: solid;
+    border-width: 10px;
+}
+
+.patientSum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: goldenrod;
+    width: 100%;
+}
+
+.patientQuickInfo {
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.allergen {
+    font-size: 25px;
+    font-weight: 600;
+}

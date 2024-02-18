@@ -1,28 +1,20 @@
 """
-Here's the description of each feature:
-
 Column| Description| Feature Type
 ------------|--------------------|----------------------
-Age | Age in years | Numerical
-Sex | (1 = male; 0 = female) | Categorical
-CP | Chest pain type (0, 1, 2, 3, 4) | Categorical
-Trestbpd | Resting blood pressure (in mm Hg on admission) | Numerical
-Chol | Serum cholesterol in mg/dl | Numerical
-FBS | fasting blood sugar in 120 mg/dl (1 = true; 0 = false) | Categorical
-RestECG | Resting electrocardiogram results (0, 1, 2) | Categorical
-Thalach | Maximum heart rate achieved | Numerical
-Exang | Exercise induced angina (1 = yes; 0 = no) | Categorical
-Oldpeak | ST depression induced by exercise relative to rest | Numerical
-Slope | Slope of the peak exercise ST segment | Numerical
-CA | Number of major vessels (0-3) colored by fluoroscopy | Both numerical & categorical
-Thal | 3 = normal; 6 = fixed defect; 7 = reversible defect | Categorical
-Target | Diagnosis of heart disease (1 = true; 0 = false) | Target
+Birth Year | Year born | Numerical
+Gender | (1 = male; 0 = female) | Categorical
+Skin Tone | Chest pain type (0, 1, 2, 3, 4) | Categorical
+
+City | ??? | perhaps categorical
+State | ??? | perhaps categorical
+Country | ??? | perhaps categorical
+
+Target | SFM ID of Allergen | Target
 """
 
 """
 ## Setup
 """
-
 import os
 
 # TensorFlow is the only backend that supports string inputs.
@@ -35,13 +27,13 @@ from keras import layers
 
 # Access data
 
-file_url = "http://storage.googleapis.com/download.tensorflow.org/data/heart.csv"
+file_url = "se491project\src\components\FAKE_AI_Model\Data\patients_to_csv.csv"
 dataframe = pd.read_csv(file_url)
 
 # shape and show the data
 
-dataframe.shape
-dataframe.head()
+print(dataframe.shape)
+print(dataframe.head())
 
 val_dataframe = dataframe.sample(frac=0.2, random_state=1337)
 train_dataframe = dataframe.drop(val_dataframe.index)
@@ -57,7 +49,7 @@ Let's generate `tf.data.Dataset` objects for each dataframe:
 
 def dataframe_to_dataset(dataframe):
     dataframe = dataframe.copy()
-    labels = dataframe.pop("target")
+    labels = dataframe.pop("SFM Id")
     
     ds = tf.data.Dataset.from_tensor_slices((dict(dataframe), labels))
     ds = ds.shuffle(buffer_size=len(dataframe))
@@ -78,6 +70,7 @@ val_ds = val_ds.batch(32)
 """
 ## Feature preprocessing with Keras layers
 
+Don't delete this comment (IMPORTANT!!)
 
 The following features are categorical features encoded as integers:
 
@@ -158,82 +151,44 @@ def encode_categorical_feature(feature, name, dataset, is_string):
 # Build the model
 
 # Categorical features encoded as integers
-sex = keras.Input(shape=(1,), name="sex", dtype="int64")
-cp = keras.Input(shape=(1,), name="cp", dtype="int64")
-fbs = keras.Input(shape=(1,), name="fbs", dtype="int64")
-restecg = keras.Input(shape=(1,), name="restecg", dtype="int64")
-exang = keras.Input(shape=(1,), name="exang", dtype="int64")
-ca = keras.Input(shape=(1,), name="ca", dtype="int64")
+#sex = keras.Input(shape=(1,), name="sex", dtype="int64")
 
 # Categorical feature encoded as string
-thal = keras.Input(shape=(1,), name="thal", dtype="string")
+gender = keras.Input(shape=(1,), name="Gender", dtype="string")
+skinTone = keras.Input(shape=(1,), name="SkinTone", dtype="string")
 
 # Numerical features
-age = keras.Input(shape=(1,), name="age")
-trestbps = keras.Input(shape=(1,), name="trestbps")
-chol = keras.Input(shape=(1,), name="chol")
-thalach = keras.Input(shape=(1,), name="thalach")
-oldpeak = keras.Input(shape=(1,), name="oldpeak")
-slope = keras.Input(shape=(1,), name="slope")
+birthYear = keras.Input(shape=(1,), name="BirthYear")
 
 all_inputs = [
     gender,
     birthYear,
-    city,
-    state,
-    country,
-    skinTone,
-    skinConditions
+    skinTone
 ]
 
 # Integer categorical features
-sex_encoded = encode_categorical_feature(sex, "sex", train_ds, False)
-cp_encoded = encode_categorical_feature(cp, "cp", train_ds, False)
-fbs_encoded = encode_categorical_feature(fbs, "fbs", train_ds, False)
-restecg_encoded = encode_categorical_feature(restecg, "restecg", train_ds, False)
-exang_encoded = encode_categorical_feature(exang, "exang", train_ds, False)
-ca_encoded = encode_categorical_feature(ca, "ca", train_ds, False)
+gender_encoded = encode_categorical_feature(gender, "Gender", train_ds, True)
+skinTone_encoded = encode_categorical_feature(skinTone, "SkinTone", train_ds, True)
 
 # String categorical features
-thal_encoded = encode_categorical_feature(thal, "thal", train_ds, True)
+#thal_encoded = encode_categorical_feature(thal, "thal", train_ds, True)
 
 # Numerical features
-age_encoded = encode_numerical_feature(age, "age", train_ds)
-trestbps_encoded = encode_numerical_feature(trestbps, "trestbps", train_ds)
-chol_encoded = encode_numerical_feature(chol, "chol", train_ds)
-thalach_encoded = encode_numerical_feature(thalach, "thalach", train_ds)
-oldpeak_encoded = encode_numerical_feature(oldpeak, "oldpeak", train_ds)
-slope_encoded = encode_numerical_feature(slope, "slope", train_ds)
+birthYear_encoded = encode_numerical_feature(birthYear, "BirthYear", train_ds)
 
 all_features = layers.concatenate(
     [
-        sex_encoded,
-        cp_encoded,
-        fbs_encoded,
-        restecg_encoded,
-        exang_encoded,
-        slope_encoded,
-        ca_encoded,
-        thal_encoded,
-        age_encoded,
-        trestbps_encoded,
-        chol_encoded,
-        thalach_encoded,
-        oldpeak_encoded,
+        gender_encoded,
+        birthYear_encoded,
+        skinTone_encoded,
     ]
 )
+
 x = layers.Dense(32, activation="relu")(all_features)
 x = layers.Dropout(0.5)(x)
 output = layers.Dense(1, activation="sigmoid")(x)
 model = keras.Model(all_inputs, output)
 model.compile("adam", "binary_crossentropy", metrics=["accuracy"])
-
-"""
-Let's visualize our connectivity graph:
-"""
-
-# `rankdir='LR'` is to make the graph horizontal.
-keras.utils.plot_model(model, show_shapes=True, rankdir="LR")
 
 """
 ## Train the model
@@ -242,20 +197,14 @@ keras.utils.plot_model(model, show_shapes=True, rankdir="LR")
 model.fit(train_ds, epochs=50, validation_data=val_ds)
 
 sample = {
-    "gender": 60,
-    "birthYear": 1,
-    "city": 1,
-    "state": 145,
-    "country": 233,
-    "skinTone": 1,
-    "skinCondtions": 2,
+    "Gender": "M",
+    "BirthYear": 2000,
+    "SkinTone": "medium",
 }
 
 input_dict = {name: tf.convert_to_tensor([value]) for name, value in sample.items()}
 predictions = model.predict(input_dict)
 
 print(
-    f"This particular patient had a {100 * predictions[0][0]:.1f} "
-    "percent probability of having a heart disease, "
-    "as evaluated by our model."
+    f"This particular patient might be allergic to allergin ID: {predictions[0][0]} "
 )

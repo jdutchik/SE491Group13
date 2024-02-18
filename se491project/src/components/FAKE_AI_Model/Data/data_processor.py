@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import datetime
 
 EXCEL_FILE = "se491project\src\components\FAKE_AI_Model\Data\PATIENTS_Nov_3_2023_V4_sfm-data.xlsx"
 OUTPUT_CSV = "se491project\src\components\FAKE_AI_Model\Data\patients_to_csv.csv"
@@ -34,6 +35,11 @@ def clean_gender(column_name):
         return
     
     return 0
+
+def calculate_age(birth_year):
+    current_year = datetime.datetime.now().year
+    age = current_year - birth_year
+    return age
 
 def clean_birthyear(column_name):
     # Check if the specified column exists
@@ -109,7 +115,7 @@ def output_csv(dataframe):
 def clean_excel():
     global OUTPUT_DF
     
-    wanted_columns = [SFM, GENDER, BIRTHYEAR, CITY, STATE, COUNTRY, SKINTONE]
+    wanted_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
     OUTPUT_DF = DF[wanted_columns]
     
     # Clean the excel
@@ -164,7 +170,6 @@ print(DF.columns)
 
 if (clean_excel()):
     print(OUTPUT_DF.head())
-    print(OUTPUT_DF.columns)
     
     output_csv(OUTPUT_DF)
     

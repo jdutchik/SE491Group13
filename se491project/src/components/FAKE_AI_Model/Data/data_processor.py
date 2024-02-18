@@ -2,11 +2,26 @@ import pandas as pd
 import numpy as np
 
 EXCEL_FILE = "se491project\src\components\FAKE_AI_Model\Data\PATIENTS_Nov_3_2023_V4_sfm-data.xlsx"
-df = None
+OUTPUT_CSV = "se491project\src\components\FAKE_AI_Model\Data\patients_to_csv.csv"
+
+SFM = "SFM Id"
+GENDER = "Gender"
+BIRTHYEAR = "BirthYear"
+
+CITY = "City"
+STATE = "State"
+COUNTRY = "Country"
+
+#fitz
+SKINTONE = "SkinTone"
+SKINCONDITIONS = "SkinConditions"
+
+DF = None
+OUTPUT_DF = None
 
 def clean_targets(column_name):
     # Check if the specified column exists
-    if column_name not in df.columns:
+    if column_name not in DF.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -14,7 +29,15 @@ def clean_targets(column_name):
     
 def clean_gender(column_name):
     # Check if the specified column exists
-    if column_name not in df.columns:
+    if column_name not in DF.columns:
+        print(f"Column '{column_name}' not found in the Excel file.")
+        return
+    
+    return 0
+
+def clean_birthyear(column_name):
+    # Check if the specified column exists
+    if column_name not in DF.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -22,7 +45,7 @@ def clean_gender(column_name):
     
 def clean_city(column_name):
     # Check if the specified column exists
-    if column_name not in df.columns:
+    if column_name not in DF.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -30,7 +53,7 @@ def clean_city(column_name):
     
 def clean_state(column_name):
     # Check if the specified column exists
-    if column_name not in df.columns:
+    if column_name not in DF.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -38,7 +61,7 @@ def clean_state(column_name):
     
 def clean_country(column_name):
     # Check if the specified column exists
-    if column_name not in df.columns:
+    if column_name not in DF.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -46,9 +69,9 @@ def clean_country(column_name):
     
 # fitz skin photo type
     
-def clean_skin_tone(column_name, dataFrame):
+def clean_skin_tone(column_name):
     # Check if the specified column exists
-    if column_name not in df.columns:
+    if column_name not in DF.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -70,14 +93,52 @@ def clean_skin_conditions(column_name):
     for option in no_others_option:
         print(option.strip())
 
-def clean_excel(dataframe):
-    clean_targets()
-    clean_gender()
-    clean_city()
-    clean_state()
-    clean_country()
-    clean_skin_tone()
-    clean_skin_conditions
+def output_csv(dataframe):
+    try:
+        # Write DataFrame to CSV
+        dataframe.to_csv(OUTPUT_CSV, index=False)
+        
+        print()
+        print("CSV file successfully created.")
+        print()
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
+
+def clean_excel():
+    global OUTPUT_DF
+    
+    wanted_columns = [SFM, GENDER, BIRTHYEAR, CITY, STATE, COUNTRY, SKINTONE]
+    OUTPUT_DF = DF[wanted_columns]
+    
+    # Clean the excel
+    try:
+        print()
+        print("Trying to Clean Excel")
+        print()
+        
+        clean_targets(SFM)
+        clean_gender(GENDER)
+        clean_birthyear(BIRTHYEAR)
+        
+        clean_city(CITY)
+        clean_state(STATE)
+        clean_country(COUNTRY)
+        
+        #clean_fitz
+        clean_skin_tone(SKINTONE)
+        #clean_skin_conditions()
+        
+        print()
+        print("Cleaned Excel")
+        print()
+        
+        return True
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
 
 def read_excel(excel_file):
     try:
@@ -88,14 +149,30 @@ def read_excel(excel_file):
             print("Excel file read successfully.")
             print()
             
-            print(dataframe.head())
-            
             return dataframe
         
         else:
             print("Failed to read Excel file.")
             
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        print(f"An unexpected error occurred: {e}")       
     
-df = read_excel(EXCEL_FILE)
+DF = read_excel(EXCEL_FILE)
+
+print(DF.head())
+print(DF.columns)
+
+if (clean_excel()):
+    print(OUTPUT_DF.head())
+    print(OUTPUT_DF.columns)
+    
+    output_csv(OUTPUT_DF)
+    
+else:
+    print()
+    print("Something went wrong")
+    print()
+    
+    quit()
+    
+    

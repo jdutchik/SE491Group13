@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import './Account.css';
 
 import person from '../Assets/user.png';
+import globe from '../Assets/globe.png';
+import graph from '../Assets/graph.png';
 
 const Account = () => {
     const location = useLocation();
@@ -72,16 +74,32 @@ const Account = () => {
 
             <div className="accountInfo">
                 <div className="info">
-                    <div className="userInfo">Skin Tone: {accountInfo.patient.skin_tone}</div>
-                    <div className="userInfo">
-                        Geographical Info: {accountInfo.patient.city}, {accountInfo.patient.state} from the {accountInfo.patient.country}
+                    <div className="userInfo">Skin Tone: <br></br> {accountInfo.patient.skin_tone}
+                    <img src={graph}></img>
+                    (placeholder for stats)
                     </div>
-                    <div className="userInfo">Skin Conditions: {accountInfo.patient.skin_conditions}</div>
+                    <div className="userInfo">Skin Conditions: <br></br> {accountInfo.patient.skin_conditions}
+                    <img src={graph}></img>
+                    (placeholder for stats)
+                    </div>
+                    <div className="userInfo">
+                        Geographical Info: <br></br> {accountInfo.patient.city}, {accountInfo.patient.state} from the {accountInfo.patient.country}
+                        <img src={globe}></img>
+                    </div>
                 </div>
 
-                <div className="results">
-                    You are allerigic to:
-                    <div className="finalResult">{accountInfo.allergen.name}</div>
+                <div className="doctor">
+                    <div className="doctorContainer">
+                        Your Doctor
+                        <div className="docpicture">
+                            <img src={person}></img>
+                        </div>
+                        <div className="doctorInfo">
+                            <div className="doctorname">{accountInfo.doctor.name}</div>
+                            <div className="doctorWork">{accountInfo.doctor.workplace}</div>
+                        </div>
+                    </div>
+                    <div className="doctorTitle">☎️ Contact Your Doctor For Your Calculated Results</div>
                 </div>
             </div>
         </div>

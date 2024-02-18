@@ -1,10 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Survey.css';
 
 const Survey = () => {
     const submitClicked = () => {
-        window.location.href = '/Account';
+        window.location.href = '/';
     };
+
+    const [userData, setUserData] = useState({
+        username: '',
+        password: '',
+        email: '',
+        patient_id: 2
+      });
+    
+      const [patientData, setPatientData] = useState({
+        name: '',
+        age: '',
+        gender: '',
+        city: '',
+        state: '',
+        country: '',
+        skin_tone: '',
+        skin_conditions: '',
+        allergen_id: 1,
+        doctor_id: 1
+      });
+    
+      const handleUserInputChange = (e) => {
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
+      };
+    
+      const handlePatientInputChange = (e) => {
+        const { name, value } = e.target;
+        setPatientData({ ...patientData, [name]: value });
+      };
+    
+      const handleSurveySubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await fetch('http://localhost:3001/survey/users', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          });
+    
+          if (response.ok) {
+            console.log('User data updated successfully');
+          } else {
+            console.error('Failed to update user data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+    
+      const handleOrderFormSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await fetch('http://localhost:3001/survey/patients', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(patientData),
+          });
+    
+          if (response.ok) {
+            console.log('Order data updated successfully');
+          } else {
+            console.error('Failed to update order data');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
 
     return (
         <div className="surveyContainer">
@@ -30,13 +104,31 @@ const Survey = () => {
 
                     {/* Name input field */}
                     <div className="questionDefault">
-                        <h>Enter Patient Full Legal Name</h>
+                        <h>Enter Email</h>
+                        <input type="text" placeholder="Email" />
+                    </div>
+
+                    {/* Name input field */}
+                    <div className="questionDefault">
+                        <h>Enter Username</h>
+                        <input type="text" placeholder="Username" />
+                    </div>
+
+                    {/* Name input field */}
+                    <div className="questionDefault">
+                        <h>Enter Password</h>
+                        <input type="text" placeholder="Password" />
+                    </div>
+
+                    {/* Name input field */}
+                    <div className="questionDefault">
+                        <h>Enter Patient's Name (Not Required for Calculations)</h>
                         <input type="text" placeholder="Full Legal Name" />
                     </div>
 
                     {/* Age input field */}
                     <div className="questionDefault">
-                        <h>Enter Patient Age</h>
+                        <h>Enter Patient's Age</h>
                         <input type='text' placeholder="Age" />
                     </div>
 
@@ -52,20 +144,20 @@ const Survey = () => {
 
                     {/* race input field*/}
                     <div className="questionDefault">
-                        <h>Enter Patient's Race</h>
-                        <input type='text' placeholder="Race" />
+                        <h>Enter Patient's Geographical Location</h>
+                        <input type='text' placeholder="Geographical Location" />
                     </div>
 
                     {/* weight input field*/}
                     <div className="questionDefault">
-                        <h>Enter Patient's Weight</h>
-                        <input type='text' placeholder="Weight" />
+                        <h>Enter Approximate Skin Tone (Ex: fair)</h>
+                        <input type='text' placeholder="Skin Tone" />
                     </div>
 
                     {/* gender input field*/}
                     <div className="questionDefault">
-                        <h>Enter Patient's Geographical Info</h>
-                        <input type='text' placeholder="Info" />
+                        <h>Enter Any Patient's Skin Condition (dry, chapped, etc.)</h>
+                        <input type='text' placeholder="Conditions" />
                     </div>
                 </div>
             </form>

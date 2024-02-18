@@ -6,13 +6,24 @@ import Account from "../Account/Account";
 
 import userEmoji from '../Assets/legoUser.png';
 import passwordEmoji from '../Assets/passwordLock.png';
+import codeEmoji from '../Assets/doctorTool.png';
 
 const Login = () => {
     const navigate = useNavigate();
 
+    const [isDoctor, setIsDoctor] = useState(false);
+    const [code, setCode] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [visibility, updateVisibility] = useState('correctCreds')
+
+    const handleIsDoc = () => {
+        setIsDoctor(!isDoctor);
+    }
+
+    const codeChange = (event) => {
+        setCode(event.target.value);
+    }
 
     const usernameChange = (event) => {
         setUsername(event.target.value);
@@ -21,10 +32,20 @@ const Login = () => {
     const passwordChange = (event) => {
         setPassword(event.target.value);
     }
+    
+    var request = "";
 
     const login = async () => {
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            if (isDoctor) {
+                request = 'http://localhost:3001/login/doctor';
+            }
+
+            else {
+                request = 'http://localhost:3001/login';
+            }
+
+            const response = await fetch(request, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,6 +53,7 @@ const Login = () => {
                 body: JSON.stringify({
                     username,
                     password,
+                    code,
                 }),
             });
 
@@ -43,14 +65,21 @@ const Login = () => {
 
             if (data.message === 'Login successful') {
                 updateVisibility('correctCreds');
-                navigate('/account', { state: { username } });
-            } 
-            
+
+                if (isDoctor) {
+                    navigate('/doctor', { state: { code } });
+                }
+
+                else {
+                    navigate('/account', { state: { username } });
+                }
+            }
+
             else {
                 updateVisibility('incorrectCreds');
             }
-        } 
-        
+        }
+
         catch (error) {
             console.error('Login Error:', error.message);
         }
@@ -59,14 +88,21 @@ const Login = () => {
     return (
         <div className='loginContainer'>
             <div className='header'>
-                <div className='titleText'>Enter Patient Creditionals</div>
+                <div className='titleText'>Enter User Creditionals</div>
             </div>
 
             <div className='inputs'>
-                <div className='userInput'>
-                    <img src={userEmoji} alt="" />
-                    <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
-                </div>
+                {isDoctor ? (
+                    <div className='userInput'>
+                        <img src={codeEmoji} alt="" />
+                        <input type='text' value={code} onChange={codeChange} placeHolder='Enter Doctor Code' />
+                    </div>
+                ) : (
+                    <div className='userInput'>
+                        <img src={userEmoji} alt="" />
+                        <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
+                    </div>
+                )}
 
                 <div className='userInput'>
                     <img src={passwordEmoji} alt="" />
@@ -78,8 +114,15 @@ const Login = () => {
                 <div className="login" onClick={login}>Login</div>
             </div>
 
+            <div className="doctorSwitch" onClick={handleIsDoc}>
+                {!isDoctor ? (<p>Doctor? Click Here</p>
+                ) : (
+                    <p>Patient? Click Here</p>
+                )}
+                </div>
+
             <div className={visibility}>
-                Patient Creditionals are Incorrect
+                Creditionals are Incorrect
             </div>
         </div>
     )

@@ -148,29 +148,55 @@ def clean_excel():
 
 def read_excel(excel_file):
     try:
-        dataframe = pd.read_excel(EXCEL_FILE)
+        dataframe = pd.read_excel(EXCEL_FILE, sheet_name=None)
         
-        if dataframe is not None:
+        if dataframe is None:
             print()
-            print("Excel file read successfully.")
+            print("Excel file FAILED to read.")
             print()
             
-            return dataframe
+            return None
         
-        else:
-            print("Failed to read Excel file.")
+        traits_data = dataframe['Level2_AI_Patient Traits']
+        
+        if traits_data is None:
+            print()
+            print("Traits Data sheet does not exist.")
+            print()
             
+            return None
+        
+        allergens_data = dataframe['Level1_Patient Allergens']
+        
+        if allergens_data is None:
+            print()
+            print("Allergens Data sheet does not exist.")
+            print()
+            
+            return None
+        
+        print(traits_data.head())
+        print(allergens_data.head())
+        
+        print()
+        print("Excel File Read Successfully.")
+        print()
+        
+        return traits_data, allergens_data
+        
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")       
+        print(f"An unexpected error occurred: {e}")
+        return None       
     
 DF = read_excel(EXCEL_FILE)
+
+quit()
 
 print(DF.head())
 print(DF.columns)
 
 if (clean_excel()):
     print(OUTPUT_DF.head())
-    
     output_csv(OUTPUT_DF)
     
 else:

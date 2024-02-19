@@ -17,8 +17,11 @@ COUNTRY = "Country"
 SKINTONE = "SkinTone"
 SKINCONDITIONS = "SkinConditions"
 
-DF = None
-OUTPUT_DF = None
+TRAITS = None
+ALLERGENS = None
+
+OUTPUT_TRAITS = None
+OUTPUT_ALLERGENS = None
 
 def clean_targets(column_name):
     # Check if the specified column exists
@@ -112,11 +115,9 @@ def output_csv(dataframe):
         print(f"An error occurred: {e}")
     
 
-def clean_excel():
-    global OUTPUT_DF
-    
-    wanted_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
-    OUTPUT_DF = DF[wanted_columns]
+def get_model_inputs():
+    input_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
+    output = TRAITS[input_columns]
     
     # Clean the excel
     try:
@@ -124,7 +125,6 @@ def clean_excel():
         print("Trying to Clean Excel")
         print()
         
-        clean_targets(SFM)
         clean_gender(GENDER)
         clean_birthyear(BIRTHYEAR)
         
@@ -140,7 +140,7 @@ def clean_excel():
         print("Cleaned Excel")
         print()
         
-        return True
+        return output
     
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -175,9 +175,6 @@ def read_excel(excel_file):
             
             return None
         
-        print(traits_data.head())
-        print(allergens_data.head())
-        
         print()
         print("Excel File Read Successfully.")
         print()
@@ -187,23 +184,20 @@ def read_excel(excel_file):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         return None       
-    
-DF = read_excel(EXCEL_FILE)
 
-quit()
-
-print(DF.head())
-print(DF.columns)
-
-if (clean_excel()):
-    print(OUTPUT_DF.head())
-    output_csv(OUTPUT_DF)
+# MAIN ################################################################
     
-else:
-    print()
-    print("Something went wrong")
-    print()
-    
+TRAITS, ALLERGENS = read_excel(EXCEL_FILE)
+
+if (TRAITS.empty or ALLERGENS.empty):
+    quit()
+
+print(TRAITS.head())
+print(ALLERGENS.head())
+
+if (get_model_inputs() is False):
     quit()
     
+if (get_model_targets() is False):
+    quit()
     

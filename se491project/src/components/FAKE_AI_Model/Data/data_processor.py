@@ -23,30 +23,22 @@ ALLERGENS = None
 OUTPUT_TRAITS = None
 OUTPUT_ALLERGENS = None
 
-def clean_targets(column_name):
-    # Check if the specified column exists
-    if column_name not in DF.columns:
-        print(f"Column '{column_name}' not found in the Excel file.")
-        return
-    
-    return 0
-    
-def clean_gender(column_name):
-    # Check if the specified column exists
-    if column_name not in DF.columns:
-        print(f"Column '{column_name}' not found in the Excel file.")
-        return
-    
-    return 0
-
 def calculate_age(birth_year):
     current_year = datetime.datetime.now().year
     age = current_year - birth_year
     return age
+    
+def clean_gender(column_name):
+    # Check if the specified column exists
+    if column_name not in TRAITS.columns:
+        print(f"Column '{column_name}' not found in the Excel file.")
+        return
+    
+    return 0
 
 def clean_birthyear(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -54,7 +46,7 @@ def clean_birthyear(column_name):
     
 def clean_city(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -62,7 +54,7 @@ def clean_city(column_name):
     
 def clean_state(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -70,7 +62,7 @@ def clean_state(column_name):
     
 def clean_country(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -80,7 +72,7 @@ def clean_country(column_name):
     
 def clean_skin_tone(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -113,7 +105,19 @@ def output_csv(dataframe):
         
     except Exception as e:
         print(f"An error occurred: {e}")
-    
+
+def get_model_targets():    
+    try:
+        hash_map = TRAITS.set_index(SFM).to_dict()['value_column']
+
+        # Now hash_map is a dictionary where keys are values from the 'key_column' and values are from 'value_column'
+        print(hash_map)
+        
+        return True
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False    
 
 def get_model_inputs():
     input_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
@@ -122,7 +126,7 @@ def get_model_inputs():
     # Clean the excel
     try:
         print()
-        print("Trying to Clean Excel")
+        print("Trying to Get Model Inputs from DataFrame")
         print()
         
         clean_gender(GENDER)
@@ -136,8 +140,7 @@ def get_model_inputs():
         clean_skin_tone(SKINTONE)
         #clean_skin_conditions()
         
-        print()
-        print("Cleaned Excel")
+        print("SUCCESS!")
         print()
         
         return output
@@ -193,7 +196,10 @@ if (TRAITS.empty or ALLERGENS.empty):
     quit()
 
 print(TRAITS.head())
+print(TRAITS.shape)
+print()
 print(ALLERGENS.head())
+print(ALLERGENS.shape)
 
 if (get_model_inputs() is False):
     quit()

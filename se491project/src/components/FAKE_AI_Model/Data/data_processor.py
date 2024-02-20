@@ -3,7 +3,9 @@ import numpy as np
 import datetime
 
 EXCEL_FILE = "se491project\src\components\FAKE_AI_Model\Data\PATIENTS_Nov_3_2023_V4_sfm-data.xlsx"
-OUTPUT_CSV = "se491project\src\components\FAKE_AI_Model\Data\patients_to_csv.csv"
+
+OUTPUT_TRAITS_CSV = "se491project\src\components\FAKE_AI_Model\Data\patients.csv"
+OUPUT_ALLERGENS_CSV = "se491project\src\components\FAKE_AI_Model\Data\\allergens.csv"
 
 SFM = "SFM Id"
 GENDER = "Gender"
@@ -17,33 +19,28 @@ COUNTRY = "Country"
 SKINTONE = "SkinTone"
 SKINCONDITIONS = "SkinConditions"
 
-DF = None
-OUTPUT_DF = None
+TRAITS = None
+ALLERGENS = None
 
-def clean_targets(column_name):
-    # Check if the specified column exists
-    if column_name not in DF.columns:
-        print(f"Column '{column_name}' not found in the Excel file.")
-        return
-    
-    return 0
-    
-def clean_gender(column_name):
-    # Check if the specified column exists
-    if column_name not in DF.columns:
-        print(f"Column '{column_name}' not found in the Excel file.")
-        return
-    
-    return 0
+OUTPUT_TRAITS = None
+OUTPUT_ALLERGENS = None
 
 def calculate_age(birth_year):
     current_year = datetime.datetime.now().year
     age = current_year - birth_year
     return age
-
-def clean_birthyear(column_name):
+    
+def clean_gender(dataframe, column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in dataframe.columns:
+        print(f"Column '{column_name}' not found in the Excel file.")
+        return
+    
+    return 0
+
+def clean_birthyear(dataframe, column_name):
+    # Check if the specified column exists
+    if column_name not in dataframe.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -51,7 +48,7 @@ def clean_birthyear(column_name):
     
 def clean_city(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -59,7 +56,7 @@ def clean_city(column_name):
     
 def clean_state(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -67,7 +64,7 @@ def clean_state(column_name):
     
 def clean_country(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -77,7 +74,7 @@ def clean_country(column_name):
     
 def clean_skin_tone(column_name):
     # Check if the specified column exists
-    if column_name not in DF.columns:
+    if column_name not in TRAITS.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -99,46 +96,64 @@ def clean_skin_conditions(column_name):
     for option in no_others_option:
         print(option.strip())
 
-def output_csv(dataframe):
+def output_csv(dataframe, type, filepath):
     try:
         # Write DataFrame to CSV
-        dataframe.to_csv(OUTPUT_CSV, index=False)
+        dataframe.to_csv(filepath, index=False)
         
         print()
-        print("CSV file successfully created.")
+        print(f"CSV for {type} successfully created.")
         print()
         
     except Exception as e:
         print(f"An error occurred: {e}")
-    
 
-def clean_excel():
-    global OUTPUT_DF
+def get_model_targets(dataframe, output_dataframe): 
+    global OUTPUT_ALLERGENS
+       
+    try:
+        print()
+        print("Trying to Get Model TARGETS from DataFrame")
+        print()
+        
+        OUTPUT_ALLERGENS = dataframe
+        
+        print("SUCCESS!")
+        print()
+        
+        return True
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False    
+
+def get_model_inputs(dataframe, output_dataframe):
+    global OUTPUT_TRAITS
     
-    wanted_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
-    OUTPUT_DF = DF[wanted_columns]
+    input_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
+    output = dataframe[input_columns]
     
     # Clean the excel
     try:
         print()
-        print("Trying to Clean Excel")
+        print("Trying to Get Model Inputs from DataFrame")
         print()
         
-        clean_targets(SFM)
-        clean_gender(GENDER)
-        clean_birthyear(BIRTHYEAR)
+        clean_gender(dataframe, GENDER)
+        clean_birthyear(dataframe, BIRTHYEAR)
         
-        clean_city(CITY)
-        clean_state(STATE)
-        clean_country(COUNTRY)
+        #clean_city(CITY)
+        #clean_state(STATE)
+        #clean_country(COUNTRY)
         
         #clean_fitz
-        clean_skin_tone(SKINTONE)
+        #clean_skin_tone(SKINTONE)
         #clean_skin_conditions()
         
+        print("SUCCESS!")
         print()
-        print("Cleaned Excel")
-        print()
+        
+        OUTPUT_TRAITS = output
         
         return True
     
@@ -148,36 +163,77 @@ def clean_excel():
 
 def read_excel(excel_file):
     try:
-        dataframe = pd.read_excel(EXCEL_FILE)
+        dataframe = pd.read_excel(EXCEL_FILE, sheet_name=None)
         
-        if dataframe is not None:
+        if dataframe is None:
             print()
-            print("Excel file read successfully.")
+            print("Excel file FAILED to read.")
             print()
             
-            return dataframe
+            return None
         
-        else:
-            print("Failed to read Excel file.")
+        traits_data = dataframe['Level2_AI_Patient Traits']
+        
+        if traits_data is None:
+            print()
+            print("Traits Data sheet does not exist.")
+            print()
             
+            return None
+        
+        allergens_data = dataframe['Level1_Patient Allergens']
+        
+        if allergens_data is None:
+            print()
+            print("Allergens Data sheet does not exist.")
+            print()
+            
+            return None
+        
+        print()
+        print("Excel File Read Successfully.")
+        print()
+        
+        return traits_data, allergens_data
+        
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")       
-    
-DF = read_excel(EXCEL_FILE)
+        print(f"An unexpected error occurred: {e}")
+        return None       
 
-print(DF.head())
-print(DF.columns)
+# MAIN ################################################################
+    
+# Read Excel    
+TRAITS, ALLERGENS = read_excel(EXCEL_FILE)
 
-if (clean_excel()):
-    print(OUTPUT_DF.head())
-    
-    output_csv(OUTPUT_DF)
-    
-else:
-    print()
-    print("Something went wrong")
-    print()
-    
+if (TRAITS.empty or ALLERGENS.empty):
+    quit()
+
+print(TRAITS.head())
+print(TRAITS.shape)
+print()
+print(ALLERGENS.head())
+print(ALLERGENS.shape)
+
+# get model inputs
+if (get_model_inputs(TRAITS, OUTPUT_TRAITS) is False):
     quit()
     
+# get model targets
+if (get_model_targets(ALLERGENS, OUTPUT_ALLERGENS) is False):
+    quit()
     
+print(OUTPUT_TRAITS.head())
+print(OUTPUT_TRAITS.shape)
+print()
+print(OUTPUT_ALLERGENS.head())
+print(OUTPUT_ALLERGENS.shape)
+    
+# export PATIENTS to csv
+if (output_csv(OUTPUT_TRAITS, "traits", OUTPUT_TRAITS_CSV)):
+    quit()
+    
+# export ALLERGENS to csv
+if (output_csv(OUTPUT_ALLERGENS, "allergens", OUPUT_ALLERGENS_CSV)):
+    quit()
+
+print("Data Processing Completed :)")   

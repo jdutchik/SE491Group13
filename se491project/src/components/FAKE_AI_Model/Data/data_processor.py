@@ -3,7 +3,9 @@ import numpy as np
 import datetime
 
 EXCEL_FILE = "se491project\src\components\FAKE_AI_Model\Data\PATIENTS_Nov_3_2023_V4_sfm-data.xlsx"
-OUTPUT_CSV = "se491project\src\components\FAKE_AI_Model\Data\patients_to_csv.csv"
+
+OUTPUT_TRAITS_CSV = "se491project\src\components\FAKE_AI_Model\Data\patients.csv"
+OUPUT_ALLERGENS_CSV = "se491project\src\components\FAKE_AI_Model\Data\allergens.csv"
 
 SFM = "SFM Id"
 GENDER = "Gender"
@@ -28,17 +30,17 @@ def calculate_age(birth_year):
     age = current_year - birth_year
     return age
     
-def clean_gender(column_name):
+def clean_gender(dataframe, column_name):
     # Check if the specified column exists
-    if column_name not in TRAITS.columns:
+    if column_name not in dataframe.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
     return 0
 
-def clean_birthyear(column_name):
+def clean_birthyear(dataframe, column_name):
     # Check if the specified column exists
-    if column_name not in TRAITS.columns:
+    if column_name not in dataframe.columns:
         print(f"Column '{column_name}' not found in the Excel file.")
         return
     
@@ -94,33 +96,30 @@ def clean_skin_conditions(column_name):
     for option in no_others_option:
         print(option.strip())
 
-def output_csv(dataframe):
+def output_csv(dataframe, type, filepath):
     try:
         # Write DataFrame to CSV
-        dataframe.to_csv(OUTPUT_CSV, index=False)
+        dataframe.to_csv(filepath, index=False)
         
         print()
-        print("CSV file successfully created.")
+        print(f"CSV for {type} successfully created.")
         print()
         
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def get_model_targets():    
+def get_model_targets(dataframe, output_dataframe):    
     try:
-        allergen_hash_map = ALLERGENS.set_index(SFM).to_dict()['Allergens']
-
-        for ()
-        
+        output_dataframe = dataframe
         return True
         
     except Exception as e:
         print(f"An error occurred: {e}")
         return False    
 
-def get_model_inputs():
+def get_model_inputs(dataframe, output_dataframe):
     input_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
-    output = TRAITS[input_columns]
+    output = dataframe[input_columns]
     
     # Clean the excel
     try:
@@ -128,21 +127,23 @@ def get_model_inputs():
         print("Trying to Get Model Inputs from DataFrame")
         print()
         
-        clean_gender(GENDER)
-        clean_birthyear(BIRTHYEAR)
+        clean_gender(dataframe, GENDER)
+        clean_birthyear(dataframe, BIRTHYEAR)
         
-        clean_city(CITY)
-        clean_state(STATE)
-        clean_country(COUNTRY)
+        #clean_city(CITY)
+        #clean_state(STATE)
+        #clean_country(COUNTRY)
         
         #clean_fitz
-        clean_skin_tone(SKINTONE)
+        #clean_skin_tone(SKINTONE)
         #clean_skin_conditions()
         
         print("SUCCESS!")
         print()
         
-        return output
+        output_dataframe = output
+        
+        return True
     
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -189,6 +190,7 @@ def read_excel(excel_file):
 
 # MAIN ################################################################
     
+# Read Excel    
 TRAITS, ALLERGENS = read_excel(EXCEL_FILE)
 
 if (TRAITS.empty or ALLERGENS.empty):
@@ -200,9 +202,26 @@ print()
 print(ALLERGENS.head())
 print(ALLERGENS.shape)
 
-if (get_model_inputs() is False):
+# get model inputs
+if (get_model_inputs(OUTPUT_TRAITS) is False):
     quit()
     
-if (get_model_targets() is False):
+# get model targets
+if (get_model_targets(OUTPUT_ALLERGENS) is False):
     quit()
     
+print(OUTPUT_TRAITS.head())
+print(OUTPUT_TRAITS.shape)
+print()
+print(OUTPUT_ALLERGENS.head())
+print(OUTPUT_ALLERGENS.shape)
+    
+# export PATIENTS to csv
+if (output_csv(OUTPUT_TRAITS, "traits", OUTPUT_TRAITS_CSV)):
+    quit()
+    
+# export ALLERGENS to csv
+if (output_csv(OUTPUT_ALLERGENS, "allergens", OUPUT_ALLERGENS_CSV)):
+    quit()
+
+print("Data Processing Completed :)")   

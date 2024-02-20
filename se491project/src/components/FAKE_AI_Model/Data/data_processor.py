@@ -5,7 +5,7 @@ import datetime
 EXCEL_FILE = "se491project\src\components\FAKE_AI_Model\Data\PATIENTS_Nov_3_2023_V4_sfm-data.xlsx"
 
 OUTPUT_TRAITS_CSV = "se491project\src\components\FAKE_AI_Model\Data\patients.csv"
-OUPUT_ALLERGENS_CSV = "se491project\src\components\FAKE_AI_Model\Data\allergens.csv"
+OUPUT_ALLERGENS_CSV = "se491project\src\components\FAKE_AI_Model\Data\\allergens.csv"
 
 SFM = "SFM Id"
 GENDER = "Gender"
@@ -108,9 +108,19 @@ def output_csv(dataframe, type, filepath):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def get_model_targets(dataframe, output_dataframe):    
+def get_model_targets(dataframe, output_dataframe): 
+    global OUTPUT_ALLERGENS
+       
     try:
-        output_dataframe = dataframe
+        print()
+        print("Trying to Get Model TARGETS from DataFrame")
+        print()
+        
+        OUTPUT_ALLERGENS = dataframe
+        
+        print("SUCCESS!")
+        print()
+        
         return True
         
     except Exception as e:
@@ -118,6 +128,8 @@ def get_model_targets(dataframe, output_dataframe):
         return False    
 
 def get_model_inputs(dataframe, output_dataframe):
+    global OUTPUT_TRAITS
+    
     input_columns = [SFM, GENDER, BIRTHYEAR, SKINTONE]
     output = dataframe[input_columns]
     
@@ -141,7 +153,7 @@ def get_model_inputs(dataframe, output_dataframe):
         print("SUCCESS!")
         print()
         
-        output_dataframe = output
+        OUTPUT_TRAITS = output
         
         return True
     
@@ -203,11 +215,11 @@ print(ALLERGENS.head())
 print(ALLERGENS.shape)
 
 # get model inputs
-if (get_model_inputs(OUTPUT_TRAITS) is False):
+if (get_model_inputs(TRAITS, OUTPUT_TRAITS) is False):
     quit()
     
 # get model targets
-if (get_model_targets(OUTPUT_ALLERGENS) is False):
+if (get_model_targets(ALLERGENS, OUTPUT_ALLERGENS) is False):
     quit()
     
 print(OUTPUT_TRAITS.head())

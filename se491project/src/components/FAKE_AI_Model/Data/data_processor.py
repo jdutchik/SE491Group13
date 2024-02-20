@@ -108,10 +108,9 @@ def output_csv(dataframe):
 
 def get_model_targets():    
     try:
-        hash_map = TRAITS.set_index(SFM).to_dict()['value_column']
+        allergen_hash_map = ALLERGENS.set_index(SFM).to_dict()['Allergens']
 
-        # Now hash_map is a dictionary where keys are values from the 'key_column' and values are from 'value_column'
-        print(hash_map)
+        for ()
         
         return True
         

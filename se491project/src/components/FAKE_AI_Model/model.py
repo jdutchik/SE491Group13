@@ -27,7 +27,7 @@ from keras import layers
 
 # Access data
 
-file_url = "se491project\src\components\FAKE_AI_Model\Data\patients_to_csv.csv"
+file_url = "se491project\src\components\FAKE_AI_Model\Data\patients.csv"
 dataframe = pd.read_csv(file_url)
 
 # shape and show the data
@@ -129,6 +129,7 @@ def encode_numerical_feature(feature, name, dataset):
 
     # Normalize the input feature
     encoded_feature = normalizer(feature)
+    
     return encoded_feature
 
 
@@ -146,6 +147,7 @@ def encode_categorical_feature(feature, name, dataset, is_string):
 
     # Turn the string input into integer indices
     encoded_feature = lookup(feature)
+        
     return encoded_feature
 
 # Build the model
@@ -185,8 +187,9 @@ all_features = layers.concatenate(
 )
 
 x = layers.Dense(32, activation="relu")(all_features)
-x = layers.Dropout(0.5)(x)
+x = layers.Dropout(0.2)(x)
 output = layers.Dense(1, activation="sigmoid")(x)
+
 model = keras.Model(all_inputs, output)
 model.compile("adam", "binary_crossentropy", metrics=["accuracy"])
 

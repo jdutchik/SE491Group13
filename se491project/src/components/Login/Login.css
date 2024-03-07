@@ -46,7 +46,7 @@
 }
 
 .userInput input{
-    height: 50px;
+    height: 51px;
     width: 400px;
     background: transparent;
     border: none;
@@ -76,6 +76,7 @@
 
 .correctCreds {
     display: none;
+    color: none;
 }
 
 .incorrectCreds {

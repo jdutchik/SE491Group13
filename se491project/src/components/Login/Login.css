@@ -1,3 +1,15 @@
+.full {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+
+    width: 50%;
+    height: 100vh;
+
+    border-color: aqua;
+    border-style: dotted;
+}
+
 .header {
     display: flex;
     flex-direction: column;
@@ -10,9 +22,12 @@
 .loginContainer {
     display: flex;
     flex-direction: column;
-    width: 600px;
-    height: 525px;
-    margin: 10% 15% 15% 15%;
+
+    margin: 45%;
+
+    width: 75%;
+    height: 40%;
+
     background: whitesmoke;
     border-radius: 12px;
 }
@@ -90,4 +105,25 @@
     font-weight: 700;
     cursor: pointer;
     text-decoration: underline;
+}
+
+.social {
+    display: flex;
+    justify-content: space-between;
+
+    width: 40%;
+
+    padding: 15px;
+    margin: 5%;
+
+    position: absolute;
+
+    border-color: blue;
+    border-style: dotted;
+}
+
+.tooltip {
+    color: rgb(52, 52, 52);
+    font-size: 19px;
+    font-weight: 700;
 }

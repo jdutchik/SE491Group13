@@ -32,7 +32,7 @@ const Login = () => {
     const passwordChange = (event) => {
         setPassword(event.target.value);
     }
-    
+
     var request = "";
 
     const login = async () => {
@@ -86,43 +86,67 @@ const Login = () => {
     };
 
     return (
-        <div className='loginContainer'>
-            <div className='header'>
-                <div className='titleText'>Enter User Creditionals</div>
-            </div>
+        <div className="full">
+            <div className='loginContainer'>
+                <div className='header'>
+                    <div className='titleText'>Enter User Creditionals</div>
+                </div>
 
-            <div className='inputs'>
-                {isDoctor ? (
-                    <div className='userInput'>
-                        <img src={codeEmoji} alt="" />
-                        <input type='text' value={code} onChange={codeChange} placeHolder='Enter Doctor Code' />
-                    </div>
-                ) : (
-                    <div className='userInput'>
-                        <img src={userEmoji} alt="" />
-                        <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
-                    </div>
-                )}
+                <div className='inputs'>
+                    {isDoctor ? (
+                        <div className='userInput'>
+                            <img src={codeEmoji} alt="" />
+                            <input type='text' value={code} onChange={codeChange} placeHolder='Enter Doctor Code' />
+                        </div>
+                    ) : (
+                        <div className='userInput'>
+                            <img src={userEmoji} alt="" />
+                            <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
+                        </div>
+                    )}
 
-                <div className='userInput'>
-                    <img src={passwordEmoji} alt="" />
-                    <input type='password' onChange={passwordChange} placeHolder='Enter Password' />
+                    <div className='userInput'>
+                        <img src={passwordEmoji} alt="" />
+                        <input type='password' onChange={passwordChange} placeHolder='Enter Password' />
+                    </div>
+                </div>
+
+                <div className='submit'>
+                    <div className="login" onClick={login}>Login</div>
+                </div>
+
+                <div className="doctorSwitch" onClick={handleIsDoc}>
+                    {!isDoctor ? (<p>Doctor? Click Here</p>
+                    ) : (
+                        <p>Patient? Click Here</p>
+                    )}
+                </div>
+
+                <div className={visibility}>
+                    Creditionals are Incorrect
                 </div>
             </div>
 
-            <div className='submit'>
-                <div className="login" onClick={login}>Login</div>
-            </div>
-
-            <div className="doctorSwitch" onClick={handleIsDoc}>
-                {!isDoctor ? (<p>Doctor? Click Here</p>
-                ) : (
-                    <p>Patient? Click Here</p>
-                )}
+            <div class="social">
+                <div class="icon facebook">
+                    <div class="tooltip">Facebook</div>
+                    <span><i class="fab fa-facebook-f"></i></span>
                 </div>
 
-            <div className={visibility}>
-                Creditionals are Incorrect
+                <div class="icon twitter">
+                    <div class="tooltip">Twitter</div>
+                    <span><i class="fab fa-twitter"></i></span>
+                </div>
+
+                <div class="icon github">
+                    <div class="tooltip">Github</div>
+                    <span><i class="fab fa-github"></i></span>
+                </div>
+
+                <div class="icon website">
+                    <div class="tooltip">Class Website</div>
+                    <span><i class="fab fa-youtube"></i></span>
+                </div>
             </div>
         </div>
     )

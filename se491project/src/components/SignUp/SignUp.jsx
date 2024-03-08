@@ -1,8 +1,8 @@
 import React from "react";
 import './SignUp.css';
 
-import sneezeImg from '../Assets/sneeze.jpg';
-import pass from '../Assets/passwordLock.png';
+import sneezeImg from '../Assets/allergyMonster.PNG';
+import signup from '../Assets/checklist.png';
 
 const SignUp = () => {
     const signUpClicked = () => {
@@ -21,9 +21,9 @@ const SignUp = () => {
                 Begin your journey by filling out a brief survey, and reach out to your doctor.
                 Simple! 
                 </div>
-                <div className="fullButton">
-                    <img src={pass} alt="" />
-                    <div className="signUpButton" onClick={signUpClicked}>Sign Up For Free Today!</div>
+                <div className="fullButton" onClick={signUpClicked}>
+                    <img src={signup} alt="" />
+                    <div className="signUpButton">Sign Up For Free Today!</div>
                 </div>
            </div>
         </div>

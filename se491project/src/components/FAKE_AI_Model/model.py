@@ -27,7 +27,7 @@ from keras import layers
 
 # Access data
 
-file_url = "se491project\src\components\FAKE_AI_Model\Data\patients.csv"
+file_url = "se491project/src/components/FAKE_AI_Model/Data/patients.csv"
 dataframe = pd.read_csv(file_url)
 
 # shape and show the data

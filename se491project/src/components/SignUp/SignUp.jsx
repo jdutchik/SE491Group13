@@ -18,8 +18,8 @@ const SignUp = () => {
                 <br></br>
                 Find peace of mind with our new and exciting Artificial Intelligence 
                 allergy detection service!
-                Begin your journey by filling out a brief survey, and reach out to your doctor.
-                Simple! 
+                Begin your journey by filling out a brief survey. Then all you need to do 
+                is get in contact with your doctor or physician for the results. It is that easy!
                 </div>
                 <div className="fullButton" onClick={signUpClicked}>
                     <img src={signup} alt="" />

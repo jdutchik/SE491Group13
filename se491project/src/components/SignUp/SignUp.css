@@ -45,7 +45,7 @@
     background: darkred;
     border-radius: 0px 50px 50px 0px;
 
-    font-size: 25px;
+    font-size: 150%;
     font-weight: 700;
 
     padding-left: 5%;
@@ -65,7 +65,7 @@
     width: 40%;
 
     margin: auto auto 150px auto;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;

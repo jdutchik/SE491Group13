@@ -7,6 +7,10 @@ import Account from "../Account/Account";
 import userEmoji from '../Assets/legoUser.png';
 import passwordEmoji from '../Assets/passwordLock.png';
 import codeEmoji from '../Assets/doctorTool.png';
+import facebook from '../Assets/facebook.png';
+import twitter from '../Assets/twitter.png';
+import github from '../Assets/github.png';
+import web from '../Assets/web.png';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -130,22 +134,22 @@ const Login = () => {
             <div class="social">
                 <div class="icon facebook">
                     <div class="tooltip">Facebook</div>
-                    <span><i class="fab fa-facebook-f"></i></span>
+                    <img src={facebook} alt="" />
                 </div>
 
                 <div class="icon twitter">
                     <div class="tooltip">Twitter</div>
-                    <span><i class="fab fa-twitter"></i></span>
+                    <img src={twitter} alt="" />
                 </div>
 
                 <div class="icon github">
                     <div class="tooltip">Github</div>
-                    <span><i class="fab fa-github"></i></span>
+                    <img src={github} alt="" />
                 </div>
 
                 <div class="icon website">
                     <div class="tooltip">Class Website</div>
-                    <span><i class="fab fa-youtube"></i></span>
+                    <img src={web} alt="" />
                 </div>
             </div>
         </div>

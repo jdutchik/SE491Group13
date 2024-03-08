@@ -44,7 +44,7 @@
     color: white;
     background: darkred;
     border-radius: 0px 50px 50px 0px;
-    
+
     font-size: 25px;
     font-weight: 700;
 
@@ -62,9 +62,10 @@
     bottom: 10%;
    
     height: 10%;
-    width: 30%;
+    width: 40%;
 
     margin: auto auto 150px auto;
+    
     display: flex;
     justify-content: center;
     align-items: center;

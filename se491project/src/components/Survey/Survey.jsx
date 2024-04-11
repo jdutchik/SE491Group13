@@ -154,10 +154,81 @@ const Survey = () => {
                         <input type='text' placeholder="Skin Tone" />
                     </div>
 
-                    {/* gender input field*/}
+                    {/* skin type input field*/}
                     <div className="questionDefault">
                         <h>Enter Any Patient's Skin Condition (dry, chapped, etc.)</h>
-                        <input type='text' placeholder="Conditions" />
+                        <select className="skinTypeInput">
+                            <option>sensitive-skin-allergist-diagnosed</option>
+                            <option>sensitive-skin-self-diagnosed</option>
+                            <option>allergic-contact-dermatitis</option>
+                            <option>eczema-atopic-skin</option>
+                            <option>dry-chapped-skin</option>
+                            <option>acne-pimples</option>
+                            <option>skin-allergies</option>
+                            <option>rosacea</option>
+                            <option>discoloration-hyperpigmentation</option>
+                            <option>fine-lines-wrinkles</option>
+                            <option>psoriasis</option>
+                            <option>Other:I%20have%20celiacs%20disease%20and%20need%20my%20products%20to%20be%20gluten%20free</option>
+                            <option>blackheads-whiteheads</option>
+                            <option>Other:Coconut</option>
+                            <option>Other:</option>
+                            <option>Other:Textile%20Dye%20Mix</option>
+                            <option>Other:Gluten</option>
+                            <option>Other:respiratory</option>
+                            <option>Other:patchy%20rash</option>
+                            <option>Other:Tbd</option>
+                            <option>Other:Congestion</option>
+                            <option>Other:Contact%20dermatitis%20</option>
+                            <option>Other:Ffa</option>
+                            <option>Other:Dermatologist%20</option>
+                            <option>Other:Rash</option>
+                            <option>Other:Balsam%20Peru</option>
+                            <option>Other:I</option>
+                            <option>Other:Itching</option>
+                            <option>Other:Rashes%20</option>
+                            <option>Other:mystery%20body%20rash</option>
+                            <option>Other:PPD</option>
+                            <option>Other:My%20gf%20gets%20rashes%20so%20I%20need%20to%20change%20my%20products</option>
+                            <option>Other:Alopecia%20</option>
+                            <option>Other:AP93</option>
+                            <option>Other:Dry%20skin</option>
+                            <option>Other:Cocamidopropyl%20Betaine</option>
+                            <option>Other:Metal</option>
+                            <option>Other:Ethylenediamine%20Dihydrochloride%2C%20Potassium%20Dichromate</option>
+                            <option>Other:Nickel%20</option>
+                            <option>Other:Other</option>
+                            <option>Other:Low%20level%20allergy%20to%20Balsam%20of%20Peru</option>
+                            <option>Other:Allergies%20</option>
+                            <option>Other:glutaral%20%26%20iodopropynl%20butyl%20carbamate</option>
+                            <option>Other:Balsam%20of%20Peru%20allergic%20</option>
+                            <option>Other:licus%20planus</option>
+                            <option>Other:lip%20inflammation</option>
+                            <option>Other:hives</option>
+                            <option>Other:Lichen%20Sclerosis</option>
+                            <option>Other:Dry%20Lips</option>
+                            <option>other</option>
+                            <option>Other:Occassional%20rash%20outbreaks</option>
+                            <option>Other:Propolis</option>
+                            <option>Other:Allergic%20to%20Cocamidopropyl%20Betaine</option>
+                            <option>Other:Surgical%20site%20healing%20issues</option>
+                            <option>Other:Urticaria%20</option>
+                            <option>Other:Polysorbate%2080</option>
+                            <option>Other:Fragrance%20</option>
+                            <option>Other:Contact%20Dermatitis</option>
+                            <option>Other:Red%2C%20peeling%2C%20itchy%2C%20burning%20lips</option>
+                            <option>Other:Celiac</option>
+                            <option>Other:perioral%20dermatitis</option>
+                            <option>Other:scalp</option>
+                            <option>Other:scalp%20issues</option>
+                            <option>Other:Hives%20on%20legs%20</option>
+                            <option>Other:Itchy%20scalp%20with%20hair%20loss</option>
+                            <option>Other:Allergic%20reaction%20</option>
+                            <option>Other:Excema</option>
+                            <option>Other:Dermatitis%20Herpetiformis%20%28dermatologist%20diagnosed%29</option>
+                            <option>Other:Allergic%20to%20polyethylene%20glycol%20%28peg%29</option>
+                            <option>Other:oral%20lichen%20Plans</option>
+                        </select>
                     </div>
                 </div>
             </form>

@@ -1,7 +1,7 @@
 import React from "react";
 import './SignUp.css';
 
-import sneezeImg from '../Assets/allergyMonster.PNG';
+import sneezeImg from '../Assets/monster.png';
 import signup from '../Assets/checklist.png';
 
 const SignUp = () => {

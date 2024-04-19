@@ -5,6 +5,10 @@
 
     width: 50%;
     height: 100vh;
+
+    border-style: solid;
+    border-color: goldenrod;
+    border-width: 0px 0px 0px 15px;
 }
 
 .header {

@@ -7,8 +7,8 @@ import Account from "../Account/Account";
 import userEmoji from '../Assets/legoUser.png';
 import passwordEmoji from '../Assets/passwordLock.png';
 import codeEmoji from '../Assets/doctorTool.png';
-import facebook from '../Assets/facebook.png';
-import twitter from '../Assets/twitter.png';
+import docs from '../Assets/google-docs.png';
+import news from '../Assets/news.png';
 import github from '../Assets/github.png';
 import web from '../Assets/web.png';
 
@@ -142,14 +142,14 @@ const Login = () => {
                     <img src={web} alt="" />
                 </div>
 
-                <div class="icon website">
+                <div class="icon document">
                     <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Design Document</a></div>
-                    <img src={web} alt="" />
+                    <img src={docs} alt="" />
                 </div>
 
-                <div class="icon website">
+                <div class="icon news">
                     <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">News Report</a></div>
-                    <img src={web} alt="" />
+                    <img src={news} alt="" />
                 </div>
             </div>
         </div>

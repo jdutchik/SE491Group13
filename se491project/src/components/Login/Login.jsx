@@ -132,23 +132,23 @@ const Login = () => {
             </div>
 
             <div class="social">
-                <div class="icon facebook">
-                    <div class="tooltip">Facebook</div>
-                    <img src={facebook} alt="" />
-                </div>
-
-                <div class="icon twitter">
-                    <div class="tooltip">Twitter</div>
-                    <img src={twitter} alt="" />
-                </div>
-
                 <div class="icon github">
-                    <div class="tooltip">Github</div>
+                    <div class="tooltip"><a href="https://github.com/jdutchik/SE492Group13.git">GitHub</a></div>
                     <img src={github} alt="" />
                 </div>
 
                 <div class="icon website">
-                    <div class="tooltip">Class Website</div>
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Class Website</a></div>
+                    <img src={web} alt="" />
+                </div>
+
+                <div class="icon website">
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Design Document</a></div>
+                    <img src={web} alt="" />
+                </div>
+
+                <div class="icon website">
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">News Report</a></div>
                     <img src={web} alt="" />
                 </div>
             </div>

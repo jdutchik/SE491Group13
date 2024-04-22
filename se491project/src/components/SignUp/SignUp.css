@@ -11,41 +11,43 @@
     background-image: url('../Assets/monster.png');
 }
 
-.signup-img {
-    border-style: solid;
-    border-color: goldenrod;
-    border-width: 15px 0px 15px 0px;
-    width: 100%;
-    padding: 1% 0% 0.5% 0%;
-}
-
-.signUpInfo {
-    display: flex;
-    flex-direction: column;
-}
-
 .intro-signup {
-    font-size: 1.5em;
-    font-weight: 700;
+    font-size: 1.8em;
+    font-weight: 1000;
 
     text-align: center;
 
-    color: white;
+    color: goldenrod;
+
+    backdrop-filter: blur(2px);
 
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+    
+    height: min-content;
+    padding: 2%;
+}
 
-    padding: 5%;
+.fun {
+    color: darkred;
+    font-size: 2em;
+    font-weight: 1000;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
 }
 
 .paragraph {
     font-size: 1.5em;
-    font-weight: 700;
+    font-weight: 1000;
 
-    padding: 5%;
+    height: min-content;
+    padding: 2%;
+
     text-align: center;
 
-    color: white;
+    color: goldenrod;
+
+    backdrop-filter: blur(2px);
 
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
@@ -68,12 +70,14 @@
     border-width: 5px;
 
     width: 50%;
+    
+    margin: 5%;
 }
 
 .fullButton img {
     width: 25%;
     border-width: 0px;
-    padding: 1%;
+    padding: 5%;
 }
 
 .signUpButton {   

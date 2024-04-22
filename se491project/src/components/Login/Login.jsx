@@ -133,23 +133,23 @@ const Login = () => {
 
             <div class="social">
                 <div class="icon github">
-                    <div class="tooltip"><a href="https://github.com/jdutchik/SE492Group13.git">GitHub</a></div>
                     <img src={github} alt="" />
+                    <div class="tooltip"><a href="https://github.com/jdutchik/SE492Group13.git">GitHub</a></div>
                 </div>
 
                 <div class="icon website">
-                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Class Website</a></div>
                     <img src={web} alt="" />
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Class Website</a></div>
                 </div>
 
                 <div class="icon document">
-                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Design Document</a></div>
                     <img src={docs} alt="" />
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Design Document</a></div>
                 </div>
 
                 <div class="icon news">
-                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">News Report</a></div>
                     <img src={news} alt="" />
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">News Report</a></div>
                 </div>
             </div>
         </div>

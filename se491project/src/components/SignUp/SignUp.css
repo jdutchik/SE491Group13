@@ -1,7 +1,6 @@
 .signUpContainer {
     display: flex;
     flex-direction: column;
-    width: 600px;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -14,24 +13,30 @@
     object-fit: fill;
     width: 100%;
     height: 100vh;
-    opacity: 0.80;
+    
+
+    border-color: goldenrod;
+    border-style: solid;
+    border-width: 0px 15px 0px 0px;
 }
 
 .signUpInfo {
-    font-size: 150%;
+    font-size: 1.65em;
     font-weight: 700;
+
     padding: 5%;
-    color: goldenrod;
+    color: darkred;
     text-align: center;
     position: absolute;
+
     top: 0;
     left: 0;
     right: 0;
     height: fit-content;
     margin: 0px auto auto auto;
-    text-shadow: 2px 0 black, -2px 0 black, 0 2px black, 0 -2px black,
-               1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
 
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 
 .signUpButton {   
@@ -42,7 +47,7 @@
     background: darkred;
     border-radius: 0px 50px 50px 0px;
 
-    font-size: 90%;
+    font-size: 1.25em;
     font-weight: 700;
 
     padding-left: 5%;
@@ -55,13 +60,13 @@
     text-align: center;
     position: absolute;
 
-    right: 35%;
+    right: 25%;
     bottom: 10%;
    
     height: 10%;
-    width: 40%;
+    width: 50%;
 
-    margin: auto auto 150px auto;
+    
 
     display: flex;
     justify-content: center;
@@ -71,12 +76,16 @@
     border-radius: 50px 50px 50px 50px;
 
     cursor: pointer;
+
+    border-color: goldenrod;
+    border-style: solid;
+    border-width: 5px;
 }
 
 .fullButton img {
-    width: 100px;
-    height: 100px;
-    opacity: 100;
+    width: 45%;
+    height: 80%;
 
     margin-left: 7%;
+    border-width: 0px;
 }

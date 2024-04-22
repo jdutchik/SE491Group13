@@ -5,8 +5,10 @@
 
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
     width: 50%;
+
+    background-image: url('../Assets/monster.png');
 }
 
 .signup-img {

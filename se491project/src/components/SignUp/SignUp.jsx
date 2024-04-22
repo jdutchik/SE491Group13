@@ -1,7 +1,6 @@
 import React from "react";
 import './SignUp.css';
 
-import sneezeImg from '../Assets/monster.png';
 import signup from '../Assets/checklist.png';
 
 const SignUp = () => {
@@ -16,9 +15,6 @@ const SignUp = () => {
                     Are allergies putting a damper on your day? <br></br>
                     Do you find yourself constantly battling sneezing, hives, or red eyes? <br></br>
                     Do you find yourself a victim of the WICKED Allergy Monster? <br></br>
-                </div>
-                <div className='signup-img'>
-                    <img src={sneezeImg}></img>
                 </div>
                 <div className='paragraph'> 
                     Find peace of mind with our new and exciting Artificial Intelligence 

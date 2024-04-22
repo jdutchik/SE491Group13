@@ -144,12 +144,12 @@ const Login = () => {
 
                 <div class="icon document">
                     <img src={docs} alt="" />
-                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Design Document</a></div>
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/Final_Design_Document_Team13.pdf">Design Document</a></div>
                 </div>
 
                 <div class="icon news">
                     <img src={news} alt="" />
-                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">News Report</a></div>
+                    <div class="tooltip"><a href="https://www.youtube.com/watch?v=KucyzXRjU2Y/">News Report</a></div>
                 </div>
             </div>
         </div>

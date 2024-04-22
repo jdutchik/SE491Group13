@@ -7,7 +7,7 @@
     height: 100vh;
 
     border-style: solid;
-    border-color: goldenrod;
+    border-color: gold;
     border-width: 0px 0px 0px 15px;
 }
 
@@ -126,7 +126,8 @@
     background: whitesmoke;
 
     border-style: solid;
-    border-color: blue;
+    border-color: gold;
+    border-width: 10px;
 }
 
 .social img {

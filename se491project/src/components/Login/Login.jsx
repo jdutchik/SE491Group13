@@ -7,8 +7,8 @@ import Account from "../Account/Account";
 import userEmoji from '../Assets/legoUser.png';
 import passwordEmoji from '../Assets/passwordLock.png';
 import codeEmoji from '../Assets/doctorTool.png';
-import facebook from '../Assets/facebook.png';
-import twitter from '../Assets/twitter.png';
+import docs from '../Assets/google-docs.png';
+import news from '../Assets/news.png';
 import github from '../Assets/github.png';
 import web from '../Assets/web.png';
 
@@ -132,24 +132,24 @@ const Login = () => {
             </div>
 
             <div class="social">
-                <div class="icon facebook">
-                    <div class="tooltip">Facebook</div>
-                    <img src={facebook} alt="" />
-                </div>
-
-                <div class="icon twitter">
-                    <div class="tooltip">Twitter</div>
-                    <img src={twitter} alt="" />
-                </div>
-
                 <div class="icon github">
-                    <div class="tooltip">Github</div>
                     <img src={github} alt="" />
+                    <div class="tooltip"><a href="https://github.com/jdutchik/SE492Group13.git">GitHub</a></div>
                 </div>
 
                 <div class="icon website">
-                    <div class="tooltip">Class Website</div>
                     <img src={web} alt="" />
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Class Website</a></div>
+                </div>
+
+                <div class="icon document">
+                    <img src={docs} alt="" />
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/Final_Design_Document_Team13.pdf">Design Document</a></div>
+                </div>
+
+                <div class="icon news">
+                    <img src={news} alt="" />
+                    <div class="tooltip"><a href="https://www.youtube.com/watch?v=KucyzXRjU2Y/">News Report</a></div>
                 </div>
             </div>
         </div>

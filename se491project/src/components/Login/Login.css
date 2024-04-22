@@ -5,6 +5,10 @@
 
     width: 50%;
     height: 100vh;
+
+    border-style: solid;
+    border-color: gold;
+    border-width: 0px 0px 0px 15px;
 }
 
 .header {
@@ -31,7 +35,8 @@
 
 .titleText {
     color: goldenrod;
-    font-size: 200%;
+
+    font-size: 2em;
     font-weight: 700;
 }
 
@@ -63,7 +68,8 @@
     background: transparent;
     border: none;
     outline: none;
-    font-size: 19px;
+
+    font-size: 1em;
 }
 
 .submit {
@@ -79,9 +85,11 @@
     width: 220px;
     height: 100%;
     color: white;
+
     background: darkred;
     border-radius: 50px;
-    font-size: 19px;
+
+    font-size: 1.25em;
     font-weight: 700;
     cursor: pointer;
 }
@@ -98,7 +106,7 @@
 
 .doctorSwitch {
     color: blueviolet;
-    font-size: 120%;
+    font-size: 1.5em;
     font-weight: 700;
     cursor: pointer;
     text-decoration: underline;
@@ -116,6 +124,10 @@
     position: absolute;
 
     background: whitesmoke;
+
+    border-style: solid;
+    border-color: gold;
+    border-width: 10px;
 }
 
 .social img {
@@ -126,7 +138,7 @@
 
 .tooltip {
     color: rgb(52, 52, 52);
-    font-size: 19px;
+    font-size: 1em;
     font-weight: 700;
     cursor: pointer;
 }

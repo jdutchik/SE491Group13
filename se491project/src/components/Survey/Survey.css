@@ -358,3 +358,8 @@ body {
 
     margin: 25px 0px 20px 0px;
 }
+
+path:hover {
+    opacity: 0.50;
+    cursor: pointer;
+  }

@@ -74,7 +74,7 @@ const Survey = () => {
     e.preventDefault();
 
     const formattedDob = `${dob.year}-${dob.month.padStart(2, '0')}-${dob.day.padStart(2, '0')}`;
-    
+
     const completePatientData = {
       ...userData,
       ...patientData,
@@ -200,7 +200,7 @@ const Survey = () => {
 
           <div className="location">
             <h>Home State</h>
-            <USAMap onClick={mapHandler}/>
+            <USAMap onClick={mapHandler} />
           </div>
 
           {/* skin ton input field*/}
@@ -208,21 +208,32 @@ const Survey = () => {
             <h>Skin Tone</h>
             <div className="options">
               <label>
+                <div class="dark"></div>
                 <input type="radio" name="skin_tone" value="Dark" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Dark'} /> Dark
               </label>
+
               <label>
+                <div class="brown"></div>
                 <input type="radio" name="skin_tone" value="Brown" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Brown'} /> Brown
               </label>
+
               <label>
+                <div class="olive"></div>
                 <input type="radio" name="skin_tone" value="Olive" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Olive'} /> Olive
               </label>
+
               <label>
+                <div class="medium"></div>
                 <input type="radio" name="skin_tone" value="Medium" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Medium'} /> Medium
               </label>
+
               <label>
+                <div class="fair"></div>
                 <input type="radio" name="skin_tone" value="Fair" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Fair'} /> Fair
               </label>
+
               <label>
+                <div class="light"></div>
                 <input type="radio" name="skin_tone" value="Light" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Light'} /> Light
               </label>
             </div>

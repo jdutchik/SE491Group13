@@ -2,8 +2,91 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Survey.css';
 
+const symptoms = [
+  "Sensitive skin allergist diagnosed",
+  "Sensitive skin self diagnosed",
+  "Allergic contact dermatitis",
+  "Eczema atopic skin",
+  "Dry chapped skin",
+  "Acne pimples",
+  "Skin allergies",
+  "Rosacea",
+  "Discoloration hyperpigmentation",
+  "Fine lines wrinkles",
+  "Psoriasis",
+  "I have celiacs disease and need my products to be gluten free",
+  "Blackheads whiteheads",
+  "Coconut",
+  "Textile Dye Mix",
+  "Gluten",
+  "Respiratory",
+  "Patchy rash",
+  "Tbd",
+  "Congestion",
+  "Contact dermatitis",
+  "Ffa",
+  "Dermatologist",
+  "Rash",
+  "Balsam Peru",
+  "I",
+  "Itching",
+  "Rashes",
+  "Mystery body rash",
+  "PPD",
+  "My gf gets rashes so I need to change my products",
+  "Alopecia",
+  "AP93",
+  "Dry skin",
+  "Cocamidopropyl Betaine",
+  "Metal",
+  "Ethylenediamine Dihydrochloride, Potassium Dichromate",
+  "Nickel",
+  "Low level allergy to Balsam of Peru",
+  "Allergies",
+  "Glutaral & iodopropynl butyl carbamate",
+  "Balsam of Peru allergic",
+  "Licus planus",
+  "Lip inflammation",
+  "Hives",
+  "Lichen Sclerosis",
+  "Dry Lips",
+  "Occasional rash outbreaks",
+  "Propolis",
+  "Allergic to Cocamidopropyl Betaine",
+  "Surgical site healing issues",
+  "Urticaria",
+  "Polysorbate 80",
+  "Fragrance",
+  "Contact Dermatitis",
+  "Red, peeling, itchy, burning lips",
+  "Celiac",
+  "Perioral dermatitis",
+  "Scalp",
+  "Scalp issues",
+  "Hives on legs",
+  "Itchy scalp with hair loss",
+  "Allergic reaction",
+  "Excema",
+  "Dermatitis Herpetiformis (dermatologist diagnosed)",
+  "Allergic to polyethylene glycol (peg)",
+  "Oral lichen Plans"
+];
+
 const Survey = () => {
   const navigate = useNavigate();
+
+
+  const initialSymptoms = symptoms.map(symptom => ({
+    name: symptom,
+    isSelected: false
+}));
+const [symptomList, setSymptomList] = useState(initialSymptoms);
+
+const toggleSymptomSelection = (index) => {
+    const newSymptoms = [...symptomList];
+    newSymptoms[index].isSelected = !newSymptoms[index].isSelected;
+    setSymptomList(newSymptoms);
+};
 
   const submitClicked = () => {
     window.location.href = '/';
@@ -17,7 +100,8 @@ const Survey = () => {
   const [patientData, setPatientData] = useState({
     name: '',
     gender: '',
-    skin_tone: ''
+    skin_tone: '',
+    state: ''
   });
 
   const [dob, setDob] = useState({
@@ -41,36 +125,56 @@ const Survey = () => {
     setDob({ ...dob, [name]: value });
   };
 
+
+
+
+
   const handleSurveySubmit = async (e) => {
     e.preventDefault();
 
+    // Formatting the date of birth as before
     const formattedDob = `${dob.year}-${dob.month.padStart(2, '0')}-${dob.day.padStart(2, '0')}`;
-    
+
+    // Constructing the complete symptoms string
+    const selectedSymptoms = symptomList
+        .filter(symptom => symptom.isSelected)
+        .map(symptom => symptom.name)
+        .join(', '); // Join the selected symptoms with a comma and space
+
+    // Constructing the complete data object including the symptoms
     const completePatientData = {
-      ...userData,
-      ...patientData,
-      dob: formattedDob
+        ...userData,
+        ...patientData,
+        dob: formattedDob,
+        symptoms: selectedSymptoms // Append the selected symptoms as a string
     };
 
-    try {
-      const response = await fetch('http://localhost:3001/survey/patients', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(completePatientData),
-      });
+    console.log('Complete Patient Data:', completePatientData);
 
-      if (response.ok) {
-        console.log('Patient data submitted successfully');
-        navigate('/'); // Redirect to homepage upon successful submission
-      } else {
-        console.error('Failed to submit patient data');
-      }
+    try {
+        const response = await fetch('http://localhost:3001/survey/patients', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(completePatientData),
+        });
+
+        if (response.ok) {
+            console.log('Patient data submitted successfully');
+            navigate('/'); // Redirect to homepage upon successful submission
+        } else {
+            console.error('Failed to submit patient data');
+        }
     } catch (error) {
-      console.error('Error:', error);
+        console.error('Error:', error);
     }
-  };
+};
+  
+
+
+
+
   return (
     <div className="surveyContainer">
       <form className="userForm" onSubmit={handleSurveySubmit}>
@@ -132,6 +236,25 @@ const Survey = () => {
                 <option value="Other">Other</option>
               </select>
             </div>
+
+            <div className="questionDefault">
+              <h>State</h>
+              <select name="state" value={patientData.state} onChange={handlePatientInputChange} className="stateInput">
+                {["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+                  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+                  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+                  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+                  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+                  .map(state => (
+                    <option key={state} value={state}>{state}</option>
+                  ))}
+              </select>
+            </div>
+
+
+
+
+
           </div>
 
           <div className="skintone">
@@ -157,6 +280,24 @@ const Survey = () => {
               </label>
             </div>
           </div>
+
+          <div className="questionDefault">
+                    <h>Skin Symptoms</h>
+                    <div className="symptom-list">
+                        {symptomList.map((symptom, index) => (
+                            <div key={index} className="symptom-item">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={symptom.isSelected}
+                                        onChange={() => toggleSymptomSelection(index)}
+                                    />
+                                    {symptom.name}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
           <button type="submit" className="surveySubmit" onClick={submitClicked}>Submit</button>
         </div>

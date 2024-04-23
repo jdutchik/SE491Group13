@@ -260,6 +260,35 @@ body {
     color: goldenrod;
 }
 
+.other h {
+    color: goldenrod;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 2% 25% 5% 25%;
+}
+
+.other {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 1%;
+
+    background-color: darkred;
+
+    border: gold;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 8px;
+
+    width: 50%;
+}
+
+.other label {
+    color: white;
+    font-size: 1.25em;
+    padding: 1%;
+}
+
 .surveySubmit {
     display: flex;
     justify-content: center;
@@ -328,11 +357,4 @@ body {
     width: 70px;
 
     margin: 25px 0px 20px 0px;
-}
-
-.other h {
-    color: goldenrod;
-    font-size: 25px;
-    font-weight: 500;
-    margin: 10px 10px 25px 0px;
 }

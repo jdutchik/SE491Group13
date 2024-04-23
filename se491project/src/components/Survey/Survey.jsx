@@ -246,10 +246,43 @@ const Survey = () => {
             </div>
           </div>
 
-          {/* gender input field*/}
+          {/* other input field*/}
           <div className="other">
-            <h>Experiencing Any Unusual Symptoms? (Hives, Red Eyes, Dry Skin, etc.)</h>
-            <input type='text' placeholder="List All Concerns Here" />
+            <h>Experiencing Any Unusual Symptoms?</h>
+            <div className="other-options">
+              <input type="checkbox" name="ssad" value="ssad"></input>
+              <label for="ssad"> Sensitive Skin (allergist diagnosed)</label><br></br>
+
+              <input type="checkbox" name="sssd" value="sssd"></input>
+              <label for="sssd"> Sensitive Skin (self diagnosed)</label><br></br>
+
+              <input type="checkbox" name="acd" value="acd"></input>
+              <label for="acd"> Allergic Contact Dermatitis</label><br></br>
+
+              <input type="checkbox" name="eas" value="eas"></input>
+              <label for="eas"> Eczema Atopic Skin</label><br></br>
+
+              <input type="checkbox" name="dcs" value="dcs"></input>
+              <label for="dcs"> Dry Chapped Skin</label><br></br>
+
+              <input type="checkbox" name="ap" value="ap"></input>
+              <label for="ap"> Acne Pimples</label><br></br>
+
+              <input type="checkbox" name="sa" value="sa"></input>
+              <label for="sa"> Skin Allergies</label><br></br>
+
+              <input type="checkbox" name="ros" value="ros"></input>
+              <label for="ros"> Rosacea</label><br></br>
+
+              <input type="checkbox" name="dh" value="dh"></input>
+              <label for="dh"> Discoloration Hyperpigmentation</label><br></br>
+
+              <input type="checkbox" name="flw" value="flw"></input>
+              <label for="flw"> Fine Lines Wrinkles</label><br></br>
+
+              <input type="checkbox" name="pso" value="pso"></input>
+              <label for="pso"> Psoriasis</label><br></br>
+            </div>
           </div>
         </div>
       </form>

@@ -1,7 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import './Survey.css';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+import USAMap from "react-usa-map";
+
 const Survey = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const years = [];
+  for (let year = 1960; year <= 2024; year++) {
+    years.push(year);
+  }
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   const submitClicked = () => {
     window.location.href = '/';
   };
@@ -103,56 +129,84 @@ const Survey = () => {
         <div className="questions">
 
           {/* Name input field */}
-          <div className="double">
-            <div className="first">
-              <h>Email</h>
-              <input type="text" placeholder="example@gmail.com" />
-            </div>
+          <div className="first-six">
+            <div className="user-info">
+              <div className="basic">
+                <h>Email</h>
+                <input type="text" placeholder="example@gmail.com" />
+              </div>
 
-            <div className="last">
-              <h>Name</h>
-              <input type="text" placeholder="Full Legal Name" />
-            </div>
-          </div>
+              <div className="basic">
+                <h>Username</h>
+                <input type="text" placeholder="Enter Username" />
+              </div>
 
-          <div className="double">
-            <div className="first">
-              <h>Username</h>
-              <input type="text" placeholder="Enter Username" />
-            </div>
-
-            <div className="last">
-              <h>Password</h>
-              <input type="text" placeholder="Enter Password" />
-            </div>
-          </div>
-
-          {/* Age input field */}
-          <div className="triple">
-            <div className="questionDefault">
-              <h>Date of Birth</h>
-              <div className="DOB">
-                <input type="text" placeholder="DD" />
-                <input type="text" placeholder="MM" />
-                <input type="text" placeholder="YYYY" />
+              <div className="basic">
+                <h>Password</h>
+                <input type="text" placeholder="Enter Password" />
               </div>
             </div>
 
-            {/* gender input field */}
-            <div className="questionDefault">
-              <h>Gender</h>
-              <select className="genderInput">
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </div>
+            <div class="patient-info">
+              {/* Age input field */}
+              <div className="name-gender">
+                <div className="name">
+                  <h>Full Patient Name</h>
+                  <input type="text" placeholder="Enter Full Patient Name" />
+                </div>
 
-            {/* location input field*/}
-            <div className="questionDefault">
-              <h>Country of Origin</h>
-              <input type='text' placeholder="Country Name" />
+                {/* gender input field */}
+                <div className="gender">
+                  <h>Gender</h>
+                  <select className="genderInput">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="DOB">
+                <h>Date of Birth</h>
+                <DatePicker
+                  showIcon
+                  inline
+                  renderCustomHeader={({ date,
+                    changeYear,
+                    changeMonth }) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <select value={date.getFullYear()} onChange={({ target: { value } }) => changeYear(value)}>
+                        {years.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+
+                      <select value={months[date.getMonth()]} onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}>
+                        {months.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                />
+              </div>
             </div>
+          </div>
+
+          <div className="location">
+            <h>Home State</h>
+            <USAMap />
           </div>
 
           {/* skin ton input field*/}

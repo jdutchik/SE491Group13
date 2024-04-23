@@ -2,7 +2,36 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Survey.css';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+import USAMap from "react-usa-map";
+
 const Survey = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const years = [];
+  for (let year = 1960; year <= 2024; year++) {
+    years.push(year);
+  }
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const mapHandler = (event) => {
+    alert(event.target.dataset.name);
+  };
   const navigate = useNavigate();
 
   const submitClicked = () => {
@@ -92,48 +121,89 @@ const Survey = () => {
         </div>
 
         <div className="questions">
-          <div className="double">
-            <div className="first">
-              <h>Email</h>
-              <input type="text" name="email" value={userData.email} onChange={handleUserInputChange} placeholder="example@gmail.com" />
-            </div>
-            <div className="last">
-              <h>Name</h>
-              <input type="text" name="name" value={patientData.name} onChange={handlePatientInputChange} placeholder="Full Legal Name" />
-            </div>
-          </div>
 
-          <div className="double">
-            <div className="first">
-              <h>Username</h>
-              <input type="text" name="username" value={userData.username} onChange={handleUserInputChange} placeholder="Enter Username" />
-            </div>
-            <div className="last">
-              <h>Password</h>
-              <input type="text" name="password" value={userData.password} onChange={handleUserInputChange} placeholder="Enter Password" />
-            </div>
-          </div>
+          {/* Name input field */}
+          <div className="first-six">
+            <div className="user-info">
+              <div className="basic">
+                <h>Email</h>
+                <input type="text" placeholder="example@gmail.com" />
+              </div>
 
-          <div className="triple">
-            <div className="questionDefault">
-              <h>Date of Birth</h>
-              <div className="DOB">
-                <input type="text" name="day" value={dob.day} onChange={handleDobChange} placeholder="DD" />
-                <input type="text" name="month" value={dob.month} onChange={handleDobChange} placeholder="MM" />
-                <input type="text" name="year" value={dob.year} onChange={handleDobChange} placeholder="YYYY" />
+              <div className="basic">
+                <h>Username</h>
+                <input type="text" placeholder="Enter Username" />
+              </div>
+
+              <div className="basic">
+                <h>Password</h>
+                <input type="text" placeholder="Enter Password" />
               </div>
             </div>
 
-            <div className="questionDefault">
-              <h>Gender</h>
-              <select name="gender" value={patientData.gender} onChange={handlePatientInputChange} className="genderInput">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
+            <div class="patient-info">
+              {/* Age input field */}
+              <div className="name-gender">
+                <div className="name">
+                  <h>Full Patient Name</h>
+                  <input type="text" placeholder="Enter Full Patient Name" />
+                </div>
+
+                {/* gender input field */}
+                <div className="gender">
+                  <h>Gender</h>
+                  <select className="genderInput">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="DOB">
+                <h>Date of Birth</h>
+                <DatePicker
+                  showIcon
+                  inline
+                  renderCustomHeader={({ date,
+                    changeYear,
+                    changeMonth }) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <select value={date.getFullYear()} onChange={({ target: { value } }) => changeYear(value)}>
+                        {years.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+
+                      <select value={months[date.getMonth()]} onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}>
+                        {months.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                />
+              </div>
             </div>
           </div>
 
+          <div className="location">
+            <h>Home State</h>
+            <USAMap onClick={mapHandler}/>
+          </div>
+
+          {/* skin ton input field*/}
           <div className="skintone">
             <h>Skin Tone</h>
             <div className="options">
@@ -158,6 +228,44 @@ const Survey = () => {
             </div>
           </div>
 
+          {/* other input field*/}
+          <div className="other">
+            <h>Experiencing Any Unusual Symptoms?</h>
+            <div className="other-options">
+              <input type="checkbox" name="ssad" value="ssad"></input>
+              <label for="ssad"> Sensitive Skin (allergist diagnosed)</label><br></br>
+
+              <input type="checkbox" name="sssd" value="sssd"></input>
+              <label for="sssd"> Sensitive Skin (self diagnosed)</label><br></br>
+
+              <input type="checkbox" name="acd" value="acd"></input>
+              <label for="acd"> Allergic Contact Dermatitis</label><br></br>
+
+              <input type="checkbox" name="eas" value="eas"></input>
+              <label for="eas"> Eczema Atopic Skin</label><br></br>
+
+              <input type="checkbox" name="dcs" value="dcs"></input>
+              <label for="dcs"> Dry Chapped Skin</label><br></br>
+
+              <input type="checkbox" name="ap" value="ap"></input>
+              <label for="ap"> Acne Pimples</label><br></br>
+
+              <input type="checkbox" name="sa" value="sa"></input>
+              <label for="sa"> Skin Allergies</label><br></br>
+
+              <input type="checkbox" name="ros" value="ros"></input>
+              <label for="ros"> Rosacea</label><br></br>
+
+              <input type="checkbox" name="dh" value="dh"></input>
+              <label for="dh"> Discoloration Hyperpigmentation</label><br></br>
+
+              <input type="checkbox" name="flw" value="flw"></input>
+              <label for="flw"> Fine Lines Wrinkles</label><br></br>
+
+              <input type="checkbox" name="pso" value="pso"></input>
+              <label for="pso"> Psoriasis</label><br></br>
+            </div>
+          </div>
           <button type="submit" className="surveySubmit" onClick={submitClicked}>Submit</button>
         </div>
       </form>

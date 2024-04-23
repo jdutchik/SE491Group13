@@ -28,6 +28,10 @@ const Survey = () => {
     "December",
   ];
 
+  const mapHandler = (event) => {
+    alert(event.target.dataset.name);
+  };
+
   const submitClicked = () => {
     window.location.href = '/';
   };
@@ -206,7 +210,7 @@ const Survey = () => {
 
           <div className="location">
             <h>Home State</h>
-            <USAMap />
+            <USAMap onClick={mapHandler}/>
           </div>
 
           {/* skin ton input field*/}

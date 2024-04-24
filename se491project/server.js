@@ -8,7 +8,7 @@ const app = express();
 
 // Use CORS middleware to allow requests from http://localhost:3000
 app.use(cors({
-  origin: 'http://ec2-54-87-221-186.compute-1.amazonaws.com:3000/'
+  origin: 'http://ec2-54-87-221-186.compute-1.amazonaws.com:3000'
 }));
 
 // Support parsing of application/json type post data

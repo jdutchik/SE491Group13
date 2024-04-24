@@ -2,37 +2,91 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Survey.css';
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
-import USAMap from "react-usa-map";
+const symptoms = [
+  "Sensitive skin allergist diagnosed",
+  "Sensitive skin self diagnosed",
+  "Allergic contact dermatitis",
+  "Eczema atopic skin",
+  "Dry chapped skin",
+  "Acne pimples",
+  "Skin allergies",
+  "Rosacea",
+  "Discoloration hyperpigmentation",
+  "Fine lines wrinkles",
+  "Psoriasis",
+  "I have celiacs disease and need my products to be gluten free",
+  "Blackheads whiteheads",
+  "Coconut",
+  "Textile Dye Mix",
+  "Gluten",
+  "Respiratory",
+  "Patchy rash",
+  "Tbd",
+  "Congestion",
+  "Contact dermatitis",
+  "Ffa",
+  "Dermatologist",
+  "Rash",
+  "Balsam Peru",
+  "I",
+  "Itching",
+  "Rashes",
+  "Mystery body rash",
+  "PPD",
+  "My gf gets rashes so I need to change my products",
+  "Alopecia",
+  "AP93",
+  "Dry skin",
+  "Cocamidopropyl Betaine",
+  "Metal",
+  "Ethylenediamine Dihydrochloride, Potassium Dichromate",
+  "Nickel",
+  "Low level allergy to Balsam of Peru",
+  "Allergies",
+  "Glutaral & iodopropynl butyl carbamate",
+  "Balsam of Peru allergic",
+  "Licus planus",
+  "Lip inflammation",
+  "Hives",
+  "Lichen Sclerosis",
+  "Dry Lips",
+  "Occasional rash outbreaks",
+  "Propolis",
+  "Allergic to Cocamidopropyl Betaine",
+  "Surgical site healing issues",
+  "Urticaria",
+  "Polysorbate 80",
+  "Fragrance",
+  "Contact Dermatitis",
+  "Red, peeling, itchy, burning lips",
+  "Celiac",
+  "Perioral dermatitis",
+  "Scalp",
+  "Scalp issues",
+  "Hives on legs",
+  "Itchy scalp with hair loss",
+  "Allergic reaction",
+  "Excema",
+  "Dermatitis Herpetiformis (dermatologist diagnosed)",
+  "Allergic to polyethylene glycol (peg)",
+  "Oral lichen Plans"
+];
 
 const Survey = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const years = [];
-  for (let year = 1960; year <= 2024; year++) {
-    years.push(year);
-  }
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const mapHandler = (event) => {
-    alert(event.target.dataset.name);
-  };
   const navigate = useNavigate();
+
+
+  const initialSymptoms = symptoms.map(symptom => ({
+    name: symptom,
+    isSelected: false
+}));
+const [symptomList, setSymptomList] = useState(initialSymptoms);
+
+const toggleSymptomSelection = (index) => {
+    const newSymptoms = [...symptomList];
+    newSymptoms[index].isSelected = !newSymptoms[index].isSelected;
+    setSymptomList(newSymptoms);
+};
 
   const submitClicked = () => {
     window.location.href = '/';
@@ -46,7 +100,8 @@ const Survey = () => {
   const [patientData, setPatientData] = useState({
     name: '',
     gender: '',
-    skin_tone: ''
+    skin_tone: '',
+    state: ''
   });
 
   const [dob, setDob] = useState({
@@ -70,36 +125,58 @@ const Survey = () => {
     setDob({ ...dob, [name]: value });
   };
 
+
+
+
+
   const handleSurveySubmit = async (e) => {
     e.preventDefault();
 
+    // Formatting the date of birth as before
     const formattedDob = `${dob.year}-${dob.month.padStart(2, '0')}-${dob.day.padStart(2, '0')}`;
 
+    // Constructing the complete symptoms string
+    const selectedSymptoms = symptomList
+        .filter(symptom => symptom.isSelected)
+        .map(symptom => symptom.name)
+        .join(', '); // Join the selected symptoms with a comma and space
+
+    // Constructing the complete data object including the symptoms
     const completePatientData = {
-      ...userData,
-      ...patientData,
-      dob: formattedDob
+        ...userData,
+        ...patientData,
+        dob: formattedDob,
+        symptoms: selectedSymptoms // Append the selected symptoms as a string
     };
 
-    try {
-      const response = await fetch('http://localhost:3001/survey/patients', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(completePatientData),
-      });
+    console.log('Complete Patient Data:', completePatientData);
 
-      if (response.ok) {
-        console.log('Patient data submitted successfully');
-        navigate('/'); // Redirect to homepage upon successful submission
-      } else {
-        console.error('Failed to submit patient data');
-      }
+    try {
+        const response = await fetch('http://localhost:4000/survey/patients', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(completePatientData),
+        });
+
+        if (response.ok) {
+            console.log('Patient data submitted successfully');
+            navigate('/'); // Redirect to homepage upon successful submission
+        } else {
+          console.log('Patient data FAILED TO SUBMIT');
+            console.error('Failed to submit patient data');
+        }
     } catch (error) {
-      console.error('Error:', error);
+      console.log('other error');
+        console.error('Error:', error);
     }
-  };
+};
+  
+
+
+
+
   return (
     <div className="surveyContainer">
       <form className="userForm" onSubmit={handleSurveySubmit}>
@@ -121,162 +198,109 @@ const Survey = () => {
         </div>
 
         <div className="questions">
-
-          {/* Name input field */}
-          <div className="first-six">
-            <div className="user-info">
-              <div className="basic">
-                <h>Email</h>
-                <input type="text" placeholder="example@gmail.com" />
-              </div>
-
-              <div className="basic">
-                <h>Username</h>
-                <input type="text" placeholder="Enter Username" />
-              </div>
-
-              <div className="basic">
-                <h>Password</h>
-                <input type="text" placeholder="Enter Password" />
-              </div>
+          <div className="double">
+            <div className="first">
+              <h>Email</h>
+              <input type="text" name="email" value={userData.email} onChange={handleUserInputChange} placeholder="example@gmail.com" />
             </div>
+            <div className="last">
+              <h>Name</h>
+              <input type="text" name="name" value={patientData.name} onChange={handlePatientInputChange} placeholder="Full Legal Name" />
+            </div>
+          </div>
 
-            <div class="patient-info">
-              {/* Age input field */}
-              <div className="name-gender">
-                <div className="name">
-                  <h>Full Patient Name</h>
-                  <input type="text" placeholder="Enter Full Patient Name" />
-                </div>
+          <div className="double">
+            <div className="first">
+              <h>Username</h>
+              <input type="text" name="username" value={userData.username} onChange={handleUserInputChange} placeholder="Enter Username" />
+            </div>
+            <div className="last">
+              <h>Password</h>
+              <input type="text" name="password" value={userData.password} onChange={handleUserInputChange} placeholder="Enter Password" />
+            </div>
+          </div>
 
-                {/* gender input field */}
-                <div className="gender">
-                  <h>Gender</h>
-                  <select className="genderInput">
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-              </div>
-
+          <div className="triple">
+            <div className="questionDefault">
+              <h>Date of Birth</h>
               <div className="DOB">
-                <h>Date of Birth</h>
-                <DatePicker
-                  showIcon
-                  inline
-                  renderCustomHeader={({ date,
-                    changeYear,
-                    changeMonth }) => (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <select value={date.getFullYear()} onChange={({ target: { value } }) => changeYear(value)}>
-                        {years.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-
-                      <select value={months[date.getMonth()]} onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}>
-                        {months.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                />
+                <input type="text" name="day" value={dob.day} onChange={handleDobChange} placeholder="DD" />
+                <input type="text" name="month" value={dob.month} onChange={handleDobChange} placeholder="MM" />
+                <input type="text" name="year" value={dob.year} onChange={handleDobChange} placeholder="YYYY" />
               </div>
             </div>
+
+            <div className="questionDefault">
+              <h>Gender</h>
+              <select name="gender" value={patientData.gender} onChange={handlePatientInputChange} className="genderInput">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div className="questionDefault">
+              <h>State</h>
+              <select name="state" value={patientData.state} onChange={handlePatientInputChange} className="stateInput">
+                {["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+                  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+                  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+                  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+                  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+                  .map(state => (
+                    <option key={state} value={state}>{state}</option>
+                  ))}
+              </select>
+            </div>
+
+
+
+
+
           </div>
 
-          <div className="location">
-            <h>Home State</h>
-            <USAMap onClick={mapHandler} />
-          </div>
-
-          {/* skin ton input field*/}
           <div className="skintone">
             <h>Skin Tone</h>
             <div className="options">
               <label>
-                <div class="dark"></div>
                 <input type="radio" name="skin_tone" value="Dark" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Dark'} /> Dark
               </label>
-
               <label>
-                <div class="brown"></div>
                 <input type="radio" name="skin_tone" value="Brown" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Brown'} /> Brown
               </label>
-
               <label>
-                <div class="olive"></div>
                 <input type="radio" name="skin_tone" value="Olive" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Olive'} /> Olive
               </label>
-
               <label>
-                <div class="medium"></div>
                 <input type="radio" name="skin_tone" value="Medium" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Medium'} /> Medium
               </label>
-
               <label>
-                <div class="fair"></div>
                 <input type="radio" name="skin_tone" value="Fair" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Fair'} /> Fair
               </label>
-
               <label>
-                <div class="light"></div>
                 <input type="radio" name="skin_tone" value="Light" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Light'} /> Light
               </label>
             </div>
           </div>
 
-          {/* other input field*/}
-          <div className="other">
-            <h>Experiencing Any Unusual Symptoms?</h>
-            <div className="other-options">
-              <input type="checkbox" name="ssad" value="ssad"></input>
-              <label for="ssad"> Sensitive Skin (allergist diagnosed)</label><br></br>
+          <div className="questionDefault">
+                    <h>Skin Symptoms</h>
+                    <div className="symptom-list">
+                        {symptomList.map((symptom, index) => (
+                            <div key={index} className="symptom-item">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={symptom.isSelected}
+                                        onChange={() => toggleSymptomSelection(index)}
+                                    />
+                                    {symptom.name}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
-              <input type="checkbox" name="sssd" value="sssd"></input>
-              <label for="sssd"> Sensitive Skin (self diagnosed)</label><br></br>
-
-              <input type="checkbox" name="acd" value="acd"></input>
-              <label for="acd"> Allergic Contact Dermatitis</label><br></br>
-
-              <input type="checkbox" name="eas" value="eas"></input>
-              <label for="eas"> Eczema Atopic Skin</label><br></br>
-
-              <input type="checkbox" name="dcs" value="dcs"></input>
-              <label for="dcs"> Dry Chapped Skin</label><br></br>
-
-              <input type="checkbox" name="ap" value="ap"></input>
-              <label for="ap"> Acne Pimples</label><br></br>
-
-              <input type="checkbox" name="sa" value="sa"></input>
-              <label for="sa"> Skin Allergies</label><br></br>
-
-              <input type="checkbox" name="ros" value="ros"></input>
-              <label for="ros"> Rosacea</label><br></br>
-
-              <input type="checkbox" name="dh" value="dh"></input>
-              <label for="dh"> Discoloration Hyperpigmentation</label><br></br>
-
-              <input type="checkbox" name="flw" value="flw"></input>
-              <label for="flw"> Fine Lines Wrinkles</label><br></br>
-
-              <input type="checkbox" name="pso" value="pso"></input>
-              <label for="pso"> Psoriasis</label><br></br>
-            </div>
-          </div>
           <button type="submit" className="surveySubmit" onClick={submitClicked}>Submit</button>
         </div>
       </form>

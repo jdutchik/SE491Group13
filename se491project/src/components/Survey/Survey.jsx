@@ -152,13 +152,13 @@ const toggleSymptomSelection = (index) => {
     console.log('Complete Patient Data:', completePatientData);
 
     try {
-        const response = await fetch('http://localhost:4000/survey/patients', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(completePatientData),
-        });
+      const response = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:4000/survey/patients', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(completePatientData),
+    });
 
         if (response.ok) {
             console.log('Patient data submitted successfully');

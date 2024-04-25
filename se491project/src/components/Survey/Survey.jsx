@@ -251,28 +251,35 @@ const Survey = () => {
           </div>
 
           <div className="skintone">
-            <h>Skin Tone</h>
-            <div className="options">
-              <label>
-                <input type="radio" name="skin_tone" value="Dark" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Dark'} /> Dark
-              </label>
-              <label>
-                <input type="radio" name="skin_tone" value="Brown" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Brown'} /> Brown
-              </label>
-              <label>
-                <input type="radio" name="skin_tone" value="Olive" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Olive'} /> Olive
-              </label>
-              <label>
-                <input type="radio" name="skin_tone" value="Medium" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Medium'} /> Medium
-              </label>
-              <label>
-                <input type="radio" name="skin_tone" value="Fair" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Fair'} /> Fair
-              </label>
-              <label>
-                <input type="radio" name="skin_tone" value="Light" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Light'} /> Light
-              </label>
-            </div>
-          </div>
+  <h>Skin Tone</h>
+  <div className="options">
+    <label>
+      <div className="colorSample dark"></div>
+      <input type="radio" name="skin_tone" value="Dark" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Dark'} /> Dark
+    </label>
+    <label>
+      <div className="colorSample brown"></div>
+      <input type="radio" name="skin_tone" value="Brown" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Brown'} /> Brown
+    </label>
+    <label>
+      <div className="colorSample olive"></div>
+      <input type="radio" name="skin_tone" value="Olive" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Olive'} /> Olive
+    </label>
+    <label>
+      <div className="colorSample medium"></div>
+      <input type="radio" name="skin_tone" value="Medium" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Medium'} /> Medium
+    </label>
+    <label>
+      <div className="colorSample fair"></div>
+      <input type="radio" name="skin_tone" value="Fair" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Fair'} /> Fair
+    </label>
+    <label>
+      <div className="colorSample light"></div>
+      <input type="radio" name="skin_tone" value="Light" onChange={({ target: { value } }) => setSkin_Tone(value)} checked={skin_tone === 'Light'} /> Light
+    </label>
+  </div>
+</div>
+
 
           {/* Skin Symptoms Section */}
           <div className="other">

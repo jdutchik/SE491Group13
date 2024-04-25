@@ -164,27 +164,20 @@ app.post('/login/doctor', (req, res) => {
 app.post('/survey/patient', (req, res) => {
   console.log(req.body);
   const { email, name, username, password, dob, gender, state, skin_tone, symptoms } = req.body;
-  
-  const values_string = "('" + email + "','" + name + "','" + username + "','" + password + "','" + dob + "','" +
-  gender + "','" + state + "','" + skin_tone + "','" + symptoms + "');";
 
-  const query = 'INSERT INTO patients (email, name, username, password, dob, gender, state, skin_tone, symptoms) VALUES' + values_string;
+  const query = `INSERT INTO patients (email, name, username, password, dob, gender, state, skin_tone, symptoms) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  console.log(query);
-
-  connection.query(query, (err, results) => {
+  connection.query(query, [email, name, username, password, dob, gender, state, skin_tone, symptoms], (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
       res.status(500).json({ success: false, message: 'Internal server error' });
-      return;
-    }
-
-    if (results.length > 0) {
-      res.json({ success: true, message: 'Login successful' });
-    }
-
-    else {
-      res.json({ success: false, message: 'Invalid username or password' });
+    } else {
+      // Using results.affectedRows to check if the query was successful
+      if (results.affectedRows > 0) {
+        res.json({ success: true, message: 'Patient data submitted successfully' });
+      } else {
+        res.status(400).json({ success: false, message: 'Failed to insert patient data' });
+      }
     }
   });
 });

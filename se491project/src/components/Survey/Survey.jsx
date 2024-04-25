@@ -162,9 +162,11 @@ const Survey = () => {
         console.log('Patient data submitted successfully');
         navigate('/'); // Redirect to homepage upon successful submission
       } else {
+        console.log('Failed to submit patient data');
         console.error('Failed to submit patient data');
       }
     } catch (error) {
+      console.log('Caught error');
       console.error('Error:', error);
     }
   };

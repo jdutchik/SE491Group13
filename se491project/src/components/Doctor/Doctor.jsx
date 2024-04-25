@@ -18,6 +18,7 @@ const Doctor = () => {
     };
 
     const getDoctorInfo = async () => {
+        {/*
         try {
             const response = await fetch(`http://localhost:3001/doctor/${code}`, {
                 method: 'GET'
@@ -40,6 +41,7 @@ const Doctor = () => {
         catch (error) {
             console.error('Error fetching user data:', error.message);
         }
+    */}
     };
 
     useEffect(() => {
@@ -47,8 +49,8 @@ const Doctor = () => {
     }, []);
 
     if (loading) {
-        getDoctorInfo();
-        return <div>Loading...</div>
+        //getDoctorInfo();
+        //return <div>Loading...</div>
     }
 
     return (
@@ -57,9 +59,9 @@ const Doctor = () => {
                 <div className="picture">
                     <img src={person}></img>
                 </div>
-                <div className="docname">{doctorInfo.doctor.name}</div>
-                <div className="uni">{doctorInfo.doctor.university}</div>
-                <div className="workplace">{doctorInfo.doctor.workplace}</div>
+                <div className="docname"></div>
+                <div className="uni"></div>
+                <div className="workplace"></div>
 
                 <div className="userButtons">
                     <div className="button" onClick={signOutClicked}>Sign Out</div>
@@ -80,9 +82,9 @@ const Doctor = () => {
                             </div>
                         </div>
                         <div className="patientSum">
-                            <div className="patientQuickInfo">{doctorInfo.patient.name} ({doctorInfo.patient.age}{doctorInfo.patient.gender})</div>
+                            <div className="patientQuickInfo"></div>
                             <p>is prone to be allergic to</p>
-                            <div className="allergen">{doctorInfo.allergen.name}</div>
+                            <div className="allergen"></div>
                         </div>
                     </div>
 
@@ -93,9 +95,9 @@ const Doctor = () => {
                             </div>
                         </div>
                         <div className="patientSum">
-                            <div className="patientQuickInfo">{doctorInfo.patient.name} ({doctorInfo.patient.age}{doctorInfo.patient.gender})</div>
+                            <div className="patientQuickInfo"></div>
                             <p>is prone to be allergic to</p>
-                            <div className="allergen">{doctorInfo.allergen.name}</div>
+                            <div className="allergen"></div>
                         </div>
                     </div>
                 </div>

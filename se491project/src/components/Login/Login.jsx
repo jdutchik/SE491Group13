@@ -40,6 +40,7 @@ const Login = () => {
     var request = "";
 
     const login = async () => {
+        window.location.href = '/Doctor';
         {/*
         try {
             if (isDoctor) {
@@ -90,7 +91,7 @@ const Login = () => {
         }
         */}
     };
-    
+
     return (
         <div className="full">
             <div className='loginContainer'>

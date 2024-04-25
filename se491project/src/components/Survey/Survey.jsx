@@ -83,12 +83,14 @@ const Survey = () => {
 const [symptomList, setSymptomList] = useState(initialSymptoms);
 
 const toggleSymptomSelection = (index) => {
+    console.log(`Toggling symptom at index: ${index}`);
     const newSymptoms = [...symptomList];
     newSymptoms[index].isSelected = !newSymptoms[index].isSelected;
     setSymptomList(newSymptoms);
 };
 
   const submitClicked = () => {
+    console.log('Submit button clicked');
     window.location.href = '/';
   };
   const [userData, setUserData] = useState({
@@ -152,6 +154,8 @@ const toggleSymptomSelection = (index) => {
     console.log('Complete Patient Data:', completePatientData);
 
     try {
+      console.log('Making fetch call to server');
+
       const response = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:4000/survey/patients', {
         method: 'POST',
         headers: {
@@ -159,6 +163,7 @@ const toggleSymptomSelection = (index) => {
         },
         body: JSON.stringify(completePatientData),
     });
+    console.log(`Response status: ${response.status}`);
 
         if (response.ok) {
             console.log('Patient data submitted successfully');

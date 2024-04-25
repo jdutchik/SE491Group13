@@ -159,7 +159,7 @@ const toggleSymptomSelection = (index) => {
       const response = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:4000/survey/patients', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/plain',
         },
         body: JSON.stringify(completePatientData),
     });

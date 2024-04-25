@@ -6,17 +6,13 @@ const path = require('path'); // Import path module
 
 const app = express();
 
-// CORS Configuration
-const corsOptions = {
-  origin: '*', // Allow all domains
-  methods: ['GET', 'POST', 'OPTIONS'], // Specify methods to allow
-  allowedHeaders: ['Content-Type', 'Authorization'], // Specify headers to allow
-  credentials: true, // Enable this if your frontend sends credentials like cookies or basic auth
-  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
-app.use(cors(corsOptions)); // Use CORS middleware to allow requests from any origin
-app.options('*', cors(corsOptions)); // Enable preflight for all routes
+// Manual CORS Configuration
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allow all domains
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  next();
+});
 
 
 // Support parsing of application/json type post data

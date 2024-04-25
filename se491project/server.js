@@ -1,19 +1,19 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware'); // Import http-proxy-middleware
 require('dotenv').config();
-const path = require('path'); // Import path module
+const path = require('path');
 
 const app = express();
 
 // Manual CORS Configuration
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Allow all domains
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
-
 
 // Support parsing of application/json type post data
 app.use(express.json());
@@ -26,14 +26,14 @@ const db = mysql.createConnection({
   host: 'user.c906o864k7yc.us-east-1.rds.amazonaws.com',
   user: 'admin',
   password: 'minecraft',
-  database: 'senior_design_db' // Your database name
+  database: 'senior_design_db'
 });
 
 // Connect to the database
 db.connect(err => {
   if (err) {
     console.error('Failed to connect to the database:', err);
-    process.exit(1); // Exit process with error
+    process.exit(1);
   }
   console.log('Connected to the database');
 });
@@ -41,16 +41,13 @@ db.connect(err => {
 app.post('/survey/patients', (req, res) => {
   console.log("Received request with data:", req.body);
 
-  // Extract data from request body
   const { username, password, email, name, gender, skin_tone, state, dob, symptoms } = req.body;
 
-  // Construct SQL query to insert data. Ensure your table and column names match your database schema.
   const query = `
     INSERT INTO patients (username, password, email, name, gender, skin_tone, state, dob, symptoms) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
-  // Execute SQL query using the database connection
   db.query(query, [username, password, email, name, gender, skin_tone, state, dob, symptoms], (error, results) => {
     if (error) {
       console.error("Database error:", error);
@@ -61,6 +58,15 @@ app.post('/survey/patients', (req, res) => {
     }
   });
 });
+
+// Create a proxy for all other routes
+const apiProxy = createProxyMiddleware({
+  target: 'http://ec2-54-87-221-186.compute-1.amazonaws.com:4000', // Replace with your actual server address and port
+  changeOrigin: true,
+});
+
+// Use the proxy for all other routes
+app.use(apiProxy);
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));

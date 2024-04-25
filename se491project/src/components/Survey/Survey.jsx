@@ -1,241 +1,311 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Survey.css';
 
+const symptoms = [
+  "Sensitive skin allergist diagnosed",
+  "Sensitive skin self diagnosed",
+  "Allergic contact dermatitis",
+  "Eczema atopic skin",
+  "Dry chapped skin",
+  "Acne pimples",
+  "Skin allergies",
+  "Rosacea",
+  "Discoloration hyperpigmentation",
+  "Fine lines wrinkles",
+  "Psoriasis",
+  "I have celiacs disease and need my products to be gluten free",
+  "Blackheads whiteheads",
+  "Coconut",
+  "Textile Dye Mix",
+  "Gluten",
+  "Respiratory",
+  "Patchy rash",
+  "Tbd",
+  "Congestion",
+  "Contact dermatitis",
+  "Ffa",
+  "Dermatologist",
+  "Rash",
+  "Balsam Peru",
+  "I",
+  "Itching",
+  "Rashes",
+  "Mystery body rash",
+  "PPD",
+  "My gf gets rashes so I need to change my products",
+  "Alopecia",
+  "AP93",
+  "Dry skin",
+  "Cocamidopropyl Betaine",
+  "Metal",
+  "Ethylenediamine Dihydrochloride, Potassium Dichromate",
+  "Nickel",
+  "Low level allergy to Balsam of Peru",
+  "Allergies",
+  "Glutaral & iodopropynl butyl carbamate",
+  "Balsam of Peru allergic",
+  "Licus planus",
+  "Lip inflammation",
+  "Hives",
+  "Lichen Sclerosis",
+  "Dry Lips",
+  "Occasional rash outbreaks",
+  "Propolis",
+  "Allergic to Cocamidopropyl Betaine",
+  "Surgical site healing issues",
+  "Urticaria",
+  "Polysorbate 80",
+  "Fragrance",
+  "Contact Dermatitis",
+  "Red, peeling, itchy, burning lips",
+  "Celiac",
+  "Perioral dermatitis",
+  "Scalp",
+  "Scalp issues",
+  "Hives on legs",
+  "Itchy scalp with hair loss",
+  "Allergic reaction",
+  "Excema",
+  "Dermatitis Herpetiformis (dermatologist diagnosed)",
+  "Allergic to polyethylene glycol (peg)",
+  "Oral lichen Plans"
+];
+
 const Survey = () => {
-    const submitClicked = () => {
-        window.location.href = '/';
+  const navigate = useNavigate();
+
+
+  const initialSymptoms = symptoms.map(symptom => ({
+    name: symptom,
+    isSelected: false
+}));
+const [symptomList, setSymptomList] = useState(initialSymptoms);
+
+const toggleSymptomSelection = (index) => {
+    const newSymptoms = [...symptomList];
+    newSymptoms[index].isSelected = !newSymptoms[index].isSelected;
+    setSymptomList(newSymptoms);
+};
+
+  const submitClicked = () => {
+    window.location.href = '/';
+  };
+  const [userData, setUserData] = useState({
+    username: '',
+    password: '',
+    email: ''
+  });
+
+  const [patientData, setPatientData] = useState({
+    name: '',
+    gender: '',
+    skin_tone: '',
+    state: ''
+  });
+
+  const [dob, setDob] = useState({
+    day: '',
+    month: '',
+    year: ''
+  });
+
+  const handleUserInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handlePatientInputChange = (e) => {
+    const { name, value } = e.target;
+    setPatientData({ ...patientData, [name]: value });
+  };
+
+  const handleDobChange = (e) => {
+    const { name, value } = e.target;
+    setDob({ ...dob, [name]: value });
+  };
+
+
+
+
+
+  const handleSurveySubmit = async (e) => {
+    e.preventDefault();
+
+    // Formatting the date of birth as before
+    const formattedDob = `${dob.year}-${dob.month.padStart(2, '0')}-${dob.day.padStart(2, '0')}`;
+
+    // Constructing the complete symptoms string
+    const selectedSymptoms = symptomList
+        .filter(symptom => symptom.isSelected)
+        .map(symptom => symptom.name)
+        .join(', '); // Join the selected symptoms with a comma and space
+
+    // Constructing the complete data object including the symptoms
+    const completePatientData = {
+        ...userData,
+        ...patientData,
+        dob: formattedDob,
+        symptoms: selectedSymptoms // Append the selected symptoms as a string
     };
 
-    const [userData, setUserData] = useState({
-        username: '',
-        password: '',
-        email: '',
-        patient_id: 2
-      });
-    
-      const [patientData, setPatientData] = useState({
-        name: '',
-        age: '',
-        gender: '',
-        city: '',
-        state: '',
-        country: '',
-        skin_tone: '',
-        skin_conditions: '',
-        allergen_id: 1,
-        doctor_id: 1
-      });
-    
-      const handleUserInputChange = (e) => {
-        const { name, value } = e.target;
-        setUserData({ ...userData, [name]: value });
-      };
-    
-      const handlePatientInputChange = (e) => {
-        const { name, value } = e.target;
-        setPatientData({ ...patientData, [name]: value });
-      };
-    
-      const handleSurveySubmit = async (e) => {
-        e.preventDefault();
-    
-        try {
-          const response = await fetch('http://localhost:3001/survey/users', {
-            method: 'PUT',
+    console.log('Complete Patient Data:', completePatientData);
+
+    try {
+        const response = await fetch('http://localhost:4000/survey/patients', {
+            method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userData),
-          });
-    
-          if (response.ok) {
-            console.log('User data updated successfully');
-          } else {
-            console.error('Failed to update user data');
-          }
-        } catch (error) {
-          console.error('Error:', error);
+            body: JSON.stringify(completePatientData),
+        });
+
+        if (response.ok) {
+            console.log('Patient data submitted successfully');
+            navigate('/'); // Redirect to homepage upon successful submission
+        } else {
+          console.log('Patient data FAILED TO SUBMIT');
+            console.error('Failed to submit patient data');
         }
-      };
-    
-      const handleOrderFormSubmit = async (e) => {
-        e.preventDefault();
-    
-        try {
-          const response = await fetch('http://localhost:3001/survey/patients', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(patientData),
-          });
-    
-          if (response.ok) {
-            console.log('Order data updated successfully');
-          } else {
-            console.error('Failed to update order data');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
+    } catch (error) {
+      console.log('other error');
+        console.error('Error:', error);
+    }
+};
+  
 
-    return (
-        <div className="surveyContainer">
-            <form className="userForm">
-                <div className="userDebrief">
-                    <h1> Welcome! Let's get started 👋</h1>
-                    <p className="intro">
-                        To ensure accurate determination of allergies,
-                        it is crucial for users to input correct and comprehensive information.
-                        Please provide precise details about the patient's name, age, gender, race, weight, diet,
-                        and any relevant geographical information. Accurate data enables our Artificial 
-                        Intelligience model to come to a more informed
-                        conclusion on the patient's potential allergies. Additionally,
-                        if you have a change in any of the listed info in the future, please consider
-                        updating this information to help deliver personalized and reliable results.
-                        Your cooperation in providing accurate
-                        information plays a pivotal role in optimizing the effectiveness of the allergy
-                        determination process.
-                    </p>
-                </div>
 
-                <div className="questions">
 
-                    {/* Name input field */}
-                    <div className="questionDefault">
-                        <h>Enter Email</h>
-                        <input type="text" placeholder="Email" />
-                    </div>
 
-                    {/* Name input field */}
-                    <div className="questionDefault">
-                        <h>Enter Username</h>
-                        <input type="text" placeholder="Username" />
-                    </div>
-
-                    {/* Name input field */}
-                    <div className="questionDefault">
-                        <h>Enter Password</h>
-                        <input type="text" placeholder="Password" />
-                    </div>
-
-                    {/* Name input field */}
-                    <div className="questionDefault">
-                        <h>Enter Patient's Name (Not Required for Calculations)</h>
-                        <input type="text" placeholder="Full Legal Name" />
-                    </div>
-
-                    {/* Age input field */}
-                    <div className="questionDefault">
-                        <h>Enter Patient's Age</h>
-                        <input type='text' placeholder="Age" />
-                    </div>
-
-                    {/* gender input field */}
-                    <div className="questionDefault">
-                        <h>Enter Patient Gender</h>
-                        <select className="genderInput">
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-
-                    {/* race input field*/}
-                    <div className="questionDefault">
-                        <h>Enter Patient's Geographical Location</h>
-                        <input type='text' placeholder="Geographical Location" />
-                    </div>
-
-                    {/* weight input field*/}
-                    <div className="questionDefault">
-                        <h>Enter Approximate Skin Tone (Ex: fair)</h>
-                        <input type='text' placeholder="Skin Tone" />
-                    </div>
-
-                    {/* skin type input field*/}
-                    <div className="questionDefault">
-                        <h>Enter Any Patient's Skin Condition (dry, chapped, etc.)</h>
-                        <select className="skinTypeInput">
-                            <option>sensitive-skin-allergist-diagnosed</option>
-                            <option>sensitive-skin-self-diagnosed</option>
-                            <option>allergic-contact-dermatitis</option>
-                            <option>eczema-atopic-skin</option>
-                            <option>dry-chapped-skin</option>
-                            <option>acne-pimples</option>
-                            <option>skin-allergies</option>
-                            <option>rosacea</option>
-                            <option>discoloration-hyperpigmentation</option>
-                            <option>fine-lines-wrinkles</option>
-                            <option>psoriasis</option>
-                            <option>Other:I%20have%20celiacs%20disease%20and%20need%20my%20products%20to%20be%20gluten%20free</option>
-                            <option>blackheads-whiteheads</option>
-                            <option>Other:Coconut</option>
-                            <option>Other:</option>
-                            <option>Other:Textile%20Dye%20Mix</option>
-                            <option>Other:Gluten</option>
-                            <option>Other:respiratory</option>
-                            <option>Other:patchy%20rash</option>
-                            <option>Other:Tbd</option>
-                            <option>Other:Congestion</option>
-                            <option>Other:Contact%20dermatitis%20</option>
-                            <option>Other:Ffa</option>
-                            <option>Other:Dermatologist%20</option>
-                            <option>Other:Rash</option>
-                            <option>Other:Balsam%20Peru</option>
-                            <option>Other:I</option>
-                            <option>Other:Itching</option>
-                            <option>Other:Rashes%20</option>
-                            <option>Other:mystery%20body%20rash</option>
-                            <option>Other:PPD</option>
-                            <option>Other:My%20gf%20gets%20rashes%20so%20I%20need%20to%20change%20my%20products</option>
-                            <option>Other:Alopecia%20</option>
-                            <option>Other:AP93</option>
-                            <option>Other:Dry%20skin</option>
-                            <option>Other:Cocamidopropyl%20Betaine</option>
-                            <option>Other:Metal</option>
-                            <option>Other:Ethylenediamine%20Dihydrochloride%2C%20Potassium%20Dichromate</option>
-                            <option>Other:Nickel%20</option>
-                            <option>Other:Other</option>
-                            <option>Other:Low%20level%20allergy%20to%20Balsam%20of%20Peru</option>
-                            <option>Other:Allergies%20</option>
-                            <option>Other:glutaral%20%26%20iodopropynl%20butyl%20carbamate</option>
-                            <option>Other:Balsam%20of%20Peru%20allergic%20</option>
-                            <option>Other:licus%20planus</option>
-                            <option>Other:lip%20inflammation</option>
-                            <option>Other:hives</option>
-                            <option>Other:Lichen%20Sclerosis</option>
-                            <option>Other:Dry%20Lips</option>
-                            <option>other</option>
-                            <option>Other:Occassional%20rash%20outbreaks</option>
-                            <option>Other:Propolis</option>
-                            <option>Other:Allergic%20to%20Cocamidopropyl%20Betaine</option>
-                            <option>Other:Surgical%20site%20healing%20issues</option>
-                            <option>Other:Urticaria%20</option>
-                            <option>Other:Polysorbate%2080</option>
-                            <option>Other:Fragrance%20</option>
-                            <option>Other:Contact%20Dermatitis</option>
-                            <option>Other:Red%2C%20peeling%2C%20itchy%2C%20burning%20lips</option>
-                            <option>Other:Celiac</option>
-                            <option>Other:perioral%20dermatitis</option>
-                            <option>Other:scalp</option>
-                            <option>Other:scalp%20issues</option>
-                            <option>Other:Hives%20on%20legs%20</option>
-                            <option>Other:Itchy%20scalp%20with%20hair%20loss</option>
-                            <option>Other:Allergic%20reaction%20</option>
-                            <option>Other:Excema</option>
-                            <option>Other:Dermatitis%20Herpetiformis%20%28dermatologist%20diagnosed%29</option>
-                            <option>Other:Allergic%20to%20polyethylene%20glycol%20%28peg%29</option>
-                            <option>Other:oral%20lichen%20Plans</option>
-                        </select>
-                    </div>
-                </div>
-            </form>
-
-            <div className='surveySubmit' onClick={submitClicked}>Submit</div>
+  return (
+    <div className="surveyContainer">
+      <form className="userForm" onSubmit={handleSurveySubmit}>
+        <div className="userDebrief">
+          <h1>Welcome! Let's get started 👋</h1>
+          <p className="intro">
+            To ensure accurate determination of allergies,
+            it is crucial for users to input correct and comprehensive information.
+            Please provide precise details about the patient's name, age, gender, race, weight, diet,
+            and any relevant geographical information. Accurate data enables our Artificial
+            Intelligence model to come to a more informed
+            conclusion on the patient's potential allergies. Additionally,
+            if you have a change in any of the listed info in the future, please consider
+            updating this information to help deliver personalized and reliable results.
+            Your cooperation in providing accurate
+            information plays a pivotal role in optimizing the effectiveness of the allergy
+            determination process.
+          </p>
         </div>
-    );
+
+        <div className="questions">
+          <div className="double">
+            <div className="first">
+              <h>Email</h>
+              <input type="text" name="email" value={userData.email} onChange={handleUserInputChange} placeholder="example@gmail.com" />
+            </div>
+            <div className="last">
+              <h>Name</h>
+              <input type="text" name="name" value={patientData.name} onChange={handlePatientInputChange} placeholder="Full Legal Name" />
+            </div>
+          </div>
+
+          <div className="double">
+            <div className="first">
+              <h>Username</h>
+              <input type="text" name="username" value={userData.username} onChange={handleUserInputChange} placeholder="Enter Username" />
+            </div>
+            <div className="last">
+              <h>Password</h>
+              <input type="text" name="password" value={userData.password} onChange={handleUserInputChange} placeholder="Enter Password" />
+            </div>
+          </div>
+
+          <div className="triple">
+            <div className="questionDefault">
+              <h>Date of Birth</h>
+              <div className="DOB">
+                <input type="text" name="day" value={dob.day} onChange={handleDobChange} placeholder="DD" />
+                <input type="text" name="month" value={dob.month} onChange={handleDobChange} placeholder="MM" />
+                <input type="text" name="year" value={dob.year} onChange={handleDobChange} placeholder="YYYY" />
+              </div>
+            </div>
+
+            <div className="questionDefault">
+              <h>Gender</h>
+              <select name="gender" value={patientData.gender} onChange={handlePatientInputChange} className="genderInput">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div className="questionDefault">
+              <h>State</h>
+              <select name="state" value={patientData.state} onChange={handlePatientInputChange} className="stateInput">
+                {["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+                  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+                  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+                  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+                  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+                  .map(state => (
+                    <option key={state} value={state}>{state}</option>
+                  ))}
+              </select>
+            </div>
+
+
+
+
+
+          </div>
+
+          <div className="skintone">
+            <h>Skin Tone</h>
+            <div className="options">
+              <label>
+                <input type="radio" name="skin_tone" value="Dark" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Dark'} /> Dark
+              </label>
+              <label>
+                <input type="radio" name="skin_tone" value="Brown" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Brown'} /> Brown
+              </label>
+              <label>
+                <input type="radio" name="skin_tone" value="Olive" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Olive'} /> Olive
+              </label>
+              <label>
+                <input type="radio" name="skin_tone" value="Medium" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Medium'} /> Medium
+              </label>
+              <label>
+                <input type="radio" name="skin_tone" value="Fair" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Fair'} /> Fair
+              </label>
+              <label>
+                <input type="radio" name="skin_tone" value="Light" onChange={handlePatientInputChange} checked={patientData.skin_tone === 'Light'} /> Light
+              </label>
+            </div>
+          </div>
+
+          <div className="questionDefault">
+                    <h>Skin Symptoms</h>
+                    <div className="symptom-list">
+                        {symptomList.map((symptom, index) => (
+                            <div key={index} className="symptom-item">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={symptom.isSelected}
+                                        onChange={() => toggleSymptomSelection(index)}
+                                    />
+                                    {symptom.name}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+          <button type="submit" className="surveySubmit" onClick={submitClicked}>Submit</button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default Survey;

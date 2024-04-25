@@ -1,54 +1,92 @@
 .signUpContainer {
     display: flex;
     flex-direction: column;
-    width: 600px;
+    align-items: center;
+
     margin: 0;
     padding: 0;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.signUpContainer img{
-    object-fit: cover;
-    width: 100%;
     height: 100vh;
-    opacity: 0.80;
+    width: 50%;
+
+    background-image: url('../Assets/monster.png');
 }
 
-.signUpInfo {
-    font-size: 200%;
-    font-weight: 700;
-    padding: 5%;
+.intro-signup {
+    font-size: 1.8em;
+    font-weight: 1000;
+
+    text-align: center;
+
     color: goldenrod;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: fit-content;
-    margin: 25px auto auto auto;
-    text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
-               1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+
+    backdrop-filter: blur(2px);
+
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    
+    height: min-content;
+    padding: 2%;
 }
 
-.signUpButton {
+.fun {
+    color: darkred;
+    font-size: 2em;
+    font-weight: 1000;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
+.paragraph {
+    font-size: 1.5em;
+    font-weight: 1000;
+
+    height: min-content;
+    padding: 2%;
+
     text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: fit-content;
-    margin: auto auto 150px auto;
+
+    color: goldenrod;
+
+    backdrop-filter: blur(2px);
+
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+.fullButton {
+    text-align: center;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 220px;
-    height: 59px;
-    color: white;
-    background: darkred;
-    border-radius: 50px;
-    font-size: 19px;
-    font-weight: 700;
+
+    background-color: rgb(99, 0, 0);
+    border-radius: 50px 50px 50px 50px;
+
     cursor: pointer;
+
+    border-color: gold;
+    border-style: solid;
+    border-width: 5px;
+
+    width: 50%;
+    
+    margin: 5%;
+}
+
+.fullButton img {
+    width: 25%;
+    border-width: 0px;
+    padding: 5%;
+}
+
+.signUpButton {   
+    display: flex;
+    align-items: center;
+    
+    color: white;
+    border-radius: 0px 50px 50px 0px;
+
+    font-size: 1.25em;
+    font-weight: 700;
 }

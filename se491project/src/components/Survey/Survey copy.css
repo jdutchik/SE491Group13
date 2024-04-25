@@ -208,7 +208,7 @@ body {
 
 .DOB {
     display: flex;
-    
+    pointer-events: none;
 }
 
 .surveySubmit {
@@ -322,26 +322,4 @@ body {
 
 .triple {
     display: flex;
-    justify-content: space-between;
-  }
-  
-  .questionDefault {
-    flex: 1;
-    margin-right: 20px;  /* Adjust spacing as needed */
-  }
-
-  .symptom-list {
-    max-height: 200px;  /* Maintain the same height */
-    width: 100%;        /* Adjust this to your preference, or set to 100% for full width under its parent */
-    overflow-y: auto;
-    background-color: #f5f5f5;  /* Very light gray background */
-    border: 1px solid #ccc;     /* Visual border to indicate the list area */
-    margin-top: 1px;  /* Reduced margin to bring the box closer */
-    padding: 10px;
-    box-sizing: border-box;     /* Ensures padding doesn't affect the width */
-}
-
-.symptom-item {
-    display: block; 
-    margin-bottom: 5px;
 }

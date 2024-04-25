@@ -7,6 +7,10 @@ import Account from "../Account/Account";
 import userEmoji from '../Assets/legoUser.png';
 import passwordEmoji from '../Assets/passwordLock.png';
 import codeEmoji from '../Assets/doctorTool.png';
+import docs from '../Assets/google-docs.png';
+import news from '../Assets/news.png';
+import github from '../Assets/github.png';
+import web from '../Assets/web.png';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -32,7 +36,7 @@ const Login = () => {
     const passwordChange = (event) => {
         setPassword(event.target.value);
     }
-    
+
     var request = "";
 
     const login = async () => {
@@ -86,43 +90,67 @@ const Login = () => {
     };
 
     return (
-        <div className='loginContainer'>
-            <div className='header'>
-                <div className='titleText'>Enter User Creditionals</div>
-            </div>
+        <div className="full">
+            <div className='loginContainer'>
+                <div className='header'>
+                    <div className='titleText'>Enter User Creditionals</div>
+                </div>
 
-            <div className='inputs'>
-                {isDoctor ? (
-                    <div className='userInput'>
-                        <img src={codeEmoji} alt="" />
-                        <input type='text' value={code} onChange={codeChange} placeHolder='Enter Doctor Code' />
-                    </div>
-                ) : (
-                    <div className='userInput'>
-                        <img src={userEmoji} alt="" />
-                        <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
-                    </div>
-                )}
+                <div className='inputs'>
+                    {isDoctor ? (
+                        <div className='userInput'>
+                            <img src={codeEmoji} alt="" />
+                            <input type='text' value={code} onChange={codeChange} placeHolder='Enter Doctor Code' />
+                        </div>
+                    ) : (
+                        <div className='userInput'>
+                            <img src={userEmoji} alt="" />
+                            <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
+                        </div>
+                    )}
 
-                <div className='userInput'>
-                    <img src={passwordEmoji} alt="" />
-                    <input type='password' onChange={passwordChange} placeHolder='Enter Password' />
+                    <div className='userInput'>
+                        <img src={passwordEmoji} alt="" />
+                        <input type='password' onChange={passwordChange} placeHolder='Enter Password' />
+                    </div>
+                </div>
+
+                <div className='submit'>
+                    <div className="login" onClick={login}>Login</div>
+                </div>
+
+                <div className="doctorSwitch" onClick={handleIsDoc}>
+                    {!isDoctor ? (<p>Doctor? Click Here</p>
+                    ) : (
+                        <p>Patient? Click Here</p>
+                    )}
+                </div>
+
+                <div className={visibility}>
+                    Creditionals are Incorrect
                 </div>
             </div>
 
-            <div className='submit'>
-                <div className="login" onClick={login}>Login</div>
-            </div>
-
-            <div className="doctorSwitch" onClick={handleIsDoc}>
-                {!isDoctor ? (<p>Doctor? Click Here</p>
-                ) : (
-                    <p>Patient? Click Here</p>
-                )}
+            <div class="social">
+                <div class="icon github">
+                    <img src={github} alt="" />
+                    <div class="tooltip"><a href="https://github.com/jdutchik/SE492Group13.git">GitHub</a></div>
                 </div>
 
-            <div className={visibility}>
-                Creditionals are Incorrect
+                <div class="icon website">
+                    <img src={web} alt="" />
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Class Website</a></div>
+                </div>
+
+                <div class="icon document">
+                    <img src={docs} alt="" />
+                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/Final_Design_Document_Team13.pdf">Design Document</a></div>
+                </div>
+
+                <div class="icon news">
+                    <img src={news} alt="" />
+                    <div class="tooltip"><a href="https://www.youtube.com/watch?v=KucyzXRjU2Y/">News Report</a></div>
+                </div>
             </div>
         </div>
     )

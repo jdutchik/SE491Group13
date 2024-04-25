@@ -6,10 +6,8 @@ const path = require('path'); // Import path module
 
 const app = express();
 
-// Use CORS middleware to allow requests from http://localhost:3000
-app.use(cors({
-  origin: 'http://ec2-54-87-221-186.compute-1.amazonaws.com:3000'
-}));
+// Use CORS middleware to allow requests from any origin
+app.use(cors()); // This allows all domains to access your server
 
 // Support parsing of application/json type post data
 app.use(express.json());
@@ -57,8 +55,6 @@ app.post('/survey/patients', (req, res) => {
     }
   });
 });
-
-
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));

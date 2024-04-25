@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
 const port = 3001;
@@ -17,10 +18,10 @@ app.use(cors(corsOptions)); // Use CORS with the specified options
 app.use(bodyParser.json()); // Body parser for JSON encoded bodies
 
 const connection = mysql.createConnection({
-  host: 'user.c906o864k7yc.us-east-1.rds.amazonaws.com',
-  user: 'admin',
-  password: 'minecraft',
-  database: 'senior_design_db'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 connection.connect();

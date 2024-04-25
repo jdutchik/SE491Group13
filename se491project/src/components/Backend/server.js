@@ -6,8 +6,15 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3001;
 
-app.use(cors());
-app.use(bodyParser.json());
+// CORS options
+const corsOptions = {
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow only specific HTTP methods
+  allowedHeaders: ['Content-Type'], // Allow only specific headers
+};
+
+app.use(cors(corsOptions)); // Use CORS with the specified options
+app.use(bodyParser.json()); // Body parser for JSON encoded bodies
 
 const connection = mysql.createConnection({
   host: 'user.c906o864k7yc.us-east-1.rds.amazonaws.com',

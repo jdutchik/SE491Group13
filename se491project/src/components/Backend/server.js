@@ -181,6 +181,8 @@ app.post('/survey/patient', (req, res) => {
   });
 });
 
+// get patient info
+
 // mine
 
 app.post('/login/doctor', (req, res) => {

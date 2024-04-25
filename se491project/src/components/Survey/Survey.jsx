@@ -12,13 +12,16 @@ const Survey = () => {
   const [state, setState] = useState(null);
 
   // patient name
+  const [email, setEmail] = useState(null);
   const [username, setUsername] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [full_name, setFull_Name] = useState(null);
 
   // everything else
-
+  const [gender, setGender] = useState(null);
+  const [skin_tone, setSkin_Tone] = useState(null);
+  const [symptoms, setSymptoms] = useState(null);
+  
   const years = [];
   for (let year = 1960; year <= 2024; year++) {
     years.push(year);
@@ -88,23 +91,17 @@ const Survey = () => {
     const dob_to_string = startDate.toDateString().split(" ");
     const dob_sql = dob_to_string[3] + '-' + (startDate.getMonth()+1) + '-' + dob_to_string[2];
 
-    alert(state);
-
     const completePatientData = {
-      "email" : "jdutchik",
-      "name" : "josh",
-      "username" : "jdutchik",
-      "password" : "pass123",
+      "email" : email,
+      "name" : full_name,
+      "username" : username,
+      "password" : password,
       "dob" : dob_sql,
-      "gender" : "Female",
+      "gender" : gender,
       "state" : state,
-      "skin_tone" : "Dark",
+      "skin_tone" : patientData[skin_tone],
       "symptoms" : "Dry chapped skin"
     };
-
-    alert(JSON.stringify(completePatientData));
-
-    return
 
     try {
       const response = await fetch('http://localhost:3001/survey/patient', {
@@ -152,17 +149,17 @@ const Survey = () => {
             <div className="user-info">
               <div className="basic">
                 <h>Email</h>
-                <input type="text" placeholder="example@gmail.com" />
+                <input type="text" placeholder="example@gmail.com" onChange={({ target: { value } }) => setEmail(value)}/>
               </div>
 
               <div className="basic">
                 <h>Username</h>
-                <input type="text" placeholder="Enter Username" />
+                <input type="text" placeholder="Enter Username" onChange={({ target: { value } }) => setUsername(value)}/>
               </div>
 
               <div className="basic">
                 <h>Password</h>
-                <input type="text" placeholder="Enter Password" />
+                <input type="text" placeholder="Enter Password" onChange={({ target: { value } }) => setPassword(value)}/>
               </div>
             </div>
 
@@ -171,13 +168,13 @@ const Survey = () => {
               <div className="name-gender">
                 <div className="name">
                   <h>Full Patient Name</h>
-                  <input type="text" placeholder="Enter Full Patient Name" />
+                  <input type="text" placeholder="Enter Full Patient Name" onChange={({ target: { value } }) => setFull_Name(value)}/>
                 </div>
 
                 {/* gender input field */}
                 <div className="gender">
                   <h>Gender</h>
-                  <select className="genderInput">
+                  <select className="genderInput" onChange={({ target: { value } }) => setGender(value)}>
                     <option>Male</option>
                     <option>Female</option>
                     <option>Other</option>

@@ -63,6 +63,7 @@ app.post('/survey/patients', (req, res) => {
 const apiProxy = createProxyMiddleware({
   target: 'http://ec2-54-87-221-186.compute-1.amazonaws.com:4000', // Replace with your actual server address and port
   changeOrigin: true,
+  method: 'POST'
 });
 
 // Use the proxy for all other routes

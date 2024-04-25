@@ -6,8 +6,17 @@ const path = require('path'); // Import path module
 
 const app = express();
 
-// Use CORS middleware to allow requests from any origin
-app.use(cors({ origin: '*' }));
+// CORS Configuration
+const corsOptions = {
+  origin: '*', // Allow all domains
+  methods: ['GET', 'POST', 'OPTIONS'], // Specify methods to allow
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify headers to allow
+  credentials: true, // Enable this if your frontend sends credentials like cookies or basic auth
+  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions)); // Use CORS middleware to allow requests from any origin
+app.options('*', cors(corsOptions)); // Enable preflight for all routes
 
 
 // Support parsing of application/json type post data

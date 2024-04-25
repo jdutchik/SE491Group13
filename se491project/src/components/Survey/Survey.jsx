@@ -9,6 +9,16 @@ import USAMap from "react-usa-map";
 
 const Survey = () => {
   const [startDate, setStartDate] = useState(new Date());
+  const [state, setState] = useState(null);
+
+  // patient name
+  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState(null);
+
+  // everything else
+
   const years = [];
   for (let year = 1960; year <= 2024; year++) {
     years.push(year);
@@ -30,13 +40,15 @@ const Survey = () => {
   ];
 
   const mapHandler = (event) => {
-    alert(event.target.dataset.name);
+    const event_state = event.target.dataset.name;
+    setState(event_state);
   };
   const navigate = useNavigate();
 
   const submitClicked = () => {
     window.location.href = '/';
   };
+
   const [userData, setUserData] = useState({
     username: '',
     password: '',
@@ -73,16 +85,29 @@ const Survey = () => {
   const handleSurveySubmit = async (e) => {
     e.preventDefault();
 
-    const formattedDob = `${dob.year}-${dob.month.padStart(2, '0')}-${dob.day.padStart(2, '0')}`;
+    const dob_to_string = startDate.toDateString().split(" ");
+    const dob_sql = dob_to_string[3] + '-' + (startDate.getMonth()+1) + '-' + dob_to_string[2];
+
+    alert(state);
 
     const completePatientData = {
-      ...userData,
-      ...patientData,
-      dob: formattedDob
+      "email" : "jdutchik",
+      "name" : "josh",
+      "username" : "jdutchik",
+      "password" : "pass123",
+      "dob" : dob_sql,
+      "gender" : "Female",
+      "state" : state,
+      "skin_tone" : "Dark",
+      "symptoms" : "Dry chapped skin"
     };
 
+    alert(JSON.stringify(completePatientData));
+
+    return
+
     try {
-      const response = await fetch('http://localhost:3001/survey/patients', {
+      const response = await fetch('http://localhost:3001/survey/patient', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -200,7 +225,7 @@ const Survey = () => {
 
           <div className="location">
             <h>Home State</h>
-            <USAMap onClick={mapHandler} />
+            <USAMap onClick={mapHandler} customize={{ [state]: { fill: 'navy' } }}/>
           </div>
 
           {/* skin ton input field*/}

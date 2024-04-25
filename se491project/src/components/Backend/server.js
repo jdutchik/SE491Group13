@@ -10,10 +10,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'se492',
-  database: 'se492',
+  host: 'user.c906o864k7yc.us-east-1.rds.amazonaws.com',
+  user: 'admin',
+  password: 'minecraft',
+  database: 'senior_design_db'
 });
 
 connection.connect();
@@ -128,6 +128,60 @@ app.post('/login', (req, res) => {
     }
   });
 });
+
+app.post('/login/doctor', (req, res) => {
+  const { password, code } = req.body;
+
+  const query = 'SELECT * FROM doctors WHERE code = ? AND password = ?';
+
+  connection.query(query, [code, password], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true, message: 'Login successful' });
+    }
+
+    else {
+      res.json({ success: false, message: 'Invalid username or password' });
+    }
+  });
+});
+
+// hopefully survey post request
+
+app.post('/survey/patient', (req, res) => {
+  console.log(req.body);
+  const { email, name, username, password, dob, gender, state, skin_tone, symptoms } = req.body;
+  
+  const values_string = "('" + email + "','" + name + "','" + username + "','" + password + "','" + dob + "','" +
+  gender + "','" + state + "','" + skin_tone + "','" + symptoms + "');";
+
+  const query = 'INSERT INTO patients (email, name, username, password, dob, gender, state, skin_tone, symptoms) VALUES' + values_string;
+
+  console.log(query);
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true, message: 'Login successful' });
+    }
+
+    else {
+      res.json({ success: false, message: 'Invalid username or password' });
+    }
+  });
+});
+
+// mine
 
 app.post('/login/doctor', (req, res) => {
   const { password, code } = req.body;

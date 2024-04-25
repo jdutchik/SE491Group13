@@ -68,37 +68,22 @@ const Doctor = () => {
                 </div>
             </div>
 
-            <div className="patientInfo">
+            <div className="patientResults">
                 <div className="search">
                     <img src={searchIcon} alt="" />
                     <input type='searchBar' placeHolder='Enter Patient Name' />
                 </div>
 
-                <div className="patientResults">
-                    <div className="patient">
-                        <div className="patientImg">
-                            <div className="picture">
-                                <img src={person}></img>
-                            </div>
-                        </div>
-                        <div className="patientSum">
-                            <div className="patientQuickInfo"></div>
-                            <p>is prone to be allergic to</p>
-                            <div className="allergen"></div>
+                <div className="patient">
+                    <div className="patientImg">
+                        <div className="picture">
+                            <img src={person}></img>
                         </div>
                     </div>
-
-                    <div className="patient">
-                        <div className="patientImg">
-                            <div className="picture">
-                                <img src={person}></img>
-                            </div>
-                        </div>
-                        <div className="patientSum">
-                            <div className="patientQuickInfo"></div>
-                            <p>is prone to be allergic to</p>
-                            <div className="allergen"></div>
-                        </div>
+                    <div className="patientSum">
+                        <div className="patientQuickInfo"></div>
+                        <p>is prone to be allergic to</p>
+                        <div className="allergen"></div>
                     </div>
                 </div>
             </div>

@@ -40,6 +40,7 @@ const Login = () => {
     var request = "";
 
     const login = async () => {
+        {/*
         try {
             if (isDoctor) {
                 request = 'http://localhost:3001/login/doctor';
@@ -87,13 +88,14 @@ const Login = () => {
         catch (error) {
             console.error('Login Error:', error.message);
         }
+        */}
     };
-
+    
     return (
         <div className="full">
             <div className='loginContainer'>
                 <div className='header'>
-                    <div className='titleText'>Enter User Creditionals</div>
+                    <div className='titleText'>Enter Doctor Creditionals</div>
                 </div>
 
                 <div className='inputs'>
@@ -118,14 +120,14 @@ const Login = () => {
                 <div className='submit'>
                     <div className="login" onClick={login}>Login</div>
                 </div>
-
+                {/*
                 <div className="doctorSwitch" onClick={handleIsDoc}>
                     {!isDoctor ? (<p>Doctor? Click Here</p>
                     ) : (
                         <p>Patient? Click Here</p>
                     )}
                 </div>
-
+                */}
                 <div className={visibility}>
                     Creditionals are Incorrect
                 </div>

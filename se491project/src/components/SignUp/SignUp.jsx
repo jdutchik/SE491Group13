@@ -13,7 +13,7 @@ const SignUp = () => {
                 <div className='intro-signup'> 
                     Are allergies putting a damper on your day? <br></br>
                     Do you find yourself constantly battling sneezing, hives, or red eyes? <br></br>
-                    Do you find yourself a victim of the <span class="fun">WICKED</span> Allergy Monster? <br></br>
+                    Do you find yourself a victim of the <span className="fun">WICKED</span> Allergy Monster? <br></br>
                 </div>
 
                 <div className="fullButton" onClick={signUpClicked}>

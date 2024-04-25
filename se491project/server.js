@@ -7,7 +7,8 @@ const path = require('path'); // Import path module
 const app = express();
 
 // Use CORS middleware to allow requests from any origin
-app.use(cors()); // This allows all domains to access your server
+app.use(cors({ origin: '*' }));
+
 
 // Support parsing of application/json type post data
 app.use(express.json());

@@ -69,7 +69,7 @@ const Doctor = () => {
             <div className="patientInfo">
                 <div className="search">
                     <img src={searchIcon} alt="" />
-                    <input type='searchBar' placeHolder='Enter Patient Name' />
+                    <input type='searchBar' placeholder='Enter Patient Name' />
                 </div>
 
                 <div className="patientResults">

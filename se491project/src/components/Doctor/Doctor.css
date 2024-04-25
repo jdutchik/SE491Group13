@@ -10,9 +10,6 @@ body {
     background: darkred;
 
     height: 100vh;
-
-    border: solid;
-    border-color: black;
 }
 
 .quickInfo {
@@ -31,27 +28,19 @@ body {
     border-width: 5px;
 }
 
-.docname {
-    color: goldenrod;
-    font-size: 40px;
-    font-weight: 700;
-}
-
-.uni {
-    color: darkred;
-    font-size: 20px;
-    font-weight: 200;
-}
-
 .patientInfo {
     display: flex;
     flex-direction: column;
 }
 
 .search {
-    margin: 50px;
     display: flex;
-    background-color: lightgray;
+    align-items: center;
+
+    background-color: darkred;
+
+    margin: 50px;
+
     border-radius: 75px;
     border-color: gold;
     border-style: solid;
@@ -66,19 +55,17 @@ body {
 }
 
 .search input{
-    width: 75%;
-    height: 45%;
-    margin: 25px 15px 15px 0px;
+   
 }
 
 .patientResults {
     background-color: lightgray;
 
     height: 90vh;
-    width: 90%;
+    width: 65%;
 
     border-radius: 10px;
-    border-color: gold;
+    border-color: black;
     border-style: solid;
     border-width: 5px;
 }
@@ -87,6 +74,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    
+
     background-color: rgb(0, 0, 80);
     margin: 25px;
     border-radius: 10px;

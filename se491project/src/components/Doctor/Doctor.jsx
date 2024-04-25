@@ -59,9 +59,6 @@ const Doctor = () => {
                 <div className="picture">
                     <img src={person}></img>
                 </div>
-                <div className="docname"></div>
-                <div className="uni"></div>
-                <div className="workplace"></div>
 
                 <div className="userButtons">
                     <div className="button" onClick={signOutClicked}>Sign Out</div>

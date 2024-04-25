@@ -100,18 +100,18 @@ const Login = () => {
                     {isDoctor ? (
                         <div className='userInput'>
                             <img src={codeEmoji} alt="" />
-                            <input type='text' value={code} onChange={codeChange} placeHolder='Enter Doctor Code' />
+                            <input type='text' value={code} onChange={codeChange} placeholder='Enter Doctor Code' />
                         </div>
                     ) : (
                         <div className='userInput'>
                             <img src={userEmoji} alt="" />
-                            <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
+                            <input type='text' value={username} onChange={usernameChange} placeholder='Enter Username' />
                         </div>
                     )}
 
                     <div className='userInput'>
                         <img src={passwordEmoji} alt="" />
-                        <input type='password' onChange={passwordChange} placeHolder='Enter Password' />
+                        <input type='password' onChange={passwordChange} placeholder='Enter Password' />
                     </div>
                 </div>
 
@@ -131,25 +131,25 @@ const Login = () => {
                 </div>
             </div>
 
-            <div class="social">
-                <div class="icon github">
+            <div className="social">
+                <div className="icon github">
                     <img src={github} alt="" />
-                    <div class="tooltip"><a href="https://github.com/jdutchik/SE492Group13.git">GitHub</a></div>
+                    <div className="tooltip"><a href="https://github.com/jdutchik/SE492Group13.git">GitHub</a></div>
                 </div>
 
-                <div class="icon website">
+                <div className="icon website">
                     <img src={web} alt="" />
-                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Class Website</a></div>
+                    <div className="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/">Class Website</a></div>
                 </div>
 
-                <div class="icon document">
+                <div className="icon document">
                     <img src={docs} alt="" />
-                    <div class="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/Final_Design_Document_Team13.pdf">Design Document</a></div>
+                    <div className="tooltip"><a href="https://sdmay24-13.sd.ece.iastate.edu/Final_Design_Document_Team13.pdf">Design Document</a></div>
                 </div>
 
-                <div class="icon news">
+                <div className="icon news">
                     <img src={news} alt="" />
-                    <div class="tooltip"><a href="https://www.youtube.com/watch?v=KucyzXRjU2Y/">News Report</a></div>
+                    <div className="tooltip"><a href="https://www.youtube.com/watch?v=KucyzXRjU2Y/">News Report</a></div>
                 </div>
             </div>
         </div>

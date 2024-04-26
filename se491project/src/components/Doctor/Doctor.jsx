@@ -80,20 +80,21 @@ const Doctor = () => {
                                 <img src={person}></img>
                             </div>
                         </div>
-                            Full Legal Name (username)
-                            Contact info: email
-                            gender
-                            DOB
+                        <h1>Full Legal Name (username)</h1>
+                        <h2>Contact info: email</h2>
                     </div>
 
                     <div className="specific-info">
+                        <h1>Specified Inputs Inputs</h1>
                         STATE
                         skin tone
                         symptons
+                        Gender
+                        DOB
                     </div>
 
                     <div className="allergic-info">
-
+                        avoid
                     </div>
                 </div>
             </div>

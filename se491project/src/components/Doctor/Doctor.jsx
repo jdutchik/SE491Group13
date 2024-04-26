@@ -59,7 +59,9 @@ const Doctor = () => {
                 <div className="picture">
                     <img src={person}></img>
                 </div>
-
+                <div className="doctor_title">
+                    Doctor
+                </div>
                 <div className="userButtons">
                     <div className="button" onClick={signOutClicked}>Sign Out</div>
                 </div>
@@ -72,15 +74,26 @@ const Doctor = () => {
                 </div>
 
                 <div className="patient">
-                    <div className="patientImg">
-                        <div className="picture">
-                            <img src={person}></img>
+                    <div className="basic-info">
+                        <div className="patientImg">
+                            <div className="picture">
+                                <img src={person}></img>
+                            </div>
                         </div>
+                            Full Legal Name (username)
+                            Contact info: email
+                            gender
+                            DOB
                     </div>
-                    <div className="patientSum">
-                        <div className="patientQuickInfo"></div>
-                        <p>is prone to be allergic to</p>
-                        <div className="allergen"></div>
+
+                    <div className="specific-info">
+                        STATE
+                        skin tone
+                        symptons
+                    </div>
+
+                    <div className="allergic-info">
+
                     </div>
                 </div>
             </div>

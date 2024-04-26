@@ -82,6 +82,7 @@ const Survey = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [doc, setDoc] = useState('');
   const [full_name, setFull_Name] = useState('');
 
   const [gender, setGender] = useState(null);
@@ -146,7 +147,8 @@ const Survey = () => {
       "gender": gender,
       "state": state,
       "skin_tone": skin_tone,
-      "symptoms": selectedSymptoms
+      "symptoms": selectedSymptoms,
+      "doc": doc
     };
 
     try {
@@ -197,8 +199,8 @@ const Survey = () => {
               </div>
 
               <div className="basic">
-                <h>Password</h>
-                <input type="text" placeholder="Enter Password" value={password} onChange={({ target: { value } }) => setPassword(value)} />
+                <h>Doctor Code</h>
+                <input type="text" placeholder="Enter Password" value={doc} onChange={({ target: { value } }) => setDoc(value)} />
               </div>
             </div>
 

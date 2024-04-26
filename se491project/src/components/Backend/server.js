@@ -163,11 +163,12 @@ app.post('/login/doctor', (req, res) => {
 
 app.post('/survey/patient', (req, res) => {
   console.log(req.body);
-  const { email, name, username, password, dob, gender, state, skin_tone, symptoms } = req.body;
+  const { email, name, username, password, dob, gender, state, skin_tone, symptoms, doc } = req.body;
 
-  const query = `INSERT INTO patients (email, name, username, password, dob, gender, state, skin_tone, symptoms) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  connection.query(query, [email, name, username, password, dob, gender, state, skin_tone, symptoms], (err, results) => {
+  //password is doc
+  connection.query(query, [email, name, username, dob, gender, state, skin_tone, symptoms, doc], (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
       res.status(500).json({ success: false, message: 'Internal server error' });

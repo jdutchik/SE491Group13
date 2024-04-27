@@ -18,10 +18,10 @@ app.use(cors(corsOptions)); // Use CORS with the specified options
 app.use(bodyParser.json()); // Body parser for JSON encoded bodies
 
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  host: 'user.c906o864k7yc.us-east-1.rds.amazonaws.com',
+  user: 'admin',
+  password: 'minecraft',
+  database: 'senior_design_db',
 });
 
 connection.connect();
@@ -33,7 +33,7 @@ connection.connect();
 app.get('/patient/:username', (req, res) => {
   const username = req.params.username;
 
-  connection.query('SELECT * FROM users WHERE username = ?', [username], (error, accountInfo) => {
+  connection.query('SELECT * FROM patients WHERE username = ?', [username], (error, accountInfo) => {
     if (error) {
       return res.status(500).json({ error: 'Error fetching user data' });
     }
@@ -51,16 +51,16 @@ app.get('/patient/:username', (req, res) => {
 app.get('/doctor/:username', (req, res) => {
   const username = req.params.username;
 
-  connection.query('SELECT * FROM users WHERE username = ?', [username], (error, accountInfo) => {
+  connection.query('SELECT * FROM doctors WHERE username = ?', [username], (error, doctor) => {
     if (error) {
-      return res.status(500).json({ error: 'Error fetching user data' });
+      return res.status(500).json({ error: 'Error fetching doctor data' });
     }
 
-    if (accountInfo.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
+    if (doctor.length === 0) {
+      return res.status(404).json({ error: 'Doctor not found' });
     }
 
-    res.json(res.json(patient));
+    res.json(doctor);
   });
 });
 
@@ -69,7 +69,7 @@ app.get('/doctor/:username', (req, res) => {
 app.post('/login', (req, res) => {
   const { username } = req.body;
 
-  const query = 'SELECT * FROM users WHERE username = ?';
+  const query = 'SELECT * FROM doctors WHERE username = ?';
 
   connection.query(query, [username], (err, results) => {
     if (err) {

@@ -42,7 +42,7 @@ const Login = () => {
     const login = async () => {
         try {
             if (isDoctor) {
-                request = 'http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/login';
+                request = 'http://localhost:3001/login';
             }
 
             const response = await fetch(request, {

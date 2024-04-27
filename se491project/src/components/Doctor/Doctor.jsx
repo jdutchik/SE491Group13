@@ -8,7 +8,7 @@ import searchIcon from '../Assets/search.png'
 
 const Doctor = () => {
     const location = useLocation();
-    const { username} = location.username || {};
+    const { username } = location.state || {};
 
     const [loading, setLoading] = useState(true);
     const [doctorInfo, setDoctorInfo] = useState(null);
@@ -19,7 +19,7 @@ const Doctor = () => {
 
     const getDoctorInfo = async () => {
         try {
-            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/doctor/${username}`, {
+            const response = await fetch(`http://localhost:3001/doctor/${username}`, {
                 method: 'GET'
             });
 
@@ -28,9 +28,7 @@ const Doctor = () => {
             }
 
             const data = await response.json();
-            setDoctorInfo(data);
-
-            console.log(doctorInfo);
+            setDoctorInfo(data[0]);
 
             if (doctorInfo != null) {
                 setLoading(false);

@@ -81,9 +81,10 @@ app.get('/products/:username', (req, res) => {
     }
   });
 
-  patient.ingredients;
+  const ingredients = patient[0].ingredients;
+  const ing = ingredients[0];
 
-  connection.query('SELECT * FROM products WHERE allergens = ?', [username], (error, products) => {
+  connection.query('SELECT * FROM products WHERE allergens LIKE ingredients', [ing], (error, products) => {
     if (error) {
       return res.status(500).json({ error: 'Error fetching doctor data' });
     }

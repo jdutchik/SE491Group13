@@ -63,14 +63,7 @@ const Login = () => {
 
             if (data.message === 'Login successful') {
                 updateVisibility('correctCreds');
-
-                if (isDoctor) {
-                    navigate('/Doctor', { state: { code } });
-                }
-
-                else {
-                    navigate('/account', { state: { username } });
-                }
+                navigate('/Doctor', { state: { code } });
             }
 
             else {
@@ -106,14 +99,7 @@ const Login = () => {
                 <div className='submit'>
                     <div className="login" onClick={login}>Login</div>
                 </div>
-                {/*
-                <div className="doctorSwitch" onClick={handleIsDoc}>
-                    {!isDoctor ? (<p>Doctor? Click Here</p>
-                    ) : (
-                        <p>Patient? Click Here</p>
-                    )}
-                </div>
-                */}
+                
                 <div className={visibility}>
                     Creditionals are Incorrect
                 </div>

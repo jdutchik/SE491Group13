@@ -176,23 +176,20 @@ def format_symptoms(symp):
 
 def format_inputs(inputs):
    X = []
-   patient_dict = inputs['patientdata']
-   dob_dict = inputs['formattedDob']
-   symp_dict = inputs['symptoms']
+   gender = inputs['gender']
+   dob = inputs['dob']
+   symptoms = inputs['symptoms']
+   state = inputs['state']
+   skin_tone = inputs['skin_tone']
+   split = dob.split('-')
 
-   gender = patient_dict['gender']
-   skin_tone = patient_dict['skin_tone']
-   state = patient_dict['state']
-   symptoms = symp_dict['selectedSymptoms']
 
-   X_year = dob_dict['year']
-   X_gender = format_gender(gender)
+   X_year = split[0]
+   X_gender = format_gender(gender)ß
    X_state = format_arr(state, state_arr)
    X_skin = format_arr(skin_tone, skin_arr)
    X_symptoms = format_symptoms(symptoms)
 
-
-   #X = X_year + X_gender + X_skin + X_state + X_symptoms
    X = X_year + X_gender  + X_skin + X_symptoms
 
    return X

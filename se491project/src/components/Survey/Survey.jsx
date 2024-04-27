@@ -294,10 +294,11 @@ const Survey = () => {
 </div>
 
 
-          {/* Skin Symptoms Section */}
-          <div className="other">
-            <h>Skin Symptoms</h>
-            <div className="other-options">
+  {/* Skin Symptoms Section */}
+  <div className="other">
+          <h className="skin-symptoms-heading">Skin Symptoms</h>
+
+            <div className="symptom-list">
               {symptomList.map((symptom, index) => (
                 <div key={index}>
                   <input

@@ -1,3 +1,10 @@
+
+.pageTitle {
+    text-align: center;
+    margin-top: 20px; /* Adjust margin as needed */
+    font-size: 24px; /* Adjust font size as needed */
+    color: white; /* Adjust color as needed */
+}
 body {
     background-color: darkred;
 }
@@ -26,9 +33,9 @@ body {
     height: fit-content;
 
     border-radius: 10px;
-    border-color: gold;
+    border-color: goldenrod;
     border-style: solid;
-    border-width: 5px;
+    border-width: 10px;
 }
 
 .picture img{
@@ -42,10 +49,10 @@ body {
     align-items: center;
 
     background-color: goldenrod;
-    color: white;
+    color: black;
 
     border: solid;
-    border-color: darkgray;
+    border-color: darkred;
     border-radius: 10px;
     border-width: 10px;
 
@@ -56,14 +63,14 @@ body {
 .doctor-title h1 {
     border: solid;
     border-width: 5px 0px;
-    border-color: white;
+    border-color: black;
 
     padding: 5px;
 }
 
 .doc-code h2 {
     font-size: 1em;
-    color: white;
+    color: black;
     margin: 5px
 }
 
@@ -86,7 +93,7 @@ body {
     align-items: center;
     justify-content: flex-start;
 
-    background-color: rgb(0, 0, 80);
+    background-color: darkred;
 
     margin: 50px;
     padding: 0px 25px 0px 0px;
@@ -95,7 +102,7 @@ body {
     width: fit-content;
 
     border-radius: 75px;
-    border-color: gold;
+    border-color: goldenrod;
     border-style: solid;
     border-width: 5px;
 }
@@ -108,14 +115,14 @@ body {
 }
 
 .search-button {
-    color: white;
+    color: black;
 
     margin: 10px 10px 10px 50px;
     padding: 5px;
 
     border-radius: 5px;
     border: solid;
-    border-color: white;
+    border-color: goldenrod;
 
     background-color: goldenrod;
 }
@@ -135,26 +142,25 @@ body {
     width:fit-content;
 
     border-radius: 10px;
-    border-color: gold;
+    border-color: goldenrod;
     border-style: solid;
-    border-width: 5px;
+    border-width: 10px;
 
     margin: 25px;
 }
-
 .patient {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start; /* Adjust alignment as needed */
     justify-content: space-around;
-
-    background-color: rgb(0, 0, 80);
+    background-color: darkred;
     margin: 20px;
     border-radius: 10px;
-    border-color: gold;
+    border-color: goldenrod;
     border-style: solid;
     border-width: 5px;
 }
+
 
 .patientImg {
     padding: 10px;
@@ -162,11 +168,11 @@ body {
 
 .patientImg img{
     border-radius: 100px;
-    border-color: gold;
+    border-color: goldenrod;
     border-style: solid;
     border-width: 10px;
 
-    background-color: white;
+    background-color: b;
 }
 
 .basic-info {
@@ -174,11 +180,13 @@ body {
     flex-direction: column;
     align-items: center;
 
-    color: white;
+    color: black;
 
     border-radius: 2px;
 
     background-color: goldenrod;
+    border: 5px solid darkred; /* Add border property */
+
 
     height: fit-content;
     width: fit-content;
@@ -190,7 +198,7 @@ body {
 .basic-info h1 {
     border: solid;
     border-width: 5px 0px 5px 0px;
-    border-color: white;
+    border-color: black;
 
     padding: 5px;
 }
@@ -199,11 +207,12 @@ body {
     display: flex;
     flex-direction: column;
 
-    color: white;
+    color: black;
 
     border-radius: 2px;
 
     background-color: goldenrod;
+    border: 5px solid darkred; /* Add border property */
 
     width: 60%;
 
@@ -213,7 +222,7 @@ body {
 
 .specific-info h1 {
     border: solid;
-    border-width: 0px 0px 10px 0px;
+    border-width: 0px 0px 5px 0px;
     border-color: black;
 
     color: black;
@@ -223,7 +232,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    border: 5px solid darkred; /* Add border property */
     border-radius: 2px;
 
     background-color: goldenrod;
@@ -248,7 +257,7 @@ body {
 }
 
 .resultsButton {
-    background-color: white;
+    background-color: lightgray;
     color: black;
 
     text-align: center;

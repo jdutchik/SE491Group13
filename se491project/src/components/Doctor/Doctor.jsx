@@ -114,6 +114,7 @@ const Doctor = () => {
 
     return (
         <div className="doctorContain">
+           
             <div className="quickInfo">
                 <div className="picture">
                     <img src={person}></img>

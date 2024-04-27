@@ -51,9 +51,9 @@ body {
 
     width: 90%;
 
-    border: gray;
+    border: goldenrod;
     border-style: solid;
-    border-width: 5px;
+    border-width: 10px;
 }
 
 .basic h {
@@ -71,10 +71,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: white;
+    color: darkred;
     
-    -webkit-text-stroke-width: 0.75px;
-    -webkit-text-stroke-color: black;
+
 
     font-size: 1.15em;
 
@@ -133,13 +132,12 @@ body {
     display: flex;
     flex-direction: column;
 
-    color: white;
+    color: darkred;
 
-    -webkit-text-stroke-width: 0.75px;
     -webkit-text-stroke-color: black;
 
     font-size: 1.5em;
-    font-weight: 700;
+    font-weight: 500;
 
     width: 70%;
 }
@@ -153,13 +151,13 @@ body {
     display: flex;
     flex-direction: column;
 
-    color: white;
+    color: darkred;
 
-    -webkit-text-stroke-width: 0.75px;
+
     -webkit-text-stroke-color: black;
 
     font-size: 1.5em;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .DOB {
@@ -173,7 +171,7 @@ body {
     font-size: 2em;
     font-weight: 500;
     text-align: center;
-    color: white;
+    color: darkred;
 
     width: fit-content;
 
@@ -195,7 +193,7 @@ body {
     font-weight: 500;
     color: goldenrod;
 
-    border: gold;
+    border: goldenrod;
     border-style: solid;
     border-radius: 5px;
     border-width: 8px;
@@ -215,7 +213,7 @@ body {
 
     border-radius: 6px;
 
-    border: gold;
+    border: goldenrod;
     border-style: solid;
     border-radius: 5px;
     border-width: 8px;
@@ -260,27 +258,17 @@ body {
     color: goldenrod;
 }
 
-.other h {
-    color: goldenrod;
-    font-size: 25px;
-    font-weight: 500;
-    margin: 2% 25% 5% 25%;
-}
-
 .other {
     display: flex;
     flex-direction: column;
     align-items: start;
     padding: 1%;
-
     background-color: darkred;
-
-    border: gold;
+    border: goldenrod;
     border-style: solid;
     border-radius: 5px;
     border-width: 8px;
-
-    width: 50%;
+    width: 90%; /* Adjust the width as needed */
 }
 
 .other label {
@@ -362,4 +350,27 @@ body {
 path:hover {
     opacity: 0.50;
     cursor: pointer;
+}
+.skin-symptoms-heading {
+    text-align: center;
+    color: goldenrod;
+    font-size: 40px;
+    font-weight: 600;
+    margin: 2% auto; /* Center the heading horizontally */
+    width: 100%; /* Make the heading take full width */
+  }
+
+  .symptom-list {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    background-color: darkred;
+
+    width: 50%; /* Adjust the width as needed */
+}
+  /* Style for symptom list items */
+.symptom-list label {
+    color: white;
+    font-size: 1.25em;
+    padding: 1%;
 }

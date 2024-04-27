@@ -64,6 +64,7 @@ body {
 .doc-code h2 {
     font-size: 1em;
     color: white;
+    margin: 5px
 }
 
 .doc-code {
@@ -71,8 +72,6 @@ body {
     flex-direction: row;
 
     align-items: center;
-
-    border: solid;
 
     padding: 15px;
 

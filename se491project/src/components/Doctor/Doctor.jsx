@@ -82,7 +82,7 @@ const Doctor = () => {
                     <h1>Doctor {doctorInfo.legalName}</h1>
                     ({doctorInfo.username})
                     <div className="doc-code">
-                        <h2>Code (Do NOT share with anyone but patients):</h2> {doctorInfo.docCode}
+                        <h2>Code (Share ONLY with patients):</h2> {doctorInfo.docCode}
                     </div>
                 </div>
                 <div className="userButtons">

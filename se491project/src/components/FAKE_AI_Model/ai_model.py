@@ -189,7 +189,8 @@ def format_inputs(inputs):
    X_symptoms = format_symptoms(symptoms)
 
 
-   X = X_year + X_gender + X_skin + X_state + X_symptoms
+   #X = X_year + X_gender + X_skin + X_state + X_symptoms
+   X = X_year + X_gender  + X_skin + X_symptoms
 
    return X
 

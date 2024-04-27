@@ -80,7 +80,7 @@ app.get('/doctor/:username', (req, res) => {
       return res.status(500).json({ error: 'Error fetching doctor data' });
     }
 
-    if (accountInfo.length === 0) {
+    if (doctor.length === 0) {
       return res.status(404).json({ error: 'Doctor not found' });
     }
 

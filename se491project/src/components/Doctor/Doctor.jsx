@@ -10,8 +10,26 @@ const Doctor = () => {
     const location = useLocation();
     const { username } = location.state || {};
 
+    const test_person = {
+        email : "john@example.com",
+        name : "John Doe",
+        username : "jd1234",
+        password : "dc",
+        dob : "2000-05-16",
+        gender : "Male",
+        state : "IA",
+        skin_tone : "Dark",
+        symptoms : "Acne pimples",
+        ingredients : "Ingredient 1601",
+    };
+
     const [loading, setLoading] = useState(true);
+    const [patient_loading, setPatientLoading] = useState(false);
+
     const [doctorInfo, setDoctorInfo] = useState(null);
+
+    const [patient_username, setPatientUsername] = useState(null);
+    const [patientInfo, setPatientInfo] = useState(test_person);
 
     const signOutClicked = () => {
         window.location.href = '/';
@@ -42,7 +60,7 @@ const Doctor = () => {
 
     const getPatientInfo = async () => {
         try {
-            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/patient/${username}`, {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/patient/${patient_username}`, {
                 method: 'GET'
             });
 
@@ -51,10 +69,10 @@ const Doctor = () => {
             }
 
             const data = await response.json();
-            setDoctorInfo(data[0]);
+            setPatientInfo(data[0]);
 
-            if (doctorInfo != null) {
-                setLoading(false);
+            if (patientInfo != null) {
+                setPatientLoading(false);
             }
         }
 
@@ -93,7 +111,7 @@ const Doctor = () => {
             <div className="patientResults">
                 <div className="search">
                     <img src={searchIcon} alt="" />
-                    <input type='searchBar' placeHolder='Enter Patient Name' />
+                    <input type='searchBar' placeHolder='Enter Patient Username' onChange={({ target: { value } }) => setPatientUsername(value)}/>
                     <div className='search-button' onClick={getPatientInfo}>Search</div>
                 </div>
 
@@ -104,12 +122,12 @@ const Doctor = () => {
                                 <img src={person}></img>
                             </div>
                         </div>
-                        <h1>Full Legal Name (username)</h1>
-                        <h2>Contact info: email</h2>
+                        <h1>{patientInfo.name} ({patientInfo.username})</h1>
+                        <h2>Contact info: {patientInfo.email}</h2>
                     </div>
 
                     <div className="specific-info">
-                        <h1>Specified Inputs Inputs</h1>
+                        <h1>Specified Inputs</h1>
                         STATE
                         skin tone
                         symptons

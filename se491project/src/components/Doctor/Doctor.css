@@ -152,7 +152,6 @@ body {
 }
 
 .patientImg {
-    margin: 15px;
     padding: 10px;
 }
 
@@ -166,12 +165,16 @@ body {
 }
 
 .basic-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     color: white;
 
     border-radius: 2px;
 
     background-color: goldenrod;
-    width: 20%;
+    width: fit-content;
 
     margin: 15px;
     padding: 10px;

@@ -28,7 +28,7 @@ connection.connect();
 
 // get
 
-  // patient info
+// patient info
 
 app.get('/patient/:username', (req, res) => {
   const username = req.params.username;
@@ -70,55 +70,30 @@ app.get('/patient/:username', (req, res) => {
   });
 });
 
-  // doctor info
+// doctor info
 
-  app.get('/doctor/:code', (req, res) => {
-    const code = req.params.code;
-  
-    connection.query('SELECT * FROM doctors WHERE code = ?', [code], (error, accountInfo) => {
-      if (error) {
-        return res.status(500).json({ error: 'Error fetching doctor data' });
-      }
-  
-      if (accountInfo.length === 0) {
-        return res.status(404).json({ error: 'Doctor not found' });
-      }
-  
-      const doctor = accountInfo[0];
-  
-      connection.query('SELECT patients.* FROM patients, doctors WHERE patients.doctor_id = doctors.doctor_id AND doctors.code = ?', 
-      [code], (secondErr, patientInfo) => {
-        if (secondErr) {
-          return res.status(500).json({ error: 'Error fetching patient data' });
-        }
-  
-        const patient = patientInfo[0];
-  
-        connection.query('SELECT * FROM allergens WHERE allergen_id = ?', [patient.allergen_id], (thirdErr, allergenInfo) => {
-          if (thirdErr) {
-            return res.status(500).json({ error: 'Error fetching allergen data' });
-          }
-  
-          const allergen = allergenInfo[0];
-  
-          const responseData = {
-            doctor: doctor,
-            patient: patient,
-            allergen: allergen,
-          };
-  
-          res.json(responseData);
-        });
-      });
-    });
+app.get('/doctor/:username', (req, res) => {
+  const username = req.params.username;
+
+  connection.query('SELECT * FROM doctors WHERE username = ?', [username], (error, doctor) => {
+    if (error) {
+      return res.status(500).json({ error: 'Error fetching doctor data' });
+    }
+
+    if (accountInfo.length === 0) {
+      return res.status(404).json({ error: 'Doctor not found' });
+    }
+
+    res.json(doctor);
   });
+});
 
 // post
 
 app.post('/login', (req, res) => {
   const { username } = req.body;
 
-  const query = 'SELECT * FROM users WHERE username = ?';
+  const query = 'SELECT * FROM patients WHERE username = ?';
 
   connection.query(query, [username], (err, results) => {
     if (err) {

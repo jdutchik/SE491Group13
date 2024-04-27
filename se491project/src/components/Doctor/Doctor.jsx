@@ -81,7 +81,9 @@ const Doctor = () => {
                 <div className="doctor-title">
                     <h1>Doctor {doctorInfo.legalName}</h1>
                     ({doctorInfo.username})
-                    <h2>Code (Do NOT share with anyone but patients): {doctorInfo.docCode}</h2>
+                    <div className="doc-code">
+                        <h2>Code (Do NOT share with anyone but patients):</h2> {doctorInfo.docCode}
+                    </div>
                 </div>
                 <div className="userButtons">
                     <div className="button" onClick={signOutClicked}>Sign Out</div>

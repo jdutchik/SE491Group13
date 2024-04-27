@@ -241,11 +241,22 @@ def handle_patient_data():
 @app.route('/doctor/results', methods=['POST'])
 def receive_patient_info():
     try:
-        data_json = request.json
-        print("Received patient info:", data_json)  # Console output to check the received data
-        return jsonify({'status': 'success'}), 200
+        # Parse JSON data sent from the client
+        patient_info = request.get_json()
+        print("Received patient info:", patient_info)  # Log the received data
+
+        # Example: Use this data to do something, e.g., feed into an AI model
+        # For now, just mock a response
+        response_data = {
+            "message": "Data received successfully",
+            "yourDataReceived": patient_info
+        }
+
+        return jsonify(response_data), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Error handling request: {str(e)}")
+        return jsonify({'error': 'Failed to process data'}), 500
+
 
 
 if __name__ == '__main__':

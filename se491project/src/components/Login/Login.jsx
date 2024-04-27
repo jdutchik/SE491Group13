@@ -107,7 +107,7 @@ const Login = () => {
                         </div>
                     ) : (
                         <div className='userInput'>
-                            <img src={userEmoji} alt="" />
+                            <img src={codeEmoji} alt="" />
                             <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
                         </div>
                     )}

@@ -82,7 +82,7 @@ app.get('/products/:username', (req, res) => {
 
     const ingredients = patient[0].ingredients;
 
-    if (ingredients.length == 0) {
+    if (ingredients == null) {
       return res.status(404).json({ error: 'No Ingredients' });
     }
 

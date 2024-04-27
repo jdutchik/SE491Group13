@@ -15,12 +15,13 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
+    "react-usa-map": "^1.5.0",
     "survey-react-ui": "^1.9.119",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "concurrently \"npm run start-react\" \"npm run start-backend\"",
-    "start-react": "react-scripts start",
+    "start-react": "set PORT=3000 && react-scripts start",
     "start-backend": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",

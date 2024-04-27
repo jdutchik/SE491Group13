@@ -81,7 +81,7 @@ const Doctor = () => {
 
     const getAllergenResults = async () => {
         try {
-            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/patient/${patientInfo.ingredients}`, {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/products/${patientInfo.username}`, {
                 method: 'GET'
             });
 

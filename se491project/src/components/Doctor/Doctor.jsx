@@ -33,6 +33,26 @@ const Doctor = () => {
     const [patient_username, setPatientUsername] = useState(null);
     const [patientInfo, setPatientInfo] = useState(test_person);
 
+
+    const sendPatientInfoToModel = async () => {
+        try {
+            const response = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/doctor/results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(patientInfo)
+            });
+    
+            const data = await response.json();
+            console.log('Response from server:', data);
+            alert('Patient info sent successfully!');  // Or handle the response data as needed
+        } catch (error) {
+            console.error('Failed to send patient info:', error);
+            alert('Failed to send patient information.');
+        }
+    };
+
     const signOutClicked = () => {
         window.location.href = '/';
     };
@@ -162,7 +182,7 @@ const Doctor = () => {
                     <div className="allergic-info">
                         <h1>Products to Avoid Using in Medication and Patient Use:</h1>
                         <div className="results">
-                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>
+                            {patient_loading ? ( <div className="resultsButton" onClick={sendPatientInfoToModel}>
                                 Analyze Ingredients in Specified Product List
                             </div> ) 
                             : 

@@ -245,6 +245,11 @@ def receive_patient_info():
         patient_info = request.get_json()
         print("Received patient info:", patient_info)  # Log the received data
 
+        formatted_inputs = format_inputs(patient_info)
+        print("Formatted array:", formatted_inputs)
+        
+
+
         # Example: Use this data to do something, e.g., feed into an AI model
         # For now, just mock a response
         response_data = {

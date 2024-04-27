@@ -33,7 +33,7 @@ connection.connect();
 app.get('/patient/:username', (req, res) => {
   const username = req.params.username;
 
-  connection.query('SELECT * FROM users WHERE username = ?', [username], (error, accountInfo) => {
+  connection.query('SELECT * FROM patients WHERE username = ?', [username], (error, accountInfo) => {
     if (error) {
       return res.status(500).json({ error: 'Error fetching user data' });
     }
@@ -44,29 +44,7 @@ app.get('/patient/:username', (req, res) => {
 
     const user = accountInfo[0];
 
-    connection.query('SELECT * FROM patients WHERE patient_id = ?', [user.patient_id], (secondErr, patientInfo) => {
-      if (secondErr) {
-        return res.status(500).json({ error: 'Error fetching patient data' });
-      }
-
-      const patient = patientInfo[0]
-
-      connection.query('SELECT * FROM doctors WHERE doctor_id = ?', [patient.doctor_id], (thirdErr, doctorInfo) => {
-        if (thirdErr) {
-          return res.status(500).json({ error: 'Error fetching doctor data' });
-        }
-
-        const doctor = doctorInfo[0];
-
-        const responseData = {
-          user: user,
-          patient: patient,
-          doctor: doctor,
-        };
-
-        res.json(responseData);
-      });
-    });
+    res.json(responseData);
   });
 });
 

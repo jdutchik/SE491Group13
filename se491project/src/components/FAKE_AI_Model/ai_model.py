@@ -18,6 +18,7 @@ def s3_get_keras_model():
     return keras.models.load_model(f"temp/model_Final.h5")
 
 
+
 input_data = np.array([1946,    1,    0,    0,    0,    0,    0,    1,    0,    0,    1,
            1,    1,    0,    1,    0,    1,    0,    0,    0,    0,    0,
            0,    0,    0,    0,    0,    0,    0,    0,    0,    1,    0,

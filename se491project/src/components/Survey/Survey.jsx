@@ -87,6 +87,7 @@ const Survey = () => {
 
   const [gender, setGender] = useState(null);
   const [skin_tone, setSkin_Tone] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   
   const [symptomList, setSymptomList] = useState(symptoms.map(symptom => ({
     name: symptom,
@@ -132,46 +133,46 @@ const Survey = () => {
 
   const handleSurveySubmit = async (e) => {
     e.preventDefault();
-
+  
     const dob_to_string = startDate.toDateString().split(" ");
-    const dob_sql = dob_to_string[3] + '-' + (months.indexOf(dob_to_string[1]) + 1).toString().padStart(2, '0') + '-' + dob_to_string[2];
-
+    const dob_sql = `${dob_to_string[3]}-${(months.indexOf(dob_to_string[1]) + 1).toString().padStart(2, '0')}-${dob_to_string[2]}`;
+  
     const selectedSymptoms = symptomList.filter(symptom => symptom.isSelected).map(symptom => symptom.name).join(', ');
-
+  
     const completePatientData = {
-      "email": email,
-      "name": full_name,
-      "username": username,
-      "password": password,
-      "dob": dob_sql,
-      "gender": gender,
-      "state": state,
-      "skin_tone": skin_tone,
-      "symptoms": selectedSymptoms,
-      "doc": doc
+      email,
+      name: full_name,
+      username,
+      password,
+      dob: dob_sql,
+      gender,
+      state,
+      skin_tone,
+      symptoms: selectedSymptoms,
+      doc
     };
-
+  
     try {
       const response = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/survey/patient', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(completePatientData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(completePatientData)
       });
-
+  
+      const responseData = await response.json();
       if (response.ok) {
         console.log('Patient data submitted successfully');
         navigate('/'); // Redirect to homepage upon successful submission
       } else {
         console.log('Failed to submit patient data');
-        console.error('Failed to submit patient data');
+        alert(responseData.message); // Show error message from the server
       }
     } catch (error) {
-      console.log('Caught error');
       console.error('Error:', error);
+      alert('Caught error submitting patient data');
     }
   };
+  
 
   return (
     <div className="surveyContainer">
@@ -200,7 +201,7 @@ const Survey = () => {
 
               <div className="basic">
                 <h>Doctor Code</h>
-                <input type="text" placeholder="Enter Your Doctor's Password" value={doc} onChange={({ target: { value } }) => setDoc(value)} />
+                <input type="text" placeholder="Enter Your Doctor's Code" value={doc} onChange={({ target: { value } }) => setDoc(value)} />
               </div>
             </div>
 
@@ -302,7 +303,8 @@ const Survey = () => {
             </div>
           </div>
 
-          <button type="submit" className="surveySubmit" onClick={submitClicked}>Submit</button>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          <button type="submit" className="surveySubmit">Submit</button>
         </div>
       </form>
     </div>

@@ -161,53 +161,42 @@ app.post('/login/doctor', (req, res) => {
 
 // hopefully survey post request
 
-app.post('/survey/patient', (req, res) => {
-  console.log(req.body);
-  const { email, name, username, password, dob, gender, state, skin_tone, symptoms, doc } = req.body;
 
-  const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-  //password is doc
-  connection.query(query, [email, name, username, dob, gender, state, skin_tone, symptoms, doc], (err, results) => {
-    if (err) {
-      console.error('Error executing MySQL query:', err);
-      res.status(500).json({ success: false, message: 'Internal server error' });
-    } else {
-      // Using results.affectedRows to check if the query was successful
-      if (results.affectedRows > 0) {
-        res.json({ success: true, message: 'Patient data submitted successfully' });
-      } else {
-        res.status(400).json({ success: false, message: 'Failed to insert patient data' });
-      }
-    }
-  });
-});
 
 // get patient info
 
 // mine
 
-app.post('/login/doctor', (req, res) => {
-  const { password, code } = req.body;
+app.post('/survey/patient', (req, res) => {
+  const { email, name, username, password, dob, gender, state, skin_tone, symptoms, doc } = req.body;
 
-  const query = 'SELECT * FROM doctors WHERE code = ? AND password = ?';
-
-  connection.query(query, [code, password], (err, results) => {
+  // Check if the provided doctor code exists in the doctors table
+  connection.query('SELECT * FROM doctors WHERE docCode = ?', [doc], (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
-      res.status(500).json({ success: false, message: 'Internal server error' });
-      return;
+      return res.status(500).json({ success: false, message: 'Invalid doctor code' });
+    }
+    if (results.length === 0) {
+      // No doctor found with the given docCode
+      return res.status(400).json({ success: false, message: 'Doctor code invalid' });
     }
 
-    if (results.length > 0) {
-      res.json({ success: true, message: 'Login successful' });
-    }
-
-    else {
-      res.json({ success: false, message: 'Invalid username or password' });
-    }
+    // Doctor found, proceed with inserting patient data
+    const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    connection.query(query, [email, name, username, dob, gender, state, skin_tone, symptoms, doc], (insertErr, insertResults) => {
+      if (insertErr) {
+        console.error('Error executing MySQL query:', insertErr);
+        return res.status(500).json({ success: false, message: 'Wrong doctor code' });
+      }
+      if (insertResults.affectedRows > 0) {
+        res.json({ success: true, message: 'Patient data submitted successfully' });
+      } else {
+        res.status(400).json({ success: false, message: 'Failed to insert patient data' });
+      }
+    });
   });
 });
+
 
 // put
 

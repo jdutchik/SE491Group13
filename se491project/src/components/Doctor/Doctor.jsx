@@ -160,10 +160,10 @@ const Doctor = () => {
                     </div>
 
                     <div className="allergic-info">
-                        <h1>Products to Avoid Using in Medication and Patient Use:</h1>
+                        <h1>List of Products Patient Should Avoid:</h1>
                         <div className="results">
                             {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>
-                                Analyze Ingredients in Specified Product List
+                               Click to Analyze and Run Patient Inputs
                             </div> ) 
                             : 
                             (<div>{products.map((item, index) => (

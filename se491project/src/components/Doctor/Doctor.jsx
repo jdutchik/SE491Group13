@@ -40,6 +40,29 @@ const Doctor = () => {
         }
     };
 
+    const getPatientInfo = async () => {
+        try {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/patient/${username}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch doctor data');
+            }
+
+            const data = await response.json();
+            setDoctorInfo(data[0]);
+
+            if (doctorInfo != null) {
+                setLoading(false);
+            }
+        }
+
+        catch (error) {
+            console.error('Error fetching user data:', error.message);
+        }
+    };
+
     useEffect(() => {
         getDoctorInfo();
     }, []);
@@ -55,8 +78,10 @@ const Doctor = () => {
                 <div className="picture">
                     <img src={person}></img>
                 </div>
-                <div className="doctor_title">
-                    Doctor {doctorInfo.legalName}
+                <div className="doctor-title">
+                    <h1>Doctor {doctorInfo.legalName}</h1>
+                    ({doctorInfo.username})
+                    <h2>Code (Do NOT share with anyone but patients): {doctorInfo.docCode}</h2>
                 </div>
                 <div className="userButtons">
                     <div className="button" onClick={signOutClicked}>Sign Out</div>
@@ -67,6 +92,7 @@ const Doctor = () => {
                 <div className="search">
                     <img src={searchIcon} alt="" />
                     <input type='searchBar' placeHolder='Enter Patient Name' />
+                    <div className='search-button' onClick={getPatientInfo}>Search</div>
                 </div>
 
                 <div className="patient">

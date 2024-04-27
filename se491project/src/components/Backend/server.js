@@ -33,7 +33,7 @@ connection.connect();
 app.get('/patient/:username', (req, res) => {
   const username = req.params.username;
 
-  connection.query('SELECT * FROM patients WHERE username = ?', [username], (error, accountInfo) => {
+  connection.query('SELECT * FROM patients WHERE username = ?', [username], (error, patient) => {
     if (error) {
       return res.status(500).json({ error: 'Error fetching user data' });
     }
@@ -42,7 +42,7 @@ app.get('/patient/:username', (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json(res.json(patient));
+    res.json(patient);
   });
 });
 

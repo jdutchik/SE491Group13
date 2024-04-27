@@ -36,6 +36,9 @@ body {
 
     margin: 50px;
 
+    height: fit-content;
+    width: 50%;
+
     border-radius: 75px;
     border-color: gold;
     border-style: solid;

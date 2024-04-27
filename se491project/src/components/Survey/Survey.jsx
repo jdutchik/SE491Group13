@@ -130,8 +130,8 @@ const Survey = () => {
           <p className="intro">
             To ensure accurate determination of allergies,
             it is crucial for users to input correct and comprehensive information.
-            Please provide precise details about the patient's name, age, gender, race, weight, diet,
-            and any relevant geographical information. Accurate data enables our Artificial
+            Please provide precise details about the patient's name, age, gender, skin tone,
+            geographical information, and any symptoms you are experiencing. Accurate data enables our Artificial
             Intelligence model to come to a more informed
             conclusion on the patient's potential allergies. Additionally,
             if you have a change in any of the listed info in the future, please consider

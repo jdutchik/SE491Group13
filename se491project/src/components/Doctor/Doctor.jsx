@@ -39,7 +39,7 @@ const Doctor = () => {
 
     const getDoctorInfo = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/doctor/${username}`, {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/doctor/${username}`, {
                 method: 'GET'
             });
 
@@ -62,7 +62,7 @@ const Doctor = () => {
 
     const getPatientInfo = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/patient/${patient_username}`, {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/patient/${patient_username}`, {
                 method: 'GET'
             });
 
@@ -82,7 +82,7 @@ const Doctor = () => {
 
     const getAllergenResults = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/products/${patientInfo.username}`, {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/products/${patientInfo.username}`, {
                 method: 'GET'
             });
 

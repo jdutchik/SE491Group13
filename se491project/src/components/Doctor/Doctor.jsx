@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from 'react-router-dom';
 
 import './Doctor.css';
@@ -11,20 +11,22 @@ const Doctor = () => {
     const { username } = location.state || {};
 
     const test_person = {
-        email : "john@example.com",
-        name : "John Doe",
-        username : "jd1234",
-        password : "dc",
-        dob : "2000-05-16",
-        gender : "Male",
-        state : "IA",
-        skin_tone : "Dark",
-        symptoms : "Acne pimples",
-        ingredients : "Ingredient 1601",
+        email: "john@example.com",
+        name: "John Doe",
+        username: "jd1234",
+        password: "dc",
+        dob: "2000-05-16",
+        gender: "Male",
+        state: "IA",
+        skin_tone: "Dark",
+        symptoms: "Acne pimples",
+        ingredients: "Ingredient 1601",
     };
 
+    const products = [];
+
     const [loading, setLoading] = useState(true);
-    const [patient_loading, setPatientLoading] = useState(false);
+    const [patient_loading, setPatientLoading] = useState(true);
 
     const [doctorInfo, setDoctorInfo] = useState(null);
 
@@ -70,8 +72,27 @@ const Doctor = () => {
 
             const data = await response.json();
             setPatientInfo(data[0]);
+        }
 
-            if (patientInfo != null) {
+        catch (error) {
+            console.error('Error fetching user data:', error.message);
+        }
+    };
+
+    const getAllergenResults = async () => {
+        try {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/patient/${patientInfo.ingredients}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch doctor data');
+            }
+
+            const data = await response.json();
+            products = data;
+
+            if (products != null && products != 0) {
                 setPatientLoading(false);
             }
         }
@@ -79,7 +100,7 @@ const Doctor = () => {
         catch (error) {
             console.error('Error fetching user data:', error.message);
         }
-    };
+    }
 
     useEffect(() => {
         getDoctorInfo();
@@ -111,7 +132,7 @@ const Doctor = () => {
             <div className="patientResults">
                 <div className="search">
                     <img src={searchIcon} alt="" />
-                    <input type='searchBar' placeHolder='Enter Patient Username' onChange={({ target: { value } }) => setPatientUsername(value)}/>
+                    <input type='searchBar' placeHolder='Enter Patient Username' onChange={({ target: { value } }) => setPatientUsername(value)} />
                     <div className='search-button' onClick={getPatientInfo}>Search</div>
                 </div>
 
@@ -122,7 +143,7 @@ const Doctor = () => {
                                 <img src={person}></img>
                             </div>
                         </div>
-                        <h1>{patientInfo.name}</h1> ({patientInfo.username}) 
+                        <h1>{patientInfo.name}</h1> ({patientInfo.username})
                         <h2>Contact info: {patientInfo.email}</h2>
                     </div>
 
@@ -133,11 +154,19 @@ const Doctor = () => {
                         <div className="lil"><div className="head">Gender: &nbsp;</div>{patientInfo.gender}</div>
                         <div className="lil"><div className="head">Skin Tone: &nbsp;</div>{patientInfo.skin_tone}</div>
                         <div className="lil"><div className="head">Symptoms: &nbsp;</div>{patientInfo.symptoms}</div>
-                        <div className="lil"><div className="head">Allergens: &nbsp;</div>{patientInfo.ingredients}</div>                                                                                                                       
+                        <div className="lil"><div className="head">Allergens: &nbsp;</div>{patientInfo.ingredients}</div>
                     </div>
 
                     <div className="allergic-info">
-                        avoid
+                        <h1>Products to Avoid Using in Medication and Patient Use:</h1>
+                        <div className="results">
+                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults()}>
+                                Analyze Ingredients in Specified Product List
+                            </div> ) 
+                            : 
+                            (<div>{products.map((element, index) => (
+                            <div key={index} className="element"> {element} </div>))}</div>) }
+                        </div>
                     </div>
                 </div>
             </div>

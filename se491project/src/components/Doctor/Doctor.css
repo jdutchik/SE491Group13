@@ -10,10 +10,6 @@ body {
     background: darkred;
 
     height: 100vh;
-
-    border: solid;
-    border-color: gold;
-    border-width: 0px 15px 0px 15px;
 }
 
 .quickInfo {
@@ -57,8 +53,12 @@ body {
     padding: 10px;
 }
 
-.h1 {
+.doctor-title h1 {
+    border: solid;
+    border-width: 5px 0px;
+    border-color: white;
 
+    padding: 5px;
 }
 
 .doc-code h2 {
@@ -76,6 +76,9 @@ body {
     padding: 15px;
 
     color: black;
+
+    font-weight: 600;
+    font-size: 1.25em;
 }
 
 .search {
@@ -129,12 +132,14 @@ body {
     background-color: lightgray;
 
     height: fit-content;
-    width: 80%;
+    width:fit-content;
 
     border-radius: 10px;
     border-color: gold;
     border-style: solid;
     border-width: 5px;
+
+    margin: 25px;
 }
 
 .patient {
@@ -182,6 +187,14 @@ body {
     padding: 15px;
 }
 
+.basic-info h1 {
+    border: solid;
+    border-width: 5px 0px 5px 0px;
+    border-color: white;
+
+    padding: 5px;
+}
+
 .specific-info {
     display: flex;
     flex-direction: column;
@@ -192,7 +205,7 @@ body {
 
     background-color: goldenrod;
 
-    width: fit-content;
+    width: 60%;
 
     margin: 15px;
     padding: 15px;
@@ -201,19 +214,55 @@ body {
 .specific-info h1 {
     border: solid;
     border-width: 0px 0px 10px 0px;
+    border-color: black;
+
+    color: black;
 }
 
 .allergic-info {
-    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     border-radius: 2px;
 
     background-color: goldenrod;
 
-    width: 30%;
+    width: 50%;
 
     margin: 15px;
     padding: 10px;
+}
+
+.allergic-info h1 {
+    color: darkblue;
+
+}
+
+.element {
+    background-color: gray;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+.resultsButton {
+    background-color: white;
+    color: black;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    margin: 0px 25px;
+    padding: 10px 5px;
+
+    border: solid;
+}
+
+.resultsButton:hover{
+    cursor: pointer;
 }
 
 .lil {

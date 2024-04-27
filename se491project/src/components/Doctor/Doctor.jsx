@@ -23,10 +23,10 @@ const Doctor = () => {
         ingredients: "Ingredient 1601",
     };
 
-    const products = [];
-
     const [loading, setLoading] = useState(true);
     const [patient_loading, setPatientLoading] = useState(true);
+
+    const [products, setProducts] = useState([]);
 
     const [doctorInfo, setDoctorInfo] = useState(null);
 
@@ -39,7 +39,7 @@ const Doctor = () => {
 
     const getDoctorInfo = async () => {
         try {
-            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/doctor/${username}`, {
+            const response = await fetch(`http://localhost:3001/doctor/${username}`, {
                 method: 'GET'
             });
 
@@ -62,7 +62,7 @@ const Doctor = () => {
 
     const getPatientInfo = async () => {
         try {
-            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/patient/${patient_username}`, {
+            const response = await fetch(`http://localhost:3001/patient/${patient_username}`, {
                 method: 'GET'
             });
 
@@ -72,6 +72,7 @@ const Doctor = () => {
 
             const data = await response.json();
             setPatientInfo(data[0]);
+            setPatientLoading(true);
         }
 
         catch (error) {
@@ -81,18 +82,18 @@ const Doctor = () => {
 
     const getAllergenResults = async () => {
         try {
-            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/products/${patientInfo.username}`, {
+            const response = await fetch(`http://localhost:3001/products/${patientInfo.username}`, {
                 method: 'GET'
             });
 
             if (!response.ok) {
-                throw new Error('Failed to fetch doctor data');
+                throw new Error('Failed to fetch Allergen Results data');
             }
 
             const data = await response.json();
-            products = data;
+            setProducts(data.slice(0, Math.min(5, data.length)));
 
-            if (products != null && products != 0) {
+            if (products != null && products.length != 0) {
                 setPatientLoading(false);
             }
         }
@@ -160,12 +161,14 @@ const Doctor = () => {
                     <div className="allergic-info">
                         <h1>Products to Avoid Using in Medication and Patient Use:</h1>
                         <div className="results">
-                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults()}>
+                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>
                                 Analyze Ingredients in Specified Product List
                             </div> ) 
                             : 
-                            (<div>{products.map((element, index) => (
-                            <div key={index} className="element"> {element} </div>))}</div>) }
+                            (<div>{products.map((item, index) => (
+                                <div key={index} className="element">
+                                  {item}
+                                </div>))}</div>) }
                         </div>
                     </div>
                 </div>

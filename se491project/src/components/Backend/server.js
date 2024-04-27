@@ -18,22 +18,22 @@ app.use(cors(corsOptions)); // Use CORS with the specified options
 app.use(bodyParser.json()); // Body parser for JSON encoded bodies
 
 const connection = mysql.createConnection({
-  host: 'user.c906o864k7yc.us-east-1.rds.amazonaws.com',
-  user: 'admin',
-  password: 'minecraft',
-  database: 'senior_design_db',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 connection.connect();
 
 // get
 
-// patient info
+  // patient info
 
 app.get('/patient/:username', (req, res) => {
   const username = req.params.username;
 
-  connection.query('SELECT * FROM patients WHERE username = ?', [username], (error, patient) => {
+  connection.query('SELECT * FROM users WHERE username = ?', [username], (error, accountInfo) => {
     if (error) {
       return res.status(500).json({ error: 'Error fetching user data' });
     }
@@ -42,34 +42,83 @@ app.get('/patient/:username', (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json(patient);
+    const user = accountInfo[0];
+
+    connection.query('SELECT * FROM patients WHERE patient_id = ?', [user.patient_id], (secondErr, patientInfo) => {
+      if (secondErr) {
+        return res.status(500).json({ error: 'Error fetching patient data' });
+      }
+
+      const patient = patientInfo[0]
+
+      connection.query('SELECT * FROM doctors WHERE doctor_id = ?', [patient.doctor_id], (thirdErr, doctorInfo) => {
+        if (thirdErr) {
+          return res.status(500).json({ error: 'Error fetching doctor data' });
+        }
+
+        const doctor = doctorInfo[0];
+
+        const responseData = {
+          user: user,
+          patient: patient,
+          doctor: doctor,
+        };
+
+        res.json(responseData);
+      });
+    });
   });
 });
 
-// doctor info
+  // doctor info
 
-app.get('/doctor/:username', (req, res) => {
-  const username = req.params.username;
-
-  connection.query('SELECT * FROM doctors WHERE username = ?', [username], (error, doctor) => {
-    if (error) {
-      return res.status(500).json({ error: 'Error fetching doctor data' });
-    }
-
-    if (doctor.length === 0) {
-      return res.status(404).json({ error: 'Doctor not found' });
-    }
-
-    res.json(doctor);
+  app.get('/doctor/:code', (req, res) => {
+    const code = req.params.code;
+  
+    connection.query('SELECT * FROM doctors WHERE code = ?', [code], (error, accountInfo) => {
+      if (error) {
+        return res.status(500).json({ error: 'Error fetching doctor data' });
+      }
+  
+      if (accountInfo.length === 0) {
+        return res.status(404).json({ error: 'Doctor not found' });
+      }
+  
+      const doctor = accountInfo[0];
+  
+      connection.query('SELECT patients.* FROM patients, doctors WHERE patients.doctor_id = doctors.doctor_id AND doctors.code = ?', 
+      [code], (secondErr, patientInfo) => {
+        if (secondErr) {
+          return res.status(500).json({ error: 'Error fetching patient data' });
+        }
+  
+        const patient = patientInfo[0];
+  
+        connection.query('SELECT * FROM allergens WHERE allergen_id = ?', [patient.allergen_id], (thirdErr, allergenInfo) => {
+          if (thirdErr) {
+            return res.status(500).json({ error: 'Error fetching allergen data' });
+          }
+  
+          const allergen = allergenInfo[0];
+  
+          const responseData = {
+            doctor: doctor,
+            patient: patient,
+            allergen: allergen,
+          };
+  
+          res.json(responseData);
+        });
+      });
+    });
   });
-});
 
 // post
 
 app.post('/login', (req, res) => {
   const { username } = req.body;
 
-  const query = 'SELECT * FROM doctors WHERE username = ?';
+  const query = 'SELECT * FROM users WHERE username = ?';
 
   connection.query(query, [username], (err, results) => {
     if (err) {
@@ -90,7 +139,37 @@ app.post('/login', (req, res) => {
 
 // hopefully survey post request
 
+// mine
 
+app.post('/survey/patient', (req, res) => {
+  const { email, name, username, password, dob, gender, state, skin_tone, symptoms, doc } = req.body;
+
+  // Check if the provided doctor code exists in the doctors table
+  connection.query('SELECT * FROM doctors WHERE docCode = ?', [doc], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      return res.status(500).json({ success: false, message: 'Invalid doctor code' });
+    }
+    if (results.length === 0) {
+      // No doctor found with the given docCode
+      return res.status(400).json({ success: false, message: 'Doctor code invalid' });
+    }
+
+    // Doctor found, proceed with inserting patient data
+    const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    connection.query(query, [email, name, username, dob, gender, state, skin_tone, symptoms, doc], (insertErr, insertResults) => {
+      if (insertErr) {
+        console.error('Error executing MySQL query:', insertErr);
+        return res.status(500).json({ success: false, message: 'Wrong doctor code' });
+      }
+      if (insertResults.affectedRows > 0) {
+        res.json({ success: true, message: 'Patient data submitted successfully' });
+      } else {
+        res.status(400).json({ success: false, message: 'Failed to insert patient data' });
+      }
+    });
+  });
+});
 
 // get patient info
 

@@ -19,7 +19,7 @@ const Doctor = () => {
 
     const getDoctorInfo = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/doctor/${username}`, {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/doctor/${username}`, {
                 method: 'GET'
             });
 

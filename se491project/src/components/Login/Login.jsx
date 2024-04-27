@@ -63,7 +63,7 @@ const Login = () => {
 
             if (data.message === 'Login successful') {
                 updateVisibility('correctCreds');
-                navigate('/Doctor', { state: { code } });
+                navigate('/Doctor', { state: { username } });
             }
 
             else {

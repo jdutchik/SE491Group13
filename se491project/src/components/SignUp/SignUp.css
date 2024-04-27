@@ -14,18 +14,19 @@
 .intro-signup {
     font-size: 1.8em;
     font-weight: 1000;
-
     text-align: center;
-
     color: goldenrod;
-
     backdrop-filter: blur(2px);
-
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    
     height: min-content;
     padding: 2%;
+    
+    /* Red box styling */
+    background-color: red;
+    border: 2px solid gold;
+    border-radius: 10px;
+    margin: 20px;
 }
 
 .fun {
@@ -89,4 +90,13 @@
 
     font-size: 1.25em;
     font-weight: 700;
+}
+.bottom-paragraph {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px; /* Adjust padding as needed */
+    background-color: #fff; /* Set background color */
+    color: #000; /* Set text color */
 }

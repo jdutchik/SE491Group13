@@ -80,7 +80,7 @@ const Login = () => {
         <div className="full">
             <div className='loginContainer'>
                 <div className='header'>
-                    <div className='titleText'>Enter Doctor Creditionals</div>
+                    <div className='titleText'>Doctor Login</div>
                 </div>
 
                 <div className='inputs'>

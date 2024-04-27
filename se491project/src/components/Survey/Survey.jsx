@@ -178,16 +178,16 @@ const Survey = () => {
     <div className="surveyContainer">
       <form className="userForm" onSubmit={handleSurveySubmit}>
         <div className="userDebrief">
-          <h1>Welcome! Let's get started 👋</h1>
+          <h1>Welcome! Let's get started! 👋</h1>
           <p className="intro">
-            To ensure accurate determination of allergies,
-            it is crucial for users to input correct and comprehensive information.
+            Please fill out the survey below. To ensure accurate determination of allergies,
+            it is crucial to input correct and comprehensive information.
             Please provide precise details about the patient's name, age, gender, skin tone,
-            geographical information, and any symptoms you are experiencing. Accurate data enables our Artificial
+            state of residence, and any symptoms. Accurate data enables our Artificial
             Intelligence model to come to a more informed
             conclusion on the patient's potential allergies. Additionally,
-            if you have a change in any of the listed info in the future, please consider
-            updating this information to help deliver personalized and reliable results.
+            if there is a change in any of the listed info in the future, please consider
+            updating the information to help deliver personalized and reliable results.
             Your cooperation in providing accurate
             information plays a pivotal role in optimizing the effectiveness of the allergy
             determination process.
@@ -197,64 +197,69 @@ const Survey = () => {
         <div className="questions">
           <div className="first-six">
             <div className="user-info">
-              <div className="basic">
-                <h>Email</h>
-                <input type="text" placeholder="example@gmail.com" value={email} onChange={({ target: { value } }) => setEmail(value)} />
-              </div>
 
-              <div className="basic">
-                <h>Username</h>
-                <input type="text" placeholder="Enter Username" value={username} onChange={({ target: { value } }) => setUsername(value)} />
-              </div>
+            <div className="basic">
+  <h>Full Patient Name</h>
+  <input type="text" placeholder="Enter Full Patient Name" value={full_name} onChange={({ target: { value } }) => setFull_Name(value)} />
+</div>
+<div className="basic">
+  <h>Email</h>
+  <input type="text" placeholder="example@gmail.com" value={email} onChange={({ target: { value } }) => setEmail(value)} />
+</div>
 
-              <div className="basic">
-                <h>Doctor Code</h>
-                <input type="text" placeholder="Enter Your Doctor's Code" value={doc} onChange={({ target: { value } }) => setDoc(value)} />
-              </div>
-            </div>
+<div className="basic">
+  <h>Username</h>
+  <input type="text" placeholder="Enter Username" value={username} onChange={({ target: { value } }) => setUsername(value)} />
+</div>
 
-            <div className="patient-info">
-              <div className="name-gender">
-                <div className="name">
-                  <h>Full Patient Name</h>
-                  <input type="text" placeholder="Enter Full Patient Name" value={full_name} onChange={({ target: { value } }) => setFull_Name(value)} />
-                </div>
+<div className="basic">
+  <h>Doctor Code</h>
+  <input type="text" placeholder="Enter Your Doctor's Code" value={doc} onChange={({ target: { value } }) => setDoc(value)} />
+</div>
 
-                <div className="gender">
-                  <h>Gender</h>
-                  <select className="genderInput" value={gender} onChange={({ target: { value } }) => setGender(value)}>
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-              </div>
 
-              <div className="DOB">
-                <h>Date of Birth</h>
-                <DatePicker
-                  showIcon
-                  inline
-                  renderCustomHeader={({ date, changeYear, changeMonth }) => (
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <select value={date.getFullYear()} onChange={({ target: { value } }) => changeYear(value)}>
-                        {years.map((option) => (
-                          <option key={option} value={option}>{option}</option>
-                        ))}
-                      </select>
 
-                      <select value={months[date.getMonth()]} onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}>
-                        {months.map((option) => (
-                          <option key={option} value={option}>{option}</option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                />
-              </div>
+<div className="basic">
+  <h>Gender</h>
+  <select className="genderInput" value={gender} onChange={({ target: { value } }) => setGender(value)}>
+    <option value="">Select Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
+
+<div className="basic" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+  <h>Date of Birth</h>
+  <div style={{ display: "flex", justifyContent: "center" }}>
+    <DatePicker
+      showIcon
+      inline
+      renderCustomHeader={({ date, changeYear, changeMonth }) => (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <select value={date.getFullYear()} onChange={({ target: { value } }) => changeYear(value)}>
+            {years.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+
+          <select value={months[date.getMonth()]} onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}>
+            {months.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+      )}
+      selected={startDate}
+      onChange={(date) => setStartDate(date)}
+    />
+  </div>
+</div>
+
+
+
+
             </div>
           </div>
 
@@ -296,7 +301,8 @@ const Survey = () => {
 
           {/* Skin Symptoms Section */}
           <div className="other">
-            <h>Skin Symptoms</h>
+          <h className="skin-symptoms-heading">Skin Symptoms</h>
+
             <div className="other-options">
               {symptomList.map((symptom, index) => (
                 <div key={index}>

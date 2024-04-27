@@ -92,7 +92,7 @@ const Login = () => {
 
                     <div className='userInput'>
                         <img src={passwordEmoji} alt="" />
-                        <input type='password' onChange={passwordChange} placeHolder='Enter Password' />
+                        <input type="password" onChange={passwordChange} placeHolder='Enter Password' />
                     </div>
                 </div>
 

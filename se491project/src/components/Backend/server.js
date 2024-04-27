@@ -18,10 +18,10 @@ app.use(cors(corsOptions)); // Use CORS with the specified options
 app.use(bodyParser.json()); // Body parser for JSON encoded bodies
 
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  host: "user.c906o864k7yc.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "minecraft",
+  database: "senior_design_db"
 });
 
 connection.connect();
@@ -33,40 +33,16 @@ connection.connect();
 app.get('/patient/:username', (req, res) => {
   const username = req.params.username;
 
-  connection.query('SELECT * FROM users WHERE username = ?', [username], (error, accountInfo) => {
+  connection.query('SELECT * FROM patients WHERE username = ?', [username], (error, patient) => {
     if (error) {
       return res.status(500).json({ error: 'Error fetching user data' });
     }
 
-    if (accountInfo.length === 0) {
+    if (patient.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const user = accountInfo[0];
-
-    connection.query('SELECT * FROM patients WHERE patient_id = ?', [user.patient_id], (secondErr, patientInfo) => {
-      if (secondErr) {
-        return res.status(500).json({ error: 'Error fetching patient data' });
-      }
-
-      const patient = patientInfo[0]
-
-      connection.query('SELECT * FROM doctors WHERE doctor_id = ?', [patient.doctor_id], (thirdErr, doctorInfo) => {
-        if (thirdErr) {
-          return res.status(500).json({ error: 'Error fetching doctor data' });
-        }
-
-        const doctor = doctorInfo[0];
-
-        const responseData = {
-          user: user,
-          patient: patient,
-          doctor: doctor,
-        };
-
-        res.json(responseData);
-      });
-    });
+    res.json(patient);
   });
 });
 
@@ -85,6 +61,55 @@ app.get('/doctor/:username', (req, res) => {
     }
 
     res.json(doctor);
+  });
+});
+
+// product list
+
+app.get('/products/:username', (req, res) => {
+  const username = req.params.username;
+
+  console.log(username);
+
+  connection.query('SELECT * FROM patients WHERE username = ?', [username], (error, patient) => {
+    if (error) {
+      return res.status(500).json({ error: 'Error fetching patient data' });
+    }
+
+    if (patient.length === 0) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const ingredients = patient[0].ingredients;
+    const split_ing = ingredients.split(';');
+
+    connection.query('SELECT * FROM products', (error, products) => {
+      if (error) {
+        return res.status(500).json({ error: 'Error fetching PRODUCT data' });
+      }
+
+      if (products.length === 0) {
+        return res.status(404).json({ error: 'PRODUCT not found' });
+      }
+
+      const listed_products = [];
+
+      for (const pro of products) {
+        for (let i = 0; i < (split_ing.length-1); i++) {
+          if (pro.allergens.includes(split_ing[i])) {
+            listed_products.push(pro.name);
+            i = split_ing.length;
+          } 
+          
+          else {
+            console.log('Substring not found');
+          }
+        }
+      }
+
+      console.log(listed_products);
+      res.json(listed_products);
+    });
   });
 });
 

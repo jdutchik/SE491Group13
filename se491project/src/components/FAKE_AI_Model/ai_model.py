@@ -3,8 +3,8 @@ from tensorflow import keras
 import numpy as np
 
 # Set AWS credentials
-AWS_ACCESS_KEY = 'AKIAQ3EGRKHNVFFYSONF'
-AWS_SECRET_KEY = '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'
+AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID
+AWS_SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY
 
 def get_s3fs():
   return s3fs.S3FileSystem(key=AWS_ACCESS_KEY, secret=AWS_SECRET_KEY)
@@ -35,5 +35,7 @@ loaded_model.summary()
 print(loaded_model.input_shape)
 
 prediction = loaded_model.predict(input_data)
+
+print(prediction.shape)
 
 print("Prediction:", prediction)

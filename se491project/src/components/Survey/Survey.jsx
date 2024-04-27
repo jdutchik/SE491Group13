@@ -200,7 +200,7 @@ const Survey = () => {
 
               <div className="basic">
                 <h>Doctor Code</h>
-                <input type="text" placeholder="Enter Password" value={doc} onChange={({ target: { value } }) => setDoc(value)} />
+                <input type="text" placeholder="Enter Your Doctor's Password" value={doc} onChange={({ target: { value } }) => setDoc(value)} />
               </div>
             </div>
 

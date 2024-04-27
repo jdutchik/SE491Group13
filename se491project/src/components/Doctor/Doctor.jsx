@@ -122,17 +122,18 @@ const Doctor = () => {
                                 <img src={person}></img>
                             </div>
                         </div>
-                        <h1>{patientInfo.name} ({patientInfo.username})</h1>
+                        <h1>{patientInfo.name}</h1> ({patientInfo.username}) 
                         <h2>Contact info: {patientInfo.email}</h2>
                     </div>
 
                     <div className="specific-info">
-                        <h1>Specified Inputs</h1>
-                        STATE
-                        skin tone
-                        symptons
-                        Gender
-                        DOB
+                        <h1>Inputs for Artificial Intelligence Model</h1>
+                        <div className="lil"><div className="head">Date of Birth: &nbsp;</div>{patientInfo.dob}</div>
+                        <div className="lil"><div className="head">Location: &nbsp;</div>{patientInfo.state}</div>
+                        <div className="lil"><div className="head">Gender: &nbsp;</div>{patientInfo.gender}</div>
+                        <div className="lil"><div className="head">Skin Tone: &nbsp;</div>{patientInfo.skin_tone}</div>
+                        <div className="lil"><div className="head">Symptoms: &nbsp;</div>{patientInfo.symptoms}</div>
+                        <div className="lil"><div className="head">Allergens: &nbsp;</div>{patientInfo.ingredients}</div>                                                                                                                       
                     </div>
 
                     <div className="allergic-info">

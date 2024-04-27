@@ -146,6 +146,26 @@ app.post('/login', (req, res) => {
 
 // mine
 
+
+
+
+// Handle POST request to '/doctor/results'
+app.post('/doctor/results', (req, res) => {
+  // Here you can handle the incoming patient information
+  // For now, let's just log the received data to the console
+  console.log("Received patient info:", req.body);
+
+  // You might want to process this data or forward it to another service
+
+  // Sending back a success response
+  res.status(200).json({message: "Patient information received successfully"});
+});
+
+
+
+
+
+
 app.post('/survey/patient', (req, res) => {
   const { email, name, username, password, dob, gender, state, skin_tone, symptoms, doc } = req.body;
 

@@ -1,13 +1,18 @@
+from dotenv import load_dotenv
+import os
 import s3fs
 from tensorflow import keras
 import numpy as np
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Set AWS credentials
-AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID
-AWS_SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY
+AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 def get_s3fs():
-  return s3fs.S3FileSystem(key=AWS_ACCESS_KEY, secret=AWS_SECRET_KEY)
+    return s3fs.S3FileSystem(key=AWS_ACCESS_KEY, secret=AWS_SECRET_KEY)
 
 def s3_get_keras_model():
     s3fs = get_s3fs()
@@ -17,17 +22,21 @@ def s3_get_keras_model():
 
     return keras.models.load_model(f"temp/model_Final.h5")
 
-input_data = np.array([[1946,    1,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-          0,    0,    0,    0,    0,    0,    0,    0,    1,    0,    0,
-          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    1,
-          1,    1,    0,    1,    0,    1,    0,    0,    0,    0,    0,
-          0,    0,    0,    0,    0,    0,    0,    0,    0,    1,    0,
+input_data = np.array([1946,    1,    0,    0,    0,    0,    0,    1,    0,    0,    0,
           0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
           0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+          0,    0,    0,    1,    0,    0,    0,    0,    0,    0,    0,
           0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-          0,    0,    0,    0,    0,    0]])
+          0,    0,    0,    0,    0,    1,    1,    1,    0,    1,    0,
+          1,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+          0,    0,    0,    0,    1,    0,    0,    0,    0,    0,    0,
+          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+          0])
+
+# Add a batch dimension to the input data
+input_data = np.expand_dims(input_data, axis=0)
 
 loaded_model = s3_get_keras_model()
 

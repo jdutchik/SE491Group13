@@ -20,13 +20,6 @@ const SignUp = () => {
                     <img src={signup} alt="" />
                     <div className="signUpButton">Complete Your Survey Today!</div>
                 </div>
-
-                <div className='paragraph'> 
-                    Find peace of mind with our new and exciting Artificial Intelligence 
-                    allergy detection service!
-                    Begin your journey by filling out a brief survey. Then all you need to do 
-                    is get in contact with your doctor or physician for the results. It is that easy!
-                </div>
         </div>
     )
 }

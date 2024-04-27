@@ -17,15 +17,17 @@
 
     text-align: center;
 
-    color: goldenrod;
+    color: gold;
 
     backdrop-filter: blur(2px);
-
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+    background-color: darkred;
     
     height: min-content;
     padding: 2%;
+
+    margin: 35px;
+
+    border-radius: 15px;
 }
 
 .fun {

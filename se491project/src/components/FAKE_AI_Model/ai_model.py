@@ -3,11 +3,11 @@ from tensorflow import keras
 import numpy as np
 
 # Set AWS credentials
-AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID
-AWS_SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY
+AWS_ACCESS_KEY_ID='AKIAQ3EGRKHNVFFYSONF'
+AWS_SECRET_ACCESS_KEY='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'
 
 def get_s3fs():
-  return s3fs.S3FileSystem(key=AWS_ACCESS_KEY, secret=AWS_SECRET_KEY)
+  return s3fs.S3FileSystem(key=AWS_ACCESS_KEY_ID, secret=AWS_SECRET_ACCESS_KEY)
 
 def s3_get_keras_model():
     s3fs = get_s3fs()

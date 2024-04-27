@@ -18,7 +18,7 @@ const SignUp = () => {
 
                 <div className="fullButton" onClick={signUpClicked}>
                     <img src={signup} alt="" />
-                    <div className="signUpButton">Sign Up For Free Today!</div>
+                    <div className="signUpButton">Complete Your Survey Today!</div>
                 </div>
 
                 <div className='paragraph'> 

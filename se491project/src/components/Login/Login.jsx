@@ -15,7 +15,7 @@ import web from '../Assets/web.png';
 const Login = () => {
     const navigate = useNavigate();
 
-    const [isDoctor, setIsDoctor] = useState(false);
+    const [isDoctor, setIsDoctor] = useState(true);
     const [code, setCode] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -40,14 +40,8 @@ const Login = () => {
     var request = "";
 
     const login = async () => {
-        window.location.href = '/Doctor';
-        {/*
         try {
             if (isDoctor) {
-                request = 'http://localhost:3001/login/doctor';
-            }
-
-            else {
                 request = 'http://localhost:3001/login';
             }
 
@@ -57,9 +51,7 @@ const Login = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username,
-                    password,
-                    code,
+                    username
                 }),
             });
 
@@ -71,14 +63,7 @@ const Login = () => {
 
             if (data.message === 'Login successful') {
                 updateVisibility('correctCreds');
-
-                if (isDoctor) {
-                    navigate('/doctor', { state: { code } });
-                }
-
-                else {
-                    navigate('/account', { state: { username } });
-                }
+                navigate('/Doctor', { state: { username } });
             }
 
             else {
@@ -89,7 +74,6 @@ const Login = () => {
         catch (error) {
             console.error('Login Error:', error.message);
         }
-        */}
     };
 
     return (
@@ -100,17 +84,11 @@ const Login = () => {
                 </div>
 
                 <div className='inputs'>
-                    {isDoctor ? (
-                        <div className='userInput'>
-                            <img src={codeEmoji} alt="" />
-                            <input type='text' value={code} onChange={codeChange} placeHolder='Enter Doctor Code' />
-                        </div>
-                    ) : (
-                        <div className='userInput'>
-                            <img src={userEmoji} alt="" />
-                            <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
-                        </div>
-                    )}
+
+                    <div className='userInput'>
+                        <img src={codeEmoji} alt="" />
+                        <input type='text' value={username} onChange={usernameChange} placeHolder='Enter Username' />
+                    </div>
 
                     <div className='userInput'>
                         <img src={passwordEmoji} alt="" />
@@ -121,14 +99,7 @@ const Login = () => {
                 <div className='submit'>
                     <div className="login" onClick={login}>Login</div>
                 </div>
-                {/*
-                <div className="doctorSwitch" onClick={handleIsDoc}>
-                    {!isDoctor ? (<p>Doctor? Click Here</p>
-                    ) : (
-                        <p>Patient? Click Here</p>
-                    )}
-                </div>
-                */}
+                
                 <div className={visibility}>
                     Creditionals are Incorrect
                 </div>

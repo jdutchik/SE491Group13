@@ -8,7 +8,7 @@ import searchIcon from '../Assets/search.png'
 
 const Doctor = () => {
     const location = useLocation();
-    const { code } = location.state || {};
+    const { username } = location.state || {};
 
     const [loading, setLoading] = useState(true);
     const [doctorInfo, setDoctorInfo] = useState(null);
@@ -18,9 +18,8 @@ const Doctor = () => {
     };
 
     const getDoctorInfo = async () => {
-        {/*
         try {
-            const response = await fetch(`http://localhost:3001/doctor/${code}`, {
+            const response = await fetch(`http://localhost:3001/doctor/${username}`, {
                 method: 'GET'
             });
 
@@ -29,9 +28,7 @@ const Doctor = () => {
             }
 
             const data = await response.json();
-            setDoctorInfo(data);
-
-            console.log(doctorInfo);
+            setDoctorInfo(data[0]);
 
             if (doctorInfo != null) {
                 setLoading(false);
@@ -41,7 +38,6 @@ const Doctor = () => {
         catch (error) {
             console.error('Error fetching user data:', error.message);
         }
-    */}
     };
 
     useEffect(() => {
@@ -49,8 +45,8 @@ const Doctor = () => {
     }, []);
 
     if (loading) {
-        //getDoctorInfo();
-        //return <div>Loading...</div>
+        getDoctorInfo();
+        return <div>Loading...</div>
     }
 
     return (
@@ -59,7 +55,9 @@ const Doctor = () => {
                 <div className="picture">
                     <img src={person}></img>
                 </div>
-
+                <div className="doctor_title">
+                    Doctor {doctorInfo.legalName}
+                </div>
                 <div className="userButtons">
                     <div className="button" onClick={signOutClicked}>Sign Out</div>
                 </div>
@@ -72,15 +70,27 @@ const Doctor = () => {
                 </div>
 
                 <div className="patient">
-                    <div className="patientImg">
-                        <div className="picture">
-                            <img src={person}></img>
+                    <div className="basic-info">
+                        <div className="patientImg">
+                            <div className="picture">
+                                <img src={person}></img>
+                            </div>
                         </div>
+                        <h1>Full Legal Name (username)</h1>
+                        <h2>Contact info: email</h2>
                     </div>
-                    <div className="patientSum">
-                        <div className="patientQuickInfo"></div>
-                        <p>is prone to be allergic to</p>
-                        <div className="allergen"></div>
+
+                    <div className="specific-info">
+                        <h1>Specified Inputs Inputs</h1>
+                        STATE
+                        skin tone
+                        symptons
+                        Gender
+                        DOB
+                    </div>
+
+                    <div className="allergic-info">
+                        avoid
                     </div>
                 </div>
             </div>

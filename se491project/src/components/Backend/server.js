@@ -93,7 +93,7 @@ app.get('/doctor/:username', (req, res) => {
 app.post('/login', (req, res) => {
   const { username } = req.body;
 
-  const query = 'SELECT * FROM patients WHERE username = ?';
+  const query = 'SELECT * FROM doctors WHERE username = ?';
 
   connection.query(query, [username], (err, results) => {
     if (err) {

@@ -58,7 +58,7 @@ const Doctor = () => {
                     <img src={person}></img>
                 </div>
                 <div className="doctor_title">
-                    Doctor
+                    Doctor {doctorInfo.legalName}
                 </div>
                 <div className="userButtons">
                     <div className="button" onClick={signOutClicked}>Sign Out</div>

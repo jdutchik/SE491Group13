@@ -28,7 +28,7 @@ connection.connect();
 
 // get
 
-  // patient info
+// patient info
 
 app.get('/patient/:username', (req, res) => {
   const username = req.params.username;
@@ -42,76 +42,27 @@ app.get('/patient/:username', (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const user = accountInfo[0];
-
-    connection.query('SELECT * FROM patients WHERE patient_id = ?', [user.patient_id], (secondErr, patientInfo) => {
-      if (secondErr) {
-        return res.status(500).json({ error: 'Error fetching patient data' });
-      }
-
-      const patient = patientInfo[0]
-
-      connection.query('SELECT * FROM doctors WHERE doctor_id = ?', [patient.doctor_id], (thirdErr, doctorInfo) => {
-        if (thirdErr) {
-          return res.status(500).json({ error: 'Error fetching doctor data' });
-        }
-
-        const doctor = doctorInfo[0];
-
-        const responseData = {
-          user: user,
-          patient: patient,
-          doctor: doctor,
-        };
-
-        res.json(responseData);
-      });
-    });
+    res.json(res.json(patient));
   });
 });
 
-  // doctor info
+// doctor info
 
-  app.get('/doctor/:code', (req, res) => {
-    const code = req.params.code;
-  
-    connection.query('SELECT * FROM doctors WHERE code = ?', [code], (error, accountInfo) => {
-      if (error) {
-        return res.status(500).json({ error: 'Error fetching doctor data' });
-      }
-  
-      if (accountInfo.length === 0) {
-        return res.status(404).json({ error: 'Doctor not found' });
-      }
-  
-      const doctor = accountInfo[0];
-  
-      connection.query('SELECT patients.* FROM patients, doctors WHERE patients.doctor_id = doctors.doctor_id AND doctors.code = ?', 
-      [code], (secondErr, patientInfo) => {
-        if (secondErr) {
-          return res.status(500).json({ error: 'Error fetching patient data' });
-        }
-  
-        const patient = patientInfo[0];
-  
-        connection.query('SELECT * FROM allergens WHERE allergen_id = ?', [patient.allergen_id], (thirdErr, allergenInfo) => {
-          if (thirdErr) {
-            return res.status(500).json({ error: 'Error fetching allergen data' });
-          }
-  
-          const allergen = allergenInfo[0];
-  
-          const responseData = {
-            doctor: doctor,
-            patient: patient,
-            allergen: allergen,
-          };
-  
-          res.json(responseData);
-        });
-      });
-    });
+app.get('/doctor/:username', (req, res) => {
+  const username = req.params.username;
+
+  connection.query('SELECT * FROM users WHERE username = ?', [username], (error, accountInfo) => {
+    if (error) {
+      return res.status(500).json({ error: 'Error fetching user data' });
+    }
+
+    if (accountInfo.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(res.json(patient));
   });
+});
 
 // post
 

@@ -18,9 +18,8 @@ const Doctor = () => {
     };
 
     const getDoctorInfo = async () => {
-        {/*
         try {
-            const response = await fetch(`http://localhost:3001/doctor/${code}`, {
+            const response = await fetch(`http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/doctor/${code}`, {
                 method: 'GET'
             });
 
@@ -41,7 +40,6 @@ const Doctor = () => {
         catch (error) {
             console.error('Error fetching user data:', error.message);
         }
-    */}
     };
 
     useEffect(() => {
@@ -49,8 +47,8 @@ const Doctor = () => {
     }, []);
 
     if (loading) {
-        //getDoctorInfo();
-        //return <div>Loading...</div>
+        getDoctorInfo();
+        return <div>Loading...</div>
     }
 
     return (

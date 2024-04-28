@@ -107,14 +107,15 @@ app.get('/products/:username', (req, res) => {
 
     // split output buffer
     const output_buffer_ingredients = outputBuffer.toString().split('\n')[1];
+    const cleaned_buffer = output_buffer_ingredients.replace(/[{'"]/g, '');
 
-    console.log(output_buffer_ingredients);
-
+    console.log(cleaned_buffer)
+   
     // new query to update patient
     const updateQuery = "UPDATE patients SET ingredients = ? WHERE username = ?";
 
     // Execute the update query
-    connection.query(updateQuery, [output_buffer_ingredients, patient[0].username], (error) => {
+    connection.query(updateQuery, [cleaned_buffer, patient[0].username], (error) => {
       if (error) {
         console.error('Error updating patients:', error);
         return;
@@ -122,7 +123,7 @@ app.get('/products/:username', (req, res) => {
     });
 
     // split ingredients by comma
-    const split_ing = output_buffer_ingredients.trim().split(',');
+    const split_ing = cleaned_buffer.trim().split(',');
 
     console.log(split_ing);
 

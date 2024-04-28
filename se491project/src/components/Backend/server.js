@@ -83,13 +83,48 @@ app.get('/products/:username', (req, res) => {
       return res.status(404).json({ error: 'Patient not found' });
     }
 
-    const ingredients = patient[0].ingredients;
+    // Get inputs
+    const gender = patient[0].gender;
+    const dob = patient[0].dob;
+    const skin_tone = patient[0].skin_tone;
+    const symptoms = patient[0].symptoms;
+    const state = patient[0].state;
 
-    if (ingredients == null) {
-      return res.status(404).json({ error: 'No Ingredients' });
-    }
+    // python execution inputs
+    const relativePath = './ai_model.py';
+    const absolutePath = path.resolve(__dirname, relativePath);
 
-    const split_ing = ingredients.split(';');
+    const json_string = `${gender};${dob};${skin_tone};${symptoms};${state};`
+    const command = `python3 ${absolutePath} "${json_string}"`;
+
+    console.log(command);
+
+    // exec command
+    const outputBuffer = execSync(command, {encoding: 'utf-8'})
+
+    console.log("Made it to the point");
+    console.log(outputBuffer.toString());
+
+    // split output buffer
+    const output_buffer_ingredients = outputBuffer.toString().split('\n')[0];
+
+    console.log(output_buffer_ingredients);
+
+    // new query to update patient
+    const updateQuery = "UPDATE patients SET ingredients = ? WHERE username = ?";
+
+    // Execute the update query
+    connection.query(updateQuery, [output_buffer_ingredients, patient[0].username], (error, new_products) => {
+      if (error) {
+        console.error('Error updating patients:', error);
+        return;
+      }
+    });
+
+    // split ingredients by comma
+    const split_ing = str.trim().split(',');
+
+    console.log(split_ing);
 
     connection.query('SELECT * FROM products', (error, products) => {
       if (error) {
@@ -162,20 +197,6 @@ app.post('/survey/patient', (req, res) => {
       // No doctor found with the given docCode
       return res.status(400).json({ success: false, message: 'Doctor code invalid' });
     }
-    
-    const relativePath = './ai_model.py';
-    const absolutePath = path.resolve(__dirname, relativePath);
-
-    const json_string = `${gender};${dob};${skin_tone};${symptoms};${state};`
-    const command = `python3 ${absolutePath} "${json_string}"`;
-
-    console.log(command);
-    console.log(req.body);
-
-    const outputBuffer = execSync(command, {encoding: 'utf-8'})
-
-    console.log("Made it to the point");
-    console.log(outputBuffer.toString());
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

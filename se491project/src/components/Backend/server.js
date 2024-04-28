@@ -169,18 +169,26 @@ app.post('/survey/patient', (req, res) => {
     const json_string = `${gender};${dob};${skin_tone};${symptoms};${state};`
     const command = `python3 ${absolutePath} "${json_string}"`;
 
-    console.log(command)
+    console.log(command);
     console.log(req.body);
 
+    const python_respone = "No res";
+
     exec(command, (error, stdout, stderr) => {
+      console.log(`Line (176) This is from the server: ${stdout}`);
+
       if (error) {
           console.error(`exec error: ${error}`);
           res.status(500).send('Internal Server Error');
           return;
       }
 
-      console.log(`This is from the server: ${stdout}`);
+      console.log(`Line (188) This is from the server: ${stdout}`);
+
+      python_respone = stdout;
     });
+
+    console.log(`Line 189: ${python_response}`);
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

@@ -107,7 +107,7 @@ app.get('/products/:username', (req, res) => {
 
     // split output buffer
     const output_buffer_ingredients = outputBuffer.toString().split('\n')[1];
-    const cleaned_buffer = output_buffer_ingredients.replace(/[{'"]/g, '');
+    const cleaned_buffer = output_buffer_ingredients.replace(/[{}'"]/g, '');
 
     console.log(cleaned_buffer)
    

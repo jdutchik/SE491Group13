@@ -93,6 +93,9 @@ const Doctor = () => {
             const data = await response.json();
             setProducts(data.slice(0, Math.min(5, data.length)));
 
+            alert(data)
+            alert(products)
+
             if (products != null && products.length != 0) {
                 setPatientLoading(false);
             }

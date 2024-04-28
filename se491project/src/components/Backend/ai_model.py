@@ -130,9 +130,9 @@ def s3_get_keras_model():
     s3fs = get_s3fs()
 
     # Fetch and save the zip file to the temporary directory
-    s3fs.get(f"492bucket/model/model_Final.h5", f"temp/model_Final.h5")
+    s3fs.get(f"492bucket/model/model_test.h5", f"temp/model_test.h5")
 
-    return keras.models.load_model(f"temp/model_Final.h5")
+    return keras.models.load_model(f"temp/model_test.h5")
 
 ############### FORMAT INPUTS #####################################
 

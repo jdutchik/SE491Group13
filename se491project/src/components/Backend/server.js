@@ -174,21 +174,19 @@ app.post('/survey/patient', (req, res) => {
 
     let python_response = "No res";
 
-    exec(command, (error, stdout, stderr) => {
-      console.log(`Line (176) This is from the server: ${stdout}`);
-
+    execSync(command, (error, stdout, stderr) => {
       if (error) {
           console.error(`exec error: ${error}`);
           res.status(500).send('Internal Server Error');
           return;
       }
 
-      console.log(`Line (188) This is from the server: ${stdout}`);
+      console.log(`Line (184) This is from the server: ${stdout}`);
 
       python_response = stdout;
     });
 
-    console.log(`Line 191: ${python_response}`);
+    console.log(`Is Everything caught up?: ${python_response}`)
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

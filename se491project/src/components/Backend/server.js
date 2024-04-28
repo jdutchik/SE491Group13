@@ -172,7 +172,7 @@ app.post('/survey/patient', (req, res) => {
     console.log(command);
     console.log(req.body);
 
-    const python_response = "No res";
+    let python_response = "No res";
 
     exec(command, (error, stdout, stderr) => {
       console.log(`Line (176) This is from the server: ${stdout}`);
@@ -188,7 +188,7 @@ app.post('/survey/patient', (req, res) => {
       python_response = stdout;
     });
 
-    console.log(`Line 189: ${python_response}`);
+    console.log(`Line 191: ${python_response}`);
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

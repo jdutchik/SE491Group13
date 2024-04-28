@@ -1,23 +1,5 @@
-#import s3fs
-#from tensorflow import keras
-import numpy as np
 import json
 #from flask import Flask, request, jsonify
-
-# Set AWS credentials
-AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID
-AWS_SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY
-
-def get_s3fs():
-  return s3fs.S3FileSystem(key=AWS_ACCESS_KEY, secret=AWS_SECRET_KEY)
-
-def s3_get_keras_model():
-    s3fs = get_s3fs()
-
-    # Fetch and save the zip file to the temporary directory
-    s3fs.get(f"492bucket/model/model_Final.h5", f"temp/model_Final.h5")
-
-    return keras.models.load_model(f"temp/model_Final.h5")
 
 #Arrays to set my indexes
 state_arr = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
@@ -28,14 +10,16 @@ state_arr = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
 
 skin_arr = ["Dark","Brown","Olive","Medium","Fair","Light"]
 
-symptom_arr = [ "sensitive skin allergist diagnosed", "sensitive skin self diagnosed", "contact dermatitis", "eczema atopic",
-"dry skin", "acne pimples", "skin allergies", "rosacea", "discoloration hyperpigmentation", "fine lines wrinkles", "psoriasis",
-"celiacs", "blackheads", "coconut", "textile dye mix", "gluten", "respiratory", "patchy rash", "tbd", "congestion", "ffa", "chapped skin",
-"whiteheads", "rash", "balsam peru", "itching", "ppd", "alopecia", "ap93", "cocamidopropyl betaine", "metal", "ethylenediamine dihydrochloride", 
-"nickel", "potassium dichromate", "glutaral", "licus planus", "lip inflammation", "lichen sclerosis", "dry lips", "occasional rash outbreaks",
-"propolis", "surgical site healing issues", "urticaria", "polysorbate 80", "fragrance", "celiac", "perioral dermatitis", "scalp", "hives",
-"itchy skin", "red lips", "peeling lips", "itchy lips", "burning lips","excema", "dermatitis herpetiformis", "polyethylene glycol", "oral lichen plans",
-"damaged pores extractions", "dermal hypersensitivity reaction" ]
+
+symptom_arr = ["sensitive skin allergist diagnosed", "sensitive skin self diagnosed", "contact dermatitis", "eczema atopic", "dry", 
+                "acne pimples", "skin allergies", "rosacea", "discoloration hyperpigmentation", "fine lines wrinkles", "psoriasis", "celiacs", 
+                "blackheads", "coconut", "textile dye mix", "gluten", "respiratory", "patchy rash", "tbd", "congestion", "ffa", "chapped", 
+                "whiteheads", "rash", "balsam peru", "itching", "ppd", "alopecia", "ap93", "cocamidopropyl betaine", "metal", "ethylenediamine dihydrochloride", 
+                "nickel", "balsam peru", "potassium dichromate", "glutaral", "licus planus", "lip inflammation", "lichen sclerosis", "dry lips", 
+                "occasional rash outbreaks", "propolis", "cocamidopropyl betaine", "surgical site healing issues", "urticaria", "polysorbate 80", 
+                "fragrance", "celiac", "perioral dermatitis", "scalp", "hives", "itchy", "red", "peeling", "itchy", "burning", "excema", "dermatitis herpetiformis", 
+                "polyethylene glycol ", "oral lichen plans", "damaged pores extractions", "dermal hypersensitivity reaction"]
+
 
 allergy_arr = ["Ingredient 9456", "Ingredient 100612", "Ingredient 100613", "Ingredient 100702", "Ingredient 100857", "Ingredient 102", 
                "Ingredient 10260", "Ingredient 103637", "Ingredient 104", "Ingredient 1043", "Ingredient 104630", "Ingredient 105017", 
@@ -157,8 +141,10 @@ def format_arr(X_input, arr):
 
 def format_symptoms(symp):
   indexes = []
-  for x in symp:
-    indexes.append(symptom_arr.index(x))
+  symp_split = symp.split(', ')
+  for x in symp_split:
+    if(x in symptom_arr):
+        indexes.append(symptom_arr.index(x))
 
   X_symptoms = []
   for i in range(len(symptom_arr)):
@@ -181,55 +167,20 @@ def format_inputs(inputs):
    split = dob.split('-')
 
 
-   X_year = split[0]
+   X_year = [split[0]]
    X_gender = format_gender(gender)
    X_state = format_arr(state, state_arr)
    X_skin = format_arr(skin_tone, skin_arr)
    X_symptoms = format_symptoms(symptoms)
 
-   X = X_year + X_gender  + X_skin + X_symptoms
+   X = X_year + X_gender + X_skin + X_symptoms
 
    return X
 
-def format_outputs(predictions, threshold):
-  all_ret = []
-  temp_arr = np.array(predictions)
-  temp = np.where(temp_arr > threshold) 
-  index = temp[1][:]
-  for x in index:
-    all_ret.append(allergy_arr[x])
-  
-  string_ret = ', '.join(all_ret)
-
-  #this is for returning a JSON instead of a string
-  #json_ret = {
-  #  "Allergy_string": string_ret,
-  #}
-
-  #return json.dumps(json_ret)
-  return string_ret
+inputs = '{"email": "jdutc@gmail.com", "name": "Josh Dutchik", "username": "jdutc","password": null, "dob": "2006-05-16T00:00:00.000Z", "gender": "Male", "state": "WY", "skin_tone": "Olive", "symptoms": "Skin allergies, Rosacea", "ingredients": "Ingredient 1601; Ingredient 257;", "doc": "84010"}'
 
 
-app = Flask(__name__)
-
-@app.route('/survey/patient', methods=['POST'])
-def handle_patient_data():
-    try:
-        data_json = request.json
-        inputs = json.loads(data_json)
-        model_input = format_inputs(inputs)
-
-        loaded_model = s3_get_keras_model()
-
-        prediction = loaded_model.predict(model_input)
-
-        msg = format_outputs(prediction, .5)
-
-        return jsonify({'Allergies': msg}), 200
-    except Exception as e:
-        # Handle any exceptions
-        return jsonify({'error': str(e)}), 500
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3001, debug=True)
+jsonObj = json.loads(inputs)
+msg = model_input = format_inputs(jsonObj)
+print(len(msg))
+print(msg)

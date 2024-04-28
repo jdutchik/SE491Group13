@@ -172,9 +172,9 @@ app.post('/survey/patient', (req, res) => {
     console.log(command);
     console.log(req.body);
 
-    const outputBuffer = execSync(command, { encoding: 'utf-8' });
+    const outputBuffer = execSync(command).toString();
 
-    console.log(`TESTING: ${outputBuffer}`);
+    console.log(`OUTPUT: ${outputBuffer}`);
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

@@ -167,10 +167,10 @@ const Doctor = () => {
                     <div className="allergic-info">
                         <h1>List of Products Patient Should Avoid:</h1>
                         <div className="results">
-                            {false ? ( <div className="resultsButton" onClick={getAllergenResults}>{modelLoading}
+                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>{modelLoading}
                             </div> ) 
                             : 
-                            (<div className="productResults">{test_string}</div>)}
+                            (<div className="productResults">{products}</div>)}
                         </div>
                     </div>
                 </div>

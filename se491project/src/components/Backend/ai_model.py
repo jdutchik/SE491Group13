@@ -232,9 +232,9 @@ def main_model_funtion(json_input):
 
   # format outputs
   output = format_outputs(prediction, .5)
-
-  # print
-  print(output)
+  
+  # return output
+  return output
 
 if __name__ == "__main__":
     # Extract command line arguments
@@ -242,4 +242,4 @@ if __name__ == "__main__":
 
     # Call your Python function with the parameters
     result = main_model_funtion(param1)
-    print(result)
+    print(f'This is from the model: {result}')

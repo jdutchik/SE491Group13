@@ -190,6 +190,7 @@ const Survey = () => {
       console.error('Error:', error);
       alert('Caught error submitting patient data');
     }
+  };
   
 
   return (
@@ -339,4 +340,3 @@ const Survey = () => {
 };
 
 export default Survey;
-

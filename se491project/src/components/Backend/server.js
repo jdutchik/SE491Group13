@@ -180,7 +180,7 @@ app.post('/survey/patient', (req, res) => {
       }
     });
 
-    console.log('Child process output:', outputBuffer.toString());
+    console.log(`TESTING: ${outputBuffer.toString()}`);
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

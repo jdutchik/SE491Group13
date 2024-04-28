@@ -31,14 +31,14 @@ state_arr = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
 
 skin_arr = ["Dark","Brown","Olive","Medium","Fair","Light"]
 
-symptom_arr = [ "sensitive skin allergist diagnosed", "sensitive skin self diagnosed", "contact dermatitis", "eczema atopic",
-"dry skin", "acne pimples", "skin allergies", "rosacea", "discoloration hyperpigmentation", "fine lines wrinkles", "psoriasis",
-"celiacs", "blackheads", "coconut", "textile dye mix", "gluten", "respiratory", "patchy rash", "tbd", "congestion", "ffa", "chapped skin",
-"whiteheads", "rash", "balsam peru", "itching", "ppd", "alopecia", "ap93", "cocamidopropyl betaine", "metal", "ethylenediamine dihydrochloride", 
-"nickel", "potassium dichromate", "glutaral", "licus planus", "lip inflammation", "lichen sclerosis", "dry lips", "occasional rash outbreaks",
-"propolis", "surgical site healing issues", "urticaria", "polysorbate 80", "fragrance", "celiac", "perioral dermatitis", "scalp", "hives",
-"itchy skin", "red lips", "peeling lips", "itchy lips", "burning lips","excema", "dermatitis herpetiformis", "polyethylene glycol", "oral lichen plans",
-"damaged pores extractions", "dermal hypersensitivity reaction" ]
+symptom_arr = ["sensitive skin allergist diagnosed", "sensitive skin self diagnosed", "contact dermatitis", "eczema atopic", "dry", 
+                "acne pimples", "skin allergies", "rosacea", "discoloration hyperpigmentation", "fine lines wrinkles", "psoriasis", "celiacs", 
+                "blackheads", "coconut", "textile dye mix", "gluten", "respiratory", "patchy rash", "tbd", "congestion", "ffa", "chapped", 
+                "whiteheads", "rash", "balsam peru", "itching", "ppd", "alopecia", "ap93", "cocamidopropyl betaine", "metal", "ethylenediamine dihydrochloride", 
+                "nickel", "balsam peru", "potassium dichromate", "glutaral", "licus planus", "lip inflammation", "lichen sclerosis", "dry lips", 
+                "occasional rash outbreaks", "propolis", "cocamidopropyl betaine", "surgical site healing issues", "urticaria", "polysorbate 80", 
+                "fragrance", "celiac", "perioral dermatitis", "scalp", "hives", "itchy", "red", "peeling", "itchy", "burning", "excema", "dermatitis herpetiformis", 
+                "polyethylene glycol ", "oral lichen plans", "damaged pores extractions", "dermal hypersensitivity reaction"]
 
 allergy_arr = ["Ingredient 9456", "Ingredient 100612", "Ingredient 100613", "Ingredient 100702", "Ingredient 100857", "Ingredient 102", 
                "Ingredient 10260", "Ingredient 103637", "Ingredient 104", "Ingredient 1043", "Ingredient 104630", "Ingredient 105017", 
@@ -160,8 +160,10 @@ def format_arr(X_input, arr):
 
 def format_symptoms(symp):
   indexes = []
-  for x in symp:
-    indexes.append(symptom_arr.index(x))
+  symp_split = symp.split(', ')
+  for x in symp_split:
+    if(x in symptom_arr):
+        indexes.append(symptom_arr.index(x))
 
   X_symptoms = []
   for i in range(len(symptom_arr)):
@@ -169,7 +171,7 @@ def format_symptoms(symp):
       X_symptoms.append(1)
     else:
       X_symptoms.append(0)
-  
+
   return X_symptoms
 
 
@@ -184,13 +186,13 @@ def format_inputs(inputs):
    split = dob.split('-')
 
 
-   X_year = split[0]
-   X_gender = format_gender(gender)ß
+   X_year = [split[0]]
+   X_gender = format_gender(gender)
    X_state = format_arr(state, state_arr)
    X_skin = format_arr(skin_tone, skin_arr)
    X_symptoms = format_symptoms(symptoms)
 
-   X = X_year + X_gender  + X_skin + X_symptoms
+   X = X_year + X_gender + X_skin + X_symptoms
 
    return X
 
@@ -242,7 +244,9 @@ def receive_patient_info():
         patient_info = request.get_json()
         print("Received patient info:", patient_info)  # Log the received data
 
-        formatted_inputs = format_inputs(patient_info)
+        jasonObj = json.loads(patient_info)
+
+        formatted_inputs = format_inputs(jasonObj)
         print("Formatted array:", formatted_inputs)
         
 

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const { exec } = require('child_process');
 const path = require('path');
+const { stdout } = require('process');
 
 const app = express();
 const port = 3001;
@@ -174,6 +175,8 @@ app.post('/survey/patient', (req, res) => {
           return;
       }
     });
+
+    console.log(stdout);
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

@@ -172,15 +172,15 @@ app.post('/survey/patient', (req, res) => {
     console.log(command);
     console.log(req.body);
 
-    execSync(command, (error, stdout, stderr) => {
+    const outputBuffer = execSync(command, (error, stdout, stderr) => {
       if (error) {
           console.error(`exec error: ${error}`);
           res.status(500).send('Internal Server Error');
           return;
       }
-
-      console.log(`Is Everything caught up?: ${stdout}`)
     });
+
+    console.log('Child process output:', outputBuffer.toString());
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

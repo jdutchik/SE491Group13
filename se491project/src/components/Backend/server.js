@@ -143,10 +143,6 @@ app.get('/products/:username', (req, res) => {
             listed_products.push(pro.name);
             i = split_ing.length;
           } 
-          
-          else {
-            console.log('Substring not found');
-          }
         }
       }
 

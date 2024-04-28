@@ -257,7 +257,7 @@ body {
 }
 
 .resultsButton {
-    background-color: lightgray;
+    background-color: darkred;
     color: black;
 
     text-align: center;
@@ -287,4 +287,16 @@ body {
 .head {
     font-size: 1.5em;
     font-weight: 600;
+}
+
+.productResults {
+    color: black;
+    font-size: 1.5em;
+    font-weight: 600;
+
+    padding: 15px;
+
+    border: solid;
+    border-radius: 5px;
+    border-width: 5px;
 }

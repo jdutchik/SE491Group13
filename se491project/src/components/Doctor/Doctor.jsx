@@ -23,6 +23,8 @@ const Doctor = () => {
         ingredients: "Ingredient 1601",
     };
 
+    const test_string = "North American Standard RISA kimberly damron Mayo Clinic Bakery Mayo Clinic Oral Flavorings/Oral Hygiene"
+
     const [loading, setLoading] = useState(true);
     const [patient_loading, setPatientLoading] = useState(true);
 
@@ -75,6 +77,7 @@ const Doctor = () => {
             const data = await response.json();
             setPatientInfo(data[0]);
             setPatientLoading(true);
+            setModelLoading("Click to Analyze and Run Patient Inputs");
         }
 
         catch (error) {
@@ -95,7 +98,7 @@ const Doctor = () => {
             }
 
             const data = await response.json();
-            
+
             setProducts(data.slice(0, Math.min(5, data.length)));
             setPatientLoading(false);
         }
@@ -164,10 +167,10 @@ const Doctor = () => {
                     <div className="allergic-info">
                         <h1>List of Products Patient Should Avoid:</h1>
                         <div className="results">
-                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>{modelLoading}
+                            {false ? ( <div className="resultsButton" onClick={getAllergenResults}>{modelLoading}
                             </div> ) 
                             : 
-                            (<div>{products}</div>)}
+                            (<div className="productResults">{test_string}</div>)}
                         </div>
                     </div>
                 </div>

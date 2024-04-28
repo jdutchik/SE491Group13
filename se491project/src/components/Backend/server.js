@@ -141,7 +141,7 @@ app.get('/products/:username', (req, res) => {
       for (const pro of products) {
         for (let i = 0; i < (split_ing.length-1); i++) {
           if (pro.allergens.includes(split_ing[i])) {
-            listed_products.push(pro.name);
+            listed_products.push(`${pro.name} + ,`);
             i = split_ing.length;
           } 
         }

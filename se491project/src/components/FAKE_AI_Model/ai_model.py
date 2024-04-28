@@ -22,6 +22,7 @@ def s3_get_keras_model():
 
     return keras.models.load_model(f"temp/model_Final.h5")
 
+
 #Arrays to set my indexes
 state_arr = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
                   "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
@@ -184,6 +185,7 @@ def format_inputs(inputs):
    state = inputs['state']
    skin_tone = inputs['skin_tone']
    split = dob.split('-')
+
 
 
    X_year = [split[0]]

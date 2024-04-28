@@ -269,5 +269,3 @@ if __name__ == "__main__":
     # Call your Python function with the parameters
     result = main_model_funtion(input)
     print(f'AI Model Results: {result}')
-    sys.stdout.flush()
-    sys.exit()

@@ -296,7 +296,7 @@ const Survey = () => {
 
   {/* Skin Symptoms Section */}
   <div className="other">
-          <h className="skin-symptoms-heading">Skin Symptoms</h>
+          <h className="skin-symptoms-heading">Skin Symptoms/Allergies</h>
 
             <div className="symptom-list">
               {symptomList.map((symptom, index) => (

@@ -1,8 +1,8 @@
-#import s3fs
-#from tensorflow import keras
+import s3fs
+from tensorflow import keras
 import numpy as np
 import json
-#from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify
 
 # Set AWS credentials
 AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID

@@ -175,7 +175,7 @@ app.post('/survey/patient', (req, res) => {
           return;
       }
 
-      console.log(stdout);
+      console.log(`This is from the server: ${stdout}`);
     });
 
     // Doctor found, proceed with inserting patient data

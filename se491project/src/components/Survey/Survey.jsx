@@ -153,7 +153,7 @@ const Survey = () => {
     };
   
     try {
-      const response = await fetch('http://ec2-54-174-30-87.compute-1.amazonaws.com:3001/survey/patient', {
+      const response = await fetch('http://ec2-52-23-238-114.compute-1.amazonaws.com:3001/survey/patient', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(completePatientData)

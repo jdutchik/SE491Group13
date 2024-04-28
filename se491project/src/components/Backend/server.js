@@ -3,6 +3,8 @@ const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
+const { exec } = require('child_process');
+const path = require('path');
 
 const app = express();
 const port = 3001;
@@ -159,6 +161,19 @@ app.post('/survey/patient', (req, res) => {
       // No doctor found with the given docCode
       return res.status(400).json({ success: false, message: 'Doctor code invalid' });
     }
+
+    const relativePath = './ai_model.py';
+    const absolutePath = path.resolve(__dirname, relativePath);
+
+    const command = `python3 ${absolutePath} ${req.body}`;
+
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+          console.error(`exec error: ${error}`);
+          res.status(500).send('Internal Server Error');
+          return;
+      }
+    });
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

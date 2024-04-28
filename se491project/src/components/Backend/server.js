@@ -166,7 +166,9 @@ app.post('/survey/patient', (req, res) => {
     const relativePath = './ai_model.py';
     const absolutePath = path.resolve(__dirname, relativePath);
 
-    const command = `python3 ${absolutePath} ${req.body}`;
+    const json_string = `${gender};${dob};${skin_tone};${symptoms};${state};`
+
+    const command = `python3 ${absolutePath} ${json_string}`;
 
     console.log(req.body);
 

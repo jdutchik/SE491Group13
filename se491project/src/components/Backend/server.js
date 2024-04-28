@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-const { exec } = require('child_process');
+const { execSync } = require('child_process');
 const path = require('path');
 const { stdout } = require('process');
 

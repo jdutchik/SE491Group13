@@ -253,8 +253,8 @@ if __name__ == "__main__":
     json_ready = param1.split(";")
     
     # check size
-    if (len(json_ready) != 5):
-      print(f'len: {len(json_ready)} | {json_ready}')
+    if (len(json_ready) != 6):
+      print(f'NOT GOOD len: {len(json_ready)} | {json_ready}')
       exit(0)
     
     # get input

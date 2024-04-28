@@ -258,7 +258,7 @@ body {
 
 .resultsButton {
     background-color: darkred;
-    color: black;
+    color: white;
 
     text-align: center;
 
@@ -299,4 +299,10 @@ body {
     border: solid;
     border-radius: 5px;
     border-width: 5px;
+}
+
+.noPatient {
+    background-color: goldenrod;
+    font-size: 2em;
+    font-weight: 600;
 }

@@ -35,7 +35,9 @@ const Doctor = () => {
     const [patient_username, setPatientUsername] = useState(null);
     const [patientInfo, setPatientInfo] = useState(test_person);
 
-    const[modelLoading, setModelLoading] = useState("Click to Analyze and Run Patient Inputs")
+    const [foundPatient, setFoundPatient] = useState(true)
+
+    const [modelLoading, setModelLoading] = useState("Click to Analyze and Run Patient Inputs")
 
     const signOutClicked = () => {
         window.location.href = '/';
@@ -78,6 +80,7 @@ const Doctor = () => {
             setPatientInfo(data[0]);
             setPatientLoading(true);
             setModelLoading("Click to Analyze and Run Patient Inputs");
+            setFoundPatient(false)
         }
 
         catch (error) {
@@ -119,7 +122,7 @@ const Doctor = () => {
 
     return (
         <div className="doctorContain">
-           
+
             <div className="quickInfo">
                 <div className="picture">
                     <img src={person}></img>
@@ -143,37 +146,39 @@ const Doctor = () => {
                     <div className='search-button' onClick={getPatientInfo}>Search</div>
                 </div>
 
-                <div className="patient">
-                    <div className="basic-info">
-                        <div className="patientImg">
-                            <div className="picture">
-                                <img src={person}></img>
+                {foundPatient ? (<div className="noPatient"> Search Patient Above</div>) : (
+                    <div className="patient">
+                        <div className="basic-info">
+                            <div className="patientImg">
+                                <div className="picture">
+                                    <img src={person}></img>
+                                </div>
+                            </div>
+                            <h1>{patientInfo.name}</h1> ({patientInfo.username})
+                            <h2>Contact info: {patientInfo.email}</h2>
+                        </div>
+
+                        <div className="specific-info">
+                            <h1>Inputs for Artificial Intelligence Model</h1>
+                            <div className="lil"><div className="head">Date of Birth: &nbsp;</div>{patientInfo.dob}</div>
+                            <div className="lil"><div className="head">Location: &nbsp;</div>{patientInfo.state}</div>
+                            <div className="lil"><div className="head">Gender: &nbsp;</div>{patientInfo.gender}</div>
+                            <div className="lil"><div className="head">Skin Tone: &nbsp;</div>{patientInfo.skin_tone}</div>
+                            <div className="lil"><div className="head">Symptoms: &nbsp;</div>{patientInfo.symptoms}</div>
+                            <div className="lil"><div className="head">Allergens: &nbsp;</div>{patientInfo.ingredients}</div>
+                        </div>
+
+                        <div className="allergic-info">
+                            <h1>List of Products Patient Should Avoid:</h1>
+                            <div className="results">
+                                {patient_loading ? (<div className="resultsButton" onClick={getAllergenResults}>{modelLoading}
+                                </div>)
+                                    :
+                                    (<div className="productResults">{products}</div>)}
                             </div>
                         </div>
-                        <h1>{patientInfo.name}</h1> ({patientInfo.username})
-                        <h2>Contact info: {patientInfo.email}</h2>
                     </div>
-
-                    <div className="specific-info">
-                        <h1>Inputs for Artificial Intelligence Model</h1>
-                        <div className="lil"><div className="head">Date of Birth: &nbsp;</div>{patientInfo.dob}</div>
-                        <div className="lil"><div className="head">Location: &nbsp;</div>{patientInfo.state}</div>
-                        <div className="lil"><div className="head">Gender: &nbsp;</div>{patientInfo.gender}</div>
-                        <div className="lil"><div className="head">Skin Tone: &nbsp;</div>{patientInfo.skin_tone}</div>
-                        <div className="lil"><div className="head">Symptoms: &nbsp;</div>{patientInfo.symptoms}</div>
-                        <div className="lil"><div className="head">Allergens: &nbsp;</div>{patientInfo.ingredients}</div>
-                    </div>
-
-                    <div className="allergic-info">
-                        <h1>List of Products Patient Should Avoid:</h1>
-                        <div className="results">
-                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>{modelLoading}
-                            </div> ) 
-                            : 
-                            (<div className="productResults">{products}</div>)}
-                        </div>
-                    </div>
-                </div>
+                )}
             </div>
         </div>
     )

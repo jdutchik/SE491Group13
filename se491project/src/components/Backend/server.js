@@ -170,6 +170,7 @@ app.post('/survey/patient', (req, res) => {
 
     const command = `python3 ${absolutePath} ${json_string}`;
 
+    console.log(command)
     console.log(req.body);
 
     exec(command, (error, stdout, stderr) => {

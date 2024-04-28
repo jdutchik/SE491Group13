@@ -249,8 +249,6 @@ if __name__ == "__main__":
     # Extract command line arguments
     param1 = sys.argv[1]
     
-    print(param1)
-
     # Call your Python function with the parameters
     result = main_model_funtion(param1)
-    print(f'This is from the model: {result}')
+    print(f'{result}')

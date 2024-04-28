@@ -185,7 +185,6 @@ app.post('/survey/patient', (req, res) => {
     });
 
     console.log("Made it to the point");
-    console.log(out);
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

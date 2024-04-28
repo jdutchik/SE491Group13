@@ -168,6 +168,8 @@ app.post('/survey/patient', (req, res) => {
 
     const command = `python3 ${absolutePath} ${req.body}`;
 
+    console.log(req.body);
+
     exec(command, (error, stdout, stderr) => {
       if (error) {
           console.error(`exec error: ${error}`);

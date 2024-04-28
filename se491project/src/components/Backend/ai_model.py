@@ -219,7 +219,7 @@ def format_outputs(predictions, threshold):
 ################## MODEL FUNCTION ############################
 def main_model_funtion(json_input):
   # format inputs
-  mi = format_inputs(json_input)
+  mi = format_inputs(test)
 
   # reshaped
   reshaped = np.array(mi).reshape(1,72)
@@ -235,6 +235,14 @@ def main_model_funtion(json_input):
   
   # return output
   return output
+
+test = {
+  "gender" : "Male",
+  "dob" : "2024-02-13",
+  "skin_tone" : "Dark",
+  "symptoms" : "Dry Lips",
+  "state" : "IA"
+}
 
 if __name__ == "__main__":
     print("INTO AI MODEL")

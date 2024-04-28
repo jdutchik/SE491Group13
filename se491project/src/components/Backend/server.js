@@ -172,7 +172,7 @@ app.post('/survey/patient', (req, res) => {
     console.log(command);
     console.log(req.body);
 
-    const python_respone = "No res";
+    const python_response = "No res";
 
     exec(command, (error, stdout, stderr) => {
       console.log(`Line (176) This is from the server: ${stdout}`);
@@ -185,7 +185,7 @@ app.post('/survey/patient', (req, res) => {
 
       console.log(`Line (188) This is from the server: ${stdout}`);
 
-      python_respone = stdout;
+      python_response = stdout;
     });
 
     console.log(`Line 189: ${python_response}`);

@@ -220,7 +220,7 @@ def format_outputs(predictions, threshold):
 ################## MODEL FUNCTION ############################
 def main_model_funtion(json_input):
   # format inputs
-  mi = format_inputs(test)
+  mi = format_inputs(json_input)
 
   # reshaped
   reshaped = np.array(mi).reshape(1,72)
@@ -249,6 +249,23 @@ if __name__ == "__main__":
     # Extract command line arguments
     param1 = sys.argv[1]
     
+    # parse param
+    json_ready = param1.split(";")
+    
+    # check size
+    if (len(json_ready) != 5):
+      print("Not good")
+      exit(0)
+    
+    # get input
+    input = {
+      "gender" : json_ready[0],
+      "dob" : json_ready[1],
+      "skin_ton" : json_ready[2],
+      "symptoms" : json_ready[3],
+      "state" : json_ready[4]
+    }
+    
     # Call your Python function with the parameters
-    result = main_model_funtion(param1)
-    print(f'{result}')
+    result = main_model_funtion(input)
+    print(result)

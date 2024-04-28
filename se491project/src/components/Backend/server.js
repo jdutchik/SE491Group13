@@ -167,9 +167,7 @@ app.post('/survey/patient', (req, res) => {
     const absolutePath = path.resolve(__dirname, relativePath);
 
     const json_string = `${gender};${dob};${skin_tone};${symptoms};${state};`
-    const no_spaces  = json_string.replace(/\s/g, '')
-
-    const command = `python3 ${absolutePath} "${no_spaces}"`;
+    const command = `python3 ${absolutePath} "${json_string}"`;
 
     console.log(command)
     console.log(req.body);

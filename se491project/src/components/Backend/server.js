@@ -178,9 +178,9 @@ app.post('/survey/patient', (req, res) => {
           res.status(500).send('Internal Server Error');
           return;
       }
-    });
 
-    console.log(`Is Everything caught up?: ${stdout}`)
+      console.log(`Is Everything caught up?: ${stdout}`)
+    });
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

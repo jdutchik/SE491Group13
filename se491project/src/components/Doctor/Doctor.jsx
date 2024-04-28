@@ -146,7 +146,7 @@ const Doctor = () => {
                     <div className='search-button' onClick={getPatientInfo}>Search</div>
                 </div>
 
-                {foundPatient ? (<div className="noPatient"> Search Patient Above</div>) : (
+                {foundPatient ? (<div className="noPatient"> Search Patient Above ☝️</div>) : (
                     <div className="patient">
                         <div className="basic-info">
                             <div className="patientImg">

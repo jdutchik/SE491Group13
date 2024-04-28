@@ -33,6 +33,8 @@ const Doctor = () => {
     const [patient_username, setPatientUsername] = useState(null);
     const [patientInfo, setPatientInfo] = useState(test_person);
 
+    const[modelLoading, setModelLoading] = useState("Click to Analyze and Run Patient Inputs")
+
     const signOutClicked = () => {
         window.location.href = '/';
     };
@@ -61,9 +63,6 @@ const Doctor = () => {
     };
 
     const getPatientInfo = async () => {
-        var myDiv = document.getElementByClassName('results');
-        myDiv.innerHTML = 'Loading...';
-
         try {
             const response = await fetch(`http://ec2-52-23-238-114.compute-1.amazonaws.com:3001/patient/${patient_username}`, {
                 method: 'GET'
@@ -83,7 +82,9 @@ const Doctor = () => {
         }
     };
 
-    const getAllergenResults = async () => {
+    const getAllergenResults = async (e) => {
+        setModelLoading("Loading...");
+
         try {
             const response = await fetch(`http://ec2-52-23-238-114.compute-1.amazonaws.com:3001/products/${patientInfo.username}`, {
                 method: 'GET'
@@ -165,8 +166,7 @@ const Doctor = () => {
                     <div className="allergic-info">
                         <h1>List of Products Patient Should Avoid:</h1>
                         <div className="results">
-                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>
-                               Click to Analyze and Run Patient Inputs
+                            {patient_loading ? ( <div className="resultsButton" onClick={getAllergenResults}>{modelLoading}
                             </div> ) 
                             : 
                             (<div>{products}</div>)}

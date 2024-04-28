@@ -237,8 +237,12 @@ def main_model_funtion(json_input):
   return output
 
 if __name__ == "__main__":
+    print("INTO AI MODEL")
+  
     # Extract command line arguments
     param1 = sys.argv[1]
+    
+    print(param1)
 
     # Call your Python function with the parameters
     result = main_model_funtion(param1)

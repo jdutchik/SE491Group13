@@ -162,7 +162,7 @@ app.post('/survey/patient', (req, res) => {
       // No doctor found with the given docCode
       return res.status(400).json({ success: false, message: 'Doctor code invalid' });
     }
-    /*
+    
     const relativePath = './ai_model.py';
     const absolutePath = path.resolve(__dirname, relativePath);
 
@@ -177,7 +177,7 @@ app.post('/survey/patient', (req, res) => {
     });
 
     console.log(stdout);
-    */
+    
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     connection.query(query, [email, name, username, dob, gender, state, skin_tone, symptoms, doc], (insertErr, insertResults) => {

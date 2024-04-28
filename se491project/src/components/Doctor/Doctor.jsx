@@ -61,6 +61,9 @@ const Doctor = () => {
     };
 
     const getPatientInfo = async () => {
+        var myDiv = document.getElementById('results');
+        myDiv.innerHTML = 'Loading...';
+
         try {
             const response = await fetch(`http://ec2-52-23-238-114.compute-1.amazonaws.com:3001/patient/${patient_username}`, {
                 method: 'GET'
@@ -92,9 +95,6 @@ const Doctor = () => {
 
             const data = await response.json();
             setProducts(data.slice(0, Math.min(5, data.length)));
-
-            alert(data)
-            alert(products)
 
             if (products != null && products.length != 0) {
                 setPatientLoading(false);
@@ -169,10 +169,7 @@ const Doctor = () => {
                                Click to Analyze and Run Patient Inputs
                             </div> ) 
                             : 
-                            (<div>{products.map((item, index) => (
-                                <div key={index} className="element">
-                                  {item}
-                                </div>))}</div>) }
+                            (<div>{products}</div>)}
                         </div>
                     </div>
                 </div>

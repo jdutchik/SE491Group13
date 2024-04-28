@@ -172,7 +172,14 @@ app.post('/survey/patient', (req, res) => {
     console.log(command);
     console.log(req.body);
 
-    const outputBuffer = execSync(command).toString();
+    const outputBuffer = execSync(command, (error, stdout, stderr) => {
+      if (error) {
+          console.error(f`Error ${error}`);
+          res.status(500).send('Internal Server Error');
+          return;
+      }
+      process.exit(0);
+    });
 
     console.log("Did you make it to this point?")
 

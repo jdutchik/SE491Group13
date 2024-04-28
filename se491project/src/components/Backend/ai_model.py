@@ -261,7 +261,7 @@ if __name__ == "__main__":
     input = {
       "gender" : json_ready[0],
       "dob" : json_ready[1],
-      "skin_ton" : json_ready[2],
+      "skin_tone" : json_ready[2],
       "symptoms" : json_ready[3],
       "state" : json_ready[4]
     }

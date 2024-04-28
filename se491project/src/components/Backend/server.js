@@ -181,7 +181,7 @@ app.post('/survey/patient', (req, res) => {
       process.exit(0);
     });
 
-    console.log("Did you make it to this point?")
+    console.log(f`OUTPUT: ${outputBuffer}`)
 
     // Doctor found, proceed with inserting patient data
     const query = `INSERT INTO patients (email, name, username, dob, gender, state, skin_tone, symptoms, doc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

@@ -61,7 +61,7 @@ const Doctor = () => {
     };
 
     const getPatientInfo = async () => {
-        var myDiv = document.getElementById('results');
+        var myDiv = document.getElementByClassName('results');
         myDiv.innerHTML = 'Loading...';
 
         try {

@@ -2,6 +2,7 @@ import s3fs
 from tensorflow import keras
 import numpy as np
 import sys
+import json
 
 AWS_ACCESS_KEY_ID='AKIAQ3EGRKHNVFFYSONF'
 AWS_SECRET_ACCESS_KEY='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'
@@ -245,12 +246,10 @@ test = {
 }
 
 if __name__ == "__main__":
-    print("INTO AI MODEL")
-  
     # Extract command line arguments
     param1 = sys.argv[1]
     
-    print(param1)
+    print(json.loads(param1))
 
     # Call your Python function with the parameters
     result = main_model_funtion(param1)

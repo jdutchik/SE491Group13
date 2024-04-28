@@ -167,7 +167,10 @@ app.post('/doctor/results', (req, res) => {
 
 
 app.post('/survey/patient', (req, res) => {
-  const { email, name, username, password, dob, gender, state, skin_tone, symptoms, doc } = req.body;
+  const combinedData = req.body;
+  const { email, name, username, password, dob, gender, state, skin_tone, symptoms, doc } = combinedData.completePatientData
+  const aiOutputs = combinedData.aiData
+
 
   // Check if the provided doctor code exists in the doctors table
   connection.query('SELECT * FROM doctors WHERE docCode = ?', [doc], (err, results) => {

@@ -204,7 +204,7 @@ def format_outputs(predictions, threshold):
   temp = np.where(temp_arr > threshold) 
   index = temp[1][:]
   for x in index:
-    all_ret.append(allergey_arr[x])
+    all_ret.append(allergy_arr[x])
   
   string_ret = ', '.join(all_ret)
 
@@ -216,48 +216,26 @@ def format_outputs(predictions, threshold):
   #return json.dumps(json_ret)
   return string_ret
 
-app = Flask(__name__)
 
-#consider using this too
-@app.route('/survey/patient', methods=['POST'])
-def handle_patient_data():
+@app.route('/doctor/results', methods=['POST'])
+def receive_patient_info():
     try:
-        data_json = request.json
+        # Parse JSON data sent from the client
+        data_json = request.get_json()
+        #completePatientData = data_json.get('completePatientData')
         inputs = json.loads(data_json)
         model_input = format_inputs(inputs)
 
+        # Process completePatientData here (e.g., pass it to your AI model)
         loaded_model = s3_get_keras_model()
 
         prediction = loaded_model.predict(model_input)
 
         msg = format_outputs(prediction, .5)
 
-        return jsonify({'Allergies': msg}), 200
-    except Exception as e:
-        # Handle any exceptions
-        return jsonify({'error': str(e)}), 500
-    
-
-
-@app.route('/doctor/results', methods=['POST'])
-def receive_patient_info():
-    try:
-        # Parse JSON data sent from the client
-        patient_info = request.get_json()
-        print("Received patient info:", patient_info)  # Log the received data
-
-        jasonObj = json.loads(patient_info)
-
-        formatted_inputs = format_inputs(jasonObj)
-        print("Formatted array:", formatted_inputs)
-        
-
-
-        # Example: Use this data to do something, e.g., feed into an AI model
-        # For now, just mock a response
+        # Mock response for now
         response_data = {
-            "message": "Data received successfully",
-            "yourDataReceived": patient_info
+            "Output": msg
         }
 
         return jsonify(response_data), 200
@@ -265,7 +243,6 @@ def receive_patient_info():
         print(f"Error handling request: {str(e)}")
         return jsonify({'error': 'Failed to process data'}), 500
 
-
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3001, debug=True)
+

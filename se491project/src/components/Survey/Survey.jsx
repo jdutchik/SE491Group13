@@ -152,26 +152,44 @@ const Survey = () => {
       doc
     };
   
+
+
+
     try {
-      const response = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/survey/patient', {
+      const aiResponse = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/survey/patient', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(completePatientData)
       });
-  
-      const responseData = await response.json();
-      if (response.ok) {
-        console.log('Patient data submitted successfully');
-        navigate('/'); // Redirect to homepage upon successful submission
+    
+      const aiData = await aiResponse.json();
+      if (aiResponse.ok) {
+        console.log('Patient data submitted successfully to AI');
+
+        const combinedData = {completePatientData, aiData };
+    
+        const serverResponse = await fetch('http://ec2-54-87-221-186.compute-1.amazonaws.com:3001/survey/patient', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(combinedData)
+        });
+    
+        const serverData = await serverResponse.json();
+        if (serverResponse.ok) {
+          console.log('Patient data submitted successfully to the server');
+          navigate('/'); // Redirect to homepage upon successful submission to both server and AI
+        } else {
+          console.log('Failed to submit patient data to the server');
+          alert(serverData.message); // Show error message from the server
+        }
       } else {
-        console.log('Failed to submit patient data');
-        alert(responseData.message); // Show error message from the server
+        console.log('Failed to submit patient data to AI');
+        alert(aiData.message); // Show error message from the AI model
       }
     } catch (error) {
       console.error('Error:', error);
       alert('Caught error submitting patient data');
     }
-  };
   
 
   return (

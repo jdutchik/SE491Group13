@@ -254,7 +254,7 @@ if __name__ == "__main__":
     
     # check size
     if (len(json_ready) != 5):
-      print("Not good")
+      print(f'len: {len(json_ready)} | {json_ready}')
       exit(0)
     
     # get input

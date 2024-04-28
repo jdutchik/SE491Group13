@@ -167,13 +167,13 @@ def format_inputs(inputs):
    split = dob.split('-')
 
 
-   X_year = [split[0]]
+   X_year = [int(split[0])]
    X_gender = format_gender(gender)
    X_state = format_arr(state, state_arr)
    X_skin = format_arr(skin_tone, skin_arr)
    X_symptoms = format_symptoms(symptoms)
 
-   X = X_year + X_gender + X_skin + X_symptoms
+   X = [X_year + X_gender + X_skin + X_symptoms]
 
    return X
 

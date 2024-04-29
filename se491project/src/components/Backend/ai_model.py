@@ -1,11 +1,15 @@
+import os
 import s3fs
 from tensorflow import keras
 import numpy as np
 import sys
 import json
+from dotenv import load_dotenv
 
-AWS_ACCESS_KEY_ID='AKIAQ3EGRKHNVFFYSONF'
-AWS_SECRET_ACCESS_KEY='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'
+load_dotenv()
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 ################### ARRAYS ###########################
 

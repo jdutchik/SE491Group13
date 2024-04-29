@@ -104,6 +104,11 @@ const Doctor = () => {
 
             setProducts(data.slice(0, Math.min(5, data.length)));
             setPatientLoading(false);
+
+
+            // Call getPatientInfo again to update the state with new allergen information
+        
+            await getPatientInfo();
         }
 
         catch (error) {

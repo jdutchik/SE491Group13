@@ -134,9 +134,9 @@ def s3_get_keras_model():
     s3fs = get_s3fs()
 
     # Fetch and save the zip file to the temporary directory
-    s3fs.get(f"492bucket/model/model_test4.h5", f"temp/model_test4.h5")
+    s3fs.get(f"492bucket/model/model_test.h5", f"temp/model_test.h5")
 
-    return keras.models.load_model(f"temp/model_test4.h5")
+    return keras.models.load_model(f"temp/model_test.h5")
 
 ############### FORMAT INPUTS #####################################
 
@@ -237,7 +237,7 @@ def main_model_funtion(json_input):
   print(prediction)
 
   # format outputs
-  output = format_outputs(prediction, .3)
+  output = format_outputs(prediction, .5)
   
   # return output
   return output

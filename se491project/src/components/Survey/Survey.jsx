@@ -72,47 +72,61 @@ const Survey = () => {
     window.location.href = '/';
   };
 
-  const handleSurveySubmit = async (e) => {
-    e.preventDefault();
-  
-    const dob_to_string = startDate.toDateString().split(" ");
-    const dob_sql = `${dob_to_string[3]}-${(months.indexOf(dob_to_string[1]) + 1).toString().padStart(2, '0')}-${dob_to_string[2]}`;
-  
-    const selectedSymptoms = symptomList.filter(symptom => symptom.isSelected).map(symptom => symptom.name).join(', ');
-  
-    const completePatientData = {
-      email,
-      name: full_name,
-      username,
-      password,
-      dob: dob_sql,
-      gender,
-      state,
-      skin_tone,
-      symptoms: selectedSymptoms,
-      doc
-    };
-  
-    try {
-      const response = await fetch('http://ec2-52-23-238-114.compute-1.amazonaws.com:3001/survey/patient', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(completePatientData)
-      });
-  
-      const responseData = await response.json();
-      if (response.ok) {
-        console.log('Patient data submitted successfully');
-        navigate('/'); // Redirect to homepage upon successful submission
-      } else {
-        console.log('Failed to submit patient data');
-        alert(responseData.message); // Show error message from the server
+
+    const handleSurveySubmit = async (e) => {
+      e.preventDefault();
+    
+      // Check for any empty required fields
+      if (!email || !username || !password || !doc || !full_name || !gender || !state || !skin_tone) {
+        setErrorMessage("Please fill out all fields.");
+        alert("Please fill out all required fields.");
+        return; // Stop the form submission
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Caught error submitting patient data');
-    }
-  };
+    
+      const dob_to_string = startDate.toDateString().split(" ");
+      const dob_sql = `${dob_to_string[3]}-${(months.indexOf(dob_to_string[1]) + 1).toString().padStart(2, '0')}-${dob_to_string[2]}`;
+    
+      const selectedSymptoms = symptomList.filter(symptom => symptom.isSelected).map(symptom => symptom.name).join(', ');
+    
+      if (!selectedSymptoms) {
+        setErrorMessage("Please select at least one symptom.");
+        alert("Please select at least one symptom.");
+        return; // Stop the form submission if no symptoms are selected
+      }
+    
+      const completePatientData = {
+        email,
+        name: full_name,
+        username,
+        password,
+        dob: dob_sql,
+        gender,
+        state,
+        skin_tone,
+        symptoms: selectedSymptoms,
+        doc
+      };
+    
+      try {
+        const response = await fetch('http://ec2-52-23-238-114.compute-1.amazonaws.com:3001/survey/patient', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(completePatientData)
+        });
+    
+        const responseData = await response.json();
+        if (response.ok) {
+          console.log('Patient data submitted successfully');
+          navigate('/'); // Redirect to homepage upon successful submission
+        } else {
+          console.log('Failed to submit patient data');
+          alert(responseData.message); // Show error message from the server
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Caught error submitting patient data');
+      }
+    };
   
 
   return (

@@ -77,7 +77,7 @@ const Survey = () => {
       e.preventDefault();
     
       // Check for any empty required fields
-      if (!email || !username || !password || !doc || !full_name || !gender || !state || !skin_tone) {
+      if (!email || !username  || !doc || !full_name || !gender || !state || !skin_tone) {
         setErrorMessage("Please fill out all fields.");
         alert("Please fill out all required fields.");
         return; // Stop the form submission

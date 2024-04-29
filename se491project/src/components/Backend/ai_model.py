@@ -234,6 +234,7 @@ def main_model_funtion(json_input):
 
   # prediction
   prediction = loaded_model.predict(reshaped)
+  print(prediction)
 
   # format outputs
   output = format_outputs(prediction, .3)

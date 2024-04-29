@@ -79,7 +79,7 @@ const Doctor = () => {
             const data = await response.json();
             setPatientInfo(data[0]);
             console.log("after set patient info:")
-            console.log(patientInfo);  // Log to check what's being set
+            console.log(patientInfo)  // Log to check what's being set
             setPatientLoading(true);
             setModelLoading("Click to Analyze and Run Patient Inputs");
             setFoundPatient(false)

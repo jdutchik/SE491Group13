@@ -40,6 +40,8 @@ app.get('/patient/:username', (req, res) => {
     if (error) {
       return res.status(500).json({ error: 'Error fetching user data' });
     }
+    console.log("patient results in from request:")
+    console.log(results);  // Log the results to see the data
 
     if (patient.length === 0) {
       return res.status(404).json({ error: 'User not found' });

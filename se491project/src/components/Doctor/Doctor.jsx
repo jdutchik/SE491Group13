@@ -78,6 +78,8 @@ const Doctor = () => {
 
             const data = await response.json();
             setPatientInfo(data[0]);
+            console.log("after set patient info:")
+            console.log(patientInfo);  // Log to check what's being set
             setPatientLoading(true);
             setModelLoading("Click to Analyze and Run Patient Inputs");
             setFoundPatient(false)
@@ -108,7 +110,7 @@ const Doctor = () => {
 
             // Call getPatientInfo again to update the state with new allergen information
         
-            await getPatientInfo();
+      
         }
 
         catch (error) {
@@ -164,13 +166,16 @@ const Doctor = () => {
                         </div>
 
                         <div className="specific-info">
-                            <h1>Inputs for Artificial Intelligence Model</h1>
+                            <h1>Patient Info:</h1>
                             <div className="lil"><div className="head">Date of Birth: &nbsp;</div>{patientInfo.dob}</div>
                             <div className="lil"><div className="head">Location: &nbsp;</div>{patientInfo.state}</div>
                             <div className="lil"><div className="head">Gender: &nbsp;</div>{patientInfo.gender}</div>
                             <div className="lil"><div className="head">Skin Tone: &nbsp;</div>{patientInfo.skin_tone}</div>
                             <div className="lil"><div className="head">Symptoms: &nbsp;</div>{patientInfo.symptoms}</div>
                             <div className="lil"><div className="head">Allergens: &nbsp;</div>{patientInfo.ingredients}</div>
+                            <div className="refresh-button-container">
+                             <button onClick={getPatientInfo} className="refresh-button">Refresh Patient Info</button>
+                            </div>
                         </div>
 
                         <div className="allergic-info">

@@ -272,6 +272,23 @@ body {
     border-color: black;
 }
 
+.refresh-button {
+    background-color: darkred;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 15px;
+    margin: 20px auto; /* Auto margins for horizontal centering in a flex container */
+    padding: 10px 5px;
+    border: solid;
+    border-color: black;
+    width: 100%; /* Optional: Adjust width as needed */
+}
+.refresh-button:hover {
+    cursor: pointer;
+    opacity: 0.75; /* Gives feedback on hover, similar to .resultsButton */
+}
+
 .resultsButton:hover{
     cursor: pointer;
     opacity: 0.75;
